@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menuiserie 500K EBITDA — Cession N°25 — NCF</title>
+  <meta name="description" content="Entreprise de menuiserie spécialisée aluminium — 40 salariés, EBITDA 500K€. Dossier de cession N°25." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --navy: #1B244B;
+      --blue: #00B0F0;
+      --green: #22C55E;
+      --orange: #F97316;
+      --gl: #F8F9FA;
+      --border: #E5E7EB;
+      --gm: #6B7A9E;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: var(--navy); overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--gl); }
+    ::-webkit-scrollbar-thumb { background: rgba(27,36,75,0.2); border-radius: 999px; }
+
+    /* NAVBAR */
+    #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: #fff; border-bottom: 1px solid var(--border); transition: box-shadow 0.3s; }
+    #navbar.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .nav-links { display: flex; align-items: center; gap: 1.75rem; }
+    .nav-link { font-size: 0.82rem; font-weight: 500; color: var(--navy); text-decoration: none; transition: color 0.2s; white-space: nowrap; }
+    .nav-link:hover, .nav-link.active { color: var(--blue); }
+    .nav-cta { display: inline-flex; align-items: center; gap: 7px; padding: 9px 22px; background: var(--blue); color: #fff; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-decoration: none; border-radius: 2px; transition: background 0.2s, transform 0.15s; white-space: nowrap; }
+    .nav-cta:hover { background: #12beff; transform: translateY(-1px); }
+    #hbg { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    #hbg span { display: block; width: 22px; height: 1.5px; background: var(--navy); transition: transform 0.3s, opacity 0.3s; }
+    @media (max-width: 960px) { #hbg { display: flex; } .nav-links, .nav-cta-wrap { display: none !important; } }
+    #mob-menu { display: none; position: fixed; inset: 0; top: 68px; background: #fff; z-index: 199; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; border-top: 1px solid var(--border); }
+    #mob-menu.open { display: flex; }
+    #mob-menu a { font-size: 1.1rem; font-weight: 500; color: var(--navy); text-decoration: none; }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding-top: 68px;
+      background: #fff;
+    }
+    .page-header-inner {
+      max-width: 1200px; margin: 0 auto; padding: 3.5rem 2rem 2rem;
+    }
+    .breadcrumb { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: var(--gm); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--blue); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb-sep { color: var(--border); }
+    .page-title { font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 900; letter-spacing: -0.02em; text-transform: uppercase; color: var(--navy); line-height: 1.1; }
+    .page-title span { color: var(--blue); }
+    .page-subtitle { font-size: 0.95rem; font-weight: 500; color: var(--gm); margin-top: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* DETAIL LAYOUT */
+    .detail-section { padding: 0 0 4rem; }
+    .detail-inner { max-width: 1200px; margin: 0 auto; padding: 2.5rem 2rem 0; }
+    .detail-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 3rem; align-items: start; }
+    @media (max-width: 900px) { .detail-grid { grid-template-columns: 1fr; } }
+
+    /* Photo gallery */
+    .photo-main { border-radius: 8px; overflow: hidden; height: 280px; }
+    .photo-main img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .photo-thumbs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 0.75rem; }
+    .photo-thumb { height: 120px; border-radius: 6px; overflow: hidden; cursor: pointer; }
+    .photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
+    .photo-thumb:hover img { transform: scale(1.06); }
+
+    /* Location + Description */
+    .info-block { margin-top: 1.75rem; }
+    .info-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); margin-bottom: 0.5rem; }
+    .france-map { background: var(--gl); border-radius: 8px; padding: 1rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+    .france-map svg { width: 80px; height: 80px; }
+    .location-name { font-size: 0.78rem; color: var(--gm); }
+    .desc-box { background: var(--gl); border-radius: 6px; padding: 1rem 1.25rem; font-size: 0.84rem; color: #4B5563; line-height: 1.75; border-left: 3px solid var(--blue); }
+    .detail-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 1.25rem; }
+    .meta-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--gm); }
+    .meta-item svg { width: 16px; height: 16px; stroke: var(--blue); fill: none; stroke-width: 1.75; }
+    .meta-item strong { font-weight: 700; color: var(--navy); }
+
+    /* Right column: chart + big stat */
+    .chart-box { background: #fff; border: 1.5px solid var(--border); border-radius: 8px; padding: 1.75rem; }
+    .chart-box-title { font-size: 0.82rem; font-weight: 700; color: var(--navy); margin-bottom: 1rem; }
+    .big-stat { display: flex; align-items: baseline; gap: 0.25rem; margin-top: 1.5rem; }
+    .big-stat-num { font-size: 3.5rem; font-weight: 900; color: var(--navy); line-height: 1; }
+    .big-stat-unit { font-size: 2rem; font-weight: 700; color: var(--blue); }
+    .big-stat-label { font-size: 0.72rem; font-weight: 600; color: var(--gm); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 0.25rem; }
+
+    /* CTA Button */
+    .cta-row { display: flex; justify-content: center; margin-top: 2.5rem; }
+    .btn-interest {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem;
+      padding: 16px 3.5rem; background: var(--blue); color: #fff;
+      font-size: 0.95rem; font-weight: 700; letter-spacing: 0.05em;
+      text-decoration: none; border-radius: 4px;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 6px 24px rgba(0,176,240,0.4);
+    }
+    .btn-interest:hover { background: #12beff; transform: translateY(-2px); box-shadow: 0 10px 32px rgba(0,176,240,0.5); }
+
+    /* Related listings section */
+    .related-section { padding: 4rem 0; background: var(--gl); }
+    .related-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .section-eyebrow { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px; }
+    .section-eyebrow::before { content: ''; width: 20px; height: 2px; background: var(--blue); display: inline-block; }
+    .section-title { font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 800; letter-spacing: -0.02em; color: var(--navy); }
+    .opp-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-top: 2rem; }
+    @media (max-width: 700px) { .opp-grid { grid-template-columns: 1fr; } }
+    .opp-card { background: #fff; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.25s, box-shadow 0.25s; cursor: pointer; text-decoration: none; color: inherit; }
+    .opp-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(27,36,75,0.12); border-color: rgba(0,176,240,0.3); }
+    .opp-img { height: 160px; overflow: hidden; position: relative; }
+    .opp-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .opp-card:hover .opp-img img { transform: scale(1.04); }
+    .opp-badge { position: absolute; top: 10px; right: 10px; padding: 3px 10px; border-radius: 3px; font-size: 0.68rem; font-weight: 700; }
+    .badge-green { background: var(--green); color: #fff; }
+    .opp-body { padding: 1rem 1.125rem; flex: 1; display: flex; flex-direction: column; }
+    .opp-sector { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.3rem; }
+    .opp-name { font-size: 0.9rem; font-weight: 700; color: var(--navy); margin-bottom: 0.2rem; }
+    .opp-location { font-size: 0.75rem; color: var(--gm); display: flex; align-items: center; gap: 4px; margin-bottom: 0.75rem; }
+    .opp-location svg { width: 11px; height: 11px; stroke: var(--gm); fill: none; stroke-width: 2; }
+    .opp-metrics { display: flex; gap: 1rem; padding: 0.625rem 0; border-top: 1px solid var(--border); }
+    .opp-metric-label { font-size: 0.65rem; color: var(--gm); }
+    .opp-metric-val { font-size: 0.85rem; font-weight: 700; color: var(--navy); margin-top: 1px; }
+
+    /* SCROLL REVEAL */
+    .rv { opacity: 0; transform: translateY(20px); transition: opacity 0.55s cubic-bezier(.4,0,.2,1), transform 0.55s cubic-bezier(.4,0,.2,1); }
+    .rv.in { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; } .d3 { transition-delay: 0.3s; } .d4 { transition-delay: 0.4s; }
+
+    /* FOOTER */
+    .footer { background: #111827; padding: 3rem 0 1.5rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .footer-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 2rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-brand-desc { font-size: 0.82rem; color: rgba(255,255,255,0.4); line-height: 1.7; margin-top: 0.875rem; max-width: 240px; }
+    .footer-col-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 1rem; }
+    .footer-links { display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer-link { font-size: 0.82rem; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+    .footer-link:hover { color: var(--blue); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding-top: 1.5rem; }
+    .footer-copy { font-size: 0.75rem; color: rgba(255,255,255,0.25); }
+    .social-btn { width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; transition: border-color 0.2s; }
+    .social-btn:hover { border-color: var(--blue); }
+    .social-btn svg { width: 15px; height: 15px; fill: rgba(255,255,255,0.5); }
+
+    /* Modal overlay */
+    #interest-modal {
+      display: none; position: fixed; inset: 0; z-index: 300;
+      background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center;
+    }
+    #interest-modal.open { display: flex; }
+    .modal-box {
+      background: #fff; border-radius: 10px; padding: 2.5rem;
+      max-width: 480px; width: calc(100% - 2rem); position: relative;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.2);
+    }
+    .modal-close { position: absolute; top: 1.25rem; right: 1.25rem; width: 32px; height: 32px; border: none; background: var(--gl); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .modal-close svg { width: 16px; height: 16px; stroke: var(--navy); fill: none; stroke-width: 2; }
+    .modal-title { font-size: 1.15rem; font-weight: 800; color: var(--navy); margin-bottom: 0.375rem; }
+    .modal-sub { font-size: 0.82rem; color: var(--gm); margin-bottom: 1.5rem; }
+    .modal-form { display: flex; flex-direction: column; gap: 0.875rem; }
+    .modal-input { width: 100%; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 4px; font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--navy); outline: none; transition: border-color 0.2s; }
+    .modal-input:focus { border-color: var(--blue); }
+    .modal-input::placeholder { color: var(--gm); }
+    .modal-btn { width: 100%; padding: 13px; background: var(--blue); color: #fff; border: none; border-radius: 4px; font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+    .modal-btn:hover { background: #12beff; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;">
+      <img src="brand_assets/Logo NCF BL Marine.png" alt="NCF" style="height:32px;width:auto;" />
+    </a>
+    <div class="nav-links">
+      <a href="cessions.html" class="nav-link active">Cessions en cours</a>
+      <a href="index.html#offres" class="nav-link">Évaluation d'entreprises</a>
+      <a href="index.html#adn" class="nav-link">Nos opérations</a>
+      <a href="index.html#articles" class="nav-link">Actualités</a>
+      <a href="index.html#temoignages" class="nav-link">Équipe</a>
+    </div>
+    <div class="nav-cta-wrap">
+      <a href="index.html#contact" class="nav-cta">
+        Nous contacter
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <button id="hbg" aria-label="Menu"><span id="b1"></span><span id="b2"></span><span id="b3"></span></button>
+  </div>
+</nav>
+<div id="mob-menu">
+  <a href="cessions.html">Cessions en cours</a>
+  <a href="index.html#offres">Évaluation d'entreprises</a>
+  <a href="index.html#adn">Nos opérations</a>
+  <a href="index.html#articles">Actualités</a>
+  <a href="index.html#contact" class="nav-cta" style="margin-top:0.5rem;">Nous contacter</a>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <nav class="breadcrumb" aria-label="Fil d'ariane">
+      <a href="index.html">Accueil</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="cessions.html">Cessions en cours</a>
+      <span class="breadcrumb-sep">›</span>
+      <span>Menuiserie N°25</span>
+    </nav>
+    <h1 class="page-title">ENTREPRISE DE MENUISERIE<br>500K EBITDA 40 SALARIÉS <span>– N°25</span></h1>
+    <p class="page-subtitle">Un spécialiste de la menuiserie aluminium pour les particuliers</p>
+  </div>
+</div>
+
+<!-- DETAIL CONTENT -->
+<section class="detail-section">
+  <div class="detail-inner">
+    <div class="detail-grid">
+
+      <!-- LEFT COLUMN -->
+      <div class="rv">
+        <!-- Main photo -->
+        <div class="photo-main">
+          <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&h=500&fit=crop" alt="Menuiserie aluminium" id="main-photo" />
+        </div>
+        <!-- Thumbnails -->
+        <div class="photo-thumbs">
+          <div class="photo-thumb" onclick="changePhoto('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=500&fit=crop')">
+            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=250&fit=crop" alt="Atelier" />
+          </div>
+          <div class="photo-thumb" onclick="changePhoto('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=500&fit=crop')">
+            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=250&fit=crop" alt="Bureau" />
+          </div>
+        </div>
+
+        <!-- Localisation -->
+        <div class="info-block">
+          <div class="info-label">Localisation</div>
+          <div class="france-map">
+            <!-- France SVG with Rhône-Alpes / Sud-Est highlighted -->
+            <svg viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100px;height:120px;">
+              <!-- France base -->
+              <path d="M35,8 L42,5 L50,4 L58,6 L68,10 L75,18 L80,26 L82,36 L78,44 L82,52 L80,62 L74,72 L68,80 L60,88 L52,96 L45,100 L38,96 L30,88 L22,78 L16,68 L12,56 L14,44 L18,34 L20,24 L26,16 Z" fill="#E5E7EB" stroke="#D1D5DB" stroke-width="1.5"/>
+              <!-- Alsace bump -->
+              <path d="M80,26 L86,28 L88,34 L84,38 L80,36 L82,36" fill="#E5E7EB" stroke="#D1D5DB" stroke-width="1"/>
+              <!-- Normandie bump -->
+              <path d="M26,16 L22,10 L28,6 L35,8" fill="#E5E7EB" stroke="#D1D5DB" stroke-width="1"/>
+              <!-- Rhône-Alpes + PACA / Sud-Est highlighted region -->
+              <path d="M56,46 L78,44 L82,52 L80,62 L74,72 L68,80 L60,87 L50,82 L48,70 L52,56 Z" fill="#00B0F0" opacity="0.8" stroke="#0099D6" stroke-width="0.5"/>
+              <!-- Location pin — Lyon area -->
+              <circle cx="64" cy="63" r="7" fill="#00B0F0" opacity="0.18"/>
+              <circle cx="64" cy="63" r="3.5" fill="#1B244B"/>
+              <circle cx="64" cy="63" r="1.6" fill="#fff"/>
+            </svg>
+            <div class="location-name">Sud Est — Rhône-Alpes</div>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="info-block">
+          <div class="info-label">Description</div>
+          <div class="desc-box">
+            La société FENÊTRIA est un spécialiste dans la fabrication et la pose de menuiseries en aluminium pour les particuliers. Elle intervient principalement dans les Alpes et les départements limitrophes. La société dispose d'un carnet de commandes solide et d'une clientèle fidèle, avec un taux de recommandation élevé et une excellente réputation locale.
+          </div>
+        </div>
+
+        <!-- Meta stats -->
+        <div class="detail-meta">
+          <div class="meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            <strong>40</strong>&nbsp;salariés
+          </div>
+          <div class="meta-item">
+            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <strong>15 ans</strong>&nbsp;d'ancienneté
+          </div>
+          <div class="meta-item">
+            <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+            <strong>Croissance</strong>&nbsp;régulière
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="rv d1">
+        <!-- Chart -->
+        <div class="chart-box">
+          <div class="chart-box-title">Chiffres d'affaires &amp; EBITDA</div>
+
+          <!-- Y-axis labels + chart -->
+          <div style="display:flex;gap:0.5rem;align-items:flex-end;">
+            <div style="display:flex;flex-direction:column;justify-content:space-between;height:160px;padding-bottom:20px;">
+              <span style="font-size:9px;color:var(--gm);">3 000</span>
+              <span style="font-size:9px;color:var(--gm);">2 000</span>
+              <span style="font-size:9px;color:var(--gm);">1 000</span>
+              <span style="font-size:9px;color:var(--gm);">500</span>
+              <span style="font-size:9px;color:var(--gm);">0</span>
+            </div>
+            <div style="flex:1;">
+              <svg width="100%" height="160" viewBox="0 0 300 160" preserveAspectRatio="xMinYMin meet">
+                <!-- Grid lines -->
+                <line x1="0" y1="5"  x2="300" y2="5"  stroke="#F3F4F6" stroke-width="1"/>
+                <line x1="0" y1="37" x2="300" y2="37" stroke="#F3F4F6" stroke-width="1"/>
+                <line x1="0" y1="70" x2="300" y2="70" stroke="#F3F4F6" stroke-width="1"/>
+                <line x1="0" y1="102" x2="300" y2="102" stroke="#F3F4F6" stroke-width="1"/>
+                <line x1="0" y1="132" x2="300" y2="132" stroke="#E5E7EB" stroke-width="1"/>
+                <!-- 2022 group -->
+                <rect x="10"  y="75"  width="28" height="57" fill="#1B244B" rx="3"/>
+                <rect x="40"  y="105" width="28" height="27" fill="#00B0F0" rx="3"/>
+                <!-- 2023 group -->
+                <rect x="84"  y="55"  width="28" height="77" fill="#1B244B" rx="3"/>
+                <rect x="114" y="88"  width="28" height="44" fill="#00B0F0" rx="3"/>
+                <!-- 2024 group -->
+                <rect x="158" y="38"  width="28" height="94" fill="#1B244B" rx="3"/>
+                <rect x="188" y="68"  width="28" height="64" fill="#00B0F0" rx="3"/>
+                <!-- 2025 group -->
+                <rect x="232" y="18"  width="28" height="114" fill="#1B244B" rx="3"/>
+                <rect x="262" y="48"  width="28" height="84" fill="#00B0F0" rx="3"/>
+                <!-- X axis labels -->
+                <text x="20"  y="150" font-size="11" fill="#9CA3AF" font-family="Inter,sans-serif" text-anchor="middle">2022</text>
+                <text x="94"  y="150" font-size="11" fill="#9CA3AF" font-family="Inter,sans-serif" text-anchor="middle">2023</text>
+                <text x="168" y="150" font-size="11" fill="#9CA3AF" font-family="Inter,sans-serif" text-anchor="middle">2024</text>
+                <text x="242" y="150" font-size="11" fill="#9CA3AF" font-family="Inter,sans-serif" text-anchor="middle">2025</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Legend -->
+          <div style="display:flex;gap:1.25rem;margin-top:0.75rem;">
+            <div style="display:flex;align-items:center;gap:5px;font-size:0.72rem;color:var(--gm);">
+              <div style="width:10px;height:10px;background:var(--navy);border-radius:2px;"></div>
+              Chiffre d'affaires
+            </div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:0.72rem;color:var(--gm);">
+              <div style="width:10px;height:10px;background:var(--blue);border-radius:2px;"></div>
+              EBITDA
+            </div>
+          </div>
+
+          <!-- Big stat -->
+          <div style="margin-top:1.75rem;padding-top:1.25rem;border-top:1px solid var(--border);">
+            <div style="display:flex;align-items:baseline;gap:4px;">
+              <span style="font-size:3.25rem;font-weight:900;color:var(--navy);line-height:1;">42</span>
+              <span style="font-size:2rem;font-weight:700;color:var(--blue);">%</span>
+            </div>
+            <div style="font-size:0.72rem;font-weight:600;color:var(--gm);letter-spacing:0.08em;text-transform:uppercase;margin-top:2px;">
+              Bénéfice / Autofinancement
+            </div>
+          </div>
+        </div>
+
+        <!-- Key metrics cards -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-top:1.25rem;">
+          <div style="background:var(--gl);border-radius:6px;padding:1rem 1.25rem;">
+            <div style="font-size:0.68rem;font-weight:600;color:var(--gm);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.375rem;">Chiffre d'affaires</div>
+            <div style="font-size:1.5rem;font-weight:900;color:var(--navy);">~2 m€</div>
+          </div>
+          <div style="background:var(--gl);border-radius:6px;padding:1rem 1.25rem;">
+            <div style="font-size:0.68rem;font-weight:600;color:var(--gm);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.375rem;">EBITDA</div>
+            <div style="font-size:1.5rem;font-weight:900;color:var(--blue);">500 K€</div>
+          </div>
+          <div style="background:var(--gl);border-radius:6px;padding:1rem 1.25rem;">
+            <div style="font-size:0.68rem;font-weight:600;color:var(--gm);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.375rem;">Salariés</div>
+            <div style="font-size:1.5rem;font-weight:900;color:var(--navy);">40</div>
+          </div>
+          <div style="background:var(--gl);border-radius:6px;padding:1rem 1.25rem;">
+            <div style="font-size:0.68rem;font-weight:600;color:var(--gm);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.375rem;">Marge EBITDA</div>
+            <div style="font-size:1.5rem;font-weight:900;color:var(--navy);">7%</div>
+          </div>
+        </div>
+
+        <!-- Status badge -->
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-top:1.25rem;padding:1rem 1.25rem;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:6px;">
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--green);flex-shrink:0;"></div>
+          <div>
+            <div style="font-size:0.82rem;font-weight:700;color:#15803D;">Cession en cours</div>
+            <div style="font-size:0.72rem;color:#16A34A;margin-top:1px;">Dossier actif — Référence N°25</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA BUTTON -->
+    <div class="cta-row rv">
+      <button class="btn-interest" onclick="document.getElementById('interest-modal').classList.add('open')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.71 16.92z"/></svg>
+        Je suis intéressé(e)
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- RELATED OPPORTUNITIES -->
+<section class="related-section">
+  <div class="related-inner">
+    <div class="rv">
+      <div class="section-eyebrow">Acquisitions</div>
+      <h2 class="section-title">Nos opportunités</h2>
+      <p style="font-size:0.85rem;color:var(--gm);margin-top:0.5rem;max-width:480px;">Découvrez d'autres opportunités d'acquisition correspondant à vos critères.</p>
+    </div>
+
+    <div class="opp-grid">
+      <a class="opp-card rv d1" href="cession-detail.html">
+        <div class="opp-img">
+          <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=300&fit=crop" alt="Menuiserie" />
+          <span class="opp-badge badge-green">Cession en cours</span>
+        </div>
+        <div class="opp-body">
+          <div class="opp-sector">Construction</div>
+          <div class="opp-name">Menuiserie, spécialisée vérandas</div>
+          <div class="opp-location">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Sud Est
+          </div>
+          <div class="opp-metrics">
+            <div>
+              <div class="opp-metric-label">CA</div>
+              <div class="opp-metric-val">~2 m€</div>
+            </div>
+            <div>
+              <div class="opp-metric-label">Marge d'EBITDA</div>
+              <div class="opp-metric-val">7%</div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a class="opp-card rv d2" href="cession-detail.html">
+        <div class="opp-img">
+          <img src="https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=600&h=300&fit=crop" alt="Traitement surface" />
+          <span class="opp-badge badge-green">Cession en cours</span>
+        </div>
+        <div class="opp-body">
+          <div class="opp-sector">Industrie</div>
+          <div class="opp-name">Traitement de surface, industriel</div>
+          <div class="opp-location">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Nord
+          </div>
+          <div class="opp-metrics">
+            <div>
+              <div class="opp-metric-label">CA</div>
+              <div class="opp-metric-val">~5 m€</div>
+            </div>
+            <div>
+              <div class="opp-metric-label">Marge d'EBITDA</div>
+              <div class="opp-metric-val">5%</div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a class="opp-card rv d3" href="cession-detail.html">
+        <div class="opp-img">
+          <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&h=300&fit=crop" alt="Chauffagiste" />
+          <span class="opp-badge badge-green">Cession en cours</span>
+        </div>
+        <div class="opp-body">
+          <div class="opp-sector">Services</div>
+          <div class="opp-name">Chauffagiste et plomberie</div>
+          <div class="opp-location">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Sud Est
+          </div>
+          <div class="opp-metrics">
+            <div>
+              <div class="opp-metric-label">CA</div>
+              <div class="opp-metric-val">~3,5 m€</div>
+            </div>
+            <div>
+              <div class="opp-metric-label">Marge d'EBITDA</div>
+              <div class="opp-metric-val">10%</div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a class="opp-card rv d4" href="cession-detail.html">
+        <div class="opp-img">
+          <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=300&fit=crop" alt="Rénovation" />
+          <span class="opp-badge badge-green">Cession en cours</span>
+        </div>
+        <div class="opp-body">
+          <div class="opp-sector">Construction</div>
+          <div class="opp-name">Rénovation de l'habitat</div>
+          <div class="opp-location">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Île-de-France
+          </div>
+          <div class="opp-metrics">
+            <div>
+              <div class="opp-metric-label">CA</div>
+              <div class="opp-metric-val">2 – 3 m€</div>
+            </div>
+            <div>
+              <div class="opp-metric-label">Marge d'EBITDA</div>
+              <div class="opp-metric-val">7%</div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <img src="brand_assets/Logo NCF BL Marine.png" alt="NCF" style="height:28px;filter:brightness(0) invert(1);" />
+        <p class="footer-brand-desc">Cabinet indépendant de conseil en cession de PME et TPE.</p>
+      </div>
+      <div style="display:flex;gap:3rem;flex-wrap:wrap;">
+        <div>
+          <div class="footer-col-title">Navigation</div>
+          <div class="footer-links">
+            <a href="index.html" class="footer-link">Accueil</a>
+            <a href="cessions.html" class="footer-link">Cessions</a>
+            <a href="index.html#offres" class="footer-link">Services</a>
+            <a href="index.html#articles" class="footer-link">Blog</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Cabinet</div>
+          <div class="footer-links">
+            <a href="index.html#adn" class="footer-link">Notre ADN</a>
+            <a href="index.html#temoignages" class="footer-link">Témoignages</a>
+            <a href="index.html#contact" class="footer-link">Contact</a>
+            <a href="#" class="footer-link">Mentions légales</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div style="display:flex;gap:0.75rem;">
+        <a href="#" class="social-btn" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="Twitter">
+          <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+      </div>
+      <div class="footer-copy">© 2026 NCF — Tous droits réservés.</div>
+    </div>
+  </div>
+</footer>
+
+<!-- INTEREST MODAL -->
+<div id="interest-modal" onclick="handleModalClick(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('interest-modal').classList.remove('open')">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="modal-title">Je suis intéressé(e)</div>
+    <div class="modal-sub">Dossier N°25 — Menuiserie aluminium · Rhône-Alpes</div>
+    <form class="modal-form" onsubmit="handleModalForm(event)">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+        <input type="text" required placeholder="Prénom" class="modal-input" />
+        <input type="text" required placeholder="Nom" class="modal-input" />
+      </div>
+      <input type="email" required placeholder="Email professionnel" class="modal-input" />
+      <input type="tel" placeholder="Téléphone" class="modal-input" />
+      <textarea placeholder="Message (optionnel)" rows="3" class="modal-input" style="resize:vertical;"></textarea>
+      <div style="display:flex;align-items:flex-start;gap:8px;font-size:0.75rem;color:var(--gm);">
+        <input type="checkbox" required style="margin-top:3px;accent-color:var(--blue);" id="modal-consent"/>
+        <label for="modal-consent">J'accepte que NCF traite mes données dans le cadre de ma demande de contact.</label>
+      </div>
+      <button type="submit" class="modal-btn" id="modal-btn">
+        Envoyer ma demande →
+      </button>
+    </form>
+    <div id="modal-success" style="display:none;text-align:center;padding:1.5rem 0;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2" style="display:block;margin:0 auto 0.75rem;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <div style="font-weight:700;color:var(--navy);margin-bottom:4px;">Demande envoyée !</div>
+      <div style="font-size:0.82rem;color:var(--gm);">Un conseiller NCF vous contactera sous 24h.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', scrollY > 40), { passive: true });
+let open = false;
+const hbg = document.getElementById('hbg');
+const mob = document.getElementById('mob-menu');
+hbg.addEventListener('click', () => {
+  open = !open; mob.classList.toggle('open', open);
+  const [b1,b2,b3] = ['b1','b2','b3'].map(id => document.getElementById(id));
+  b1.style.transform = open ? 'translateY(6.5px) rotate(45deg)' : '';
+  b2.style.opacity = open ? '0' : '';
+  b3.style.transform = open ? 'translateY(-6.5px) rotate(-45deg)' : '';
+});
+
+const ro = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: 0.06 });
+document.querySelectorAll('.rv').forEach(el => ro.observe(el));
+
+// Photo gallery
+function changePhoto(src) {
+  const main = document.getElementById('main-photo');
+  main.style.opacity = '0';
+  setTimeout(() => { main.src = src; main.style.opacity = '1'; }, 200);
+}
+document.getElementById('main-photo').style.transition = 'opacity 0.2s';
+
+// Modal close on backdrop
+function handleModalClick(e) {
+  if (e.target === document.getElementById('interest-modal')) {
+    document.getElementById('interest-modal').classList.remove('open');
+  }
+}
+
+// Modal form
+function handleModalForm(e) {
+  e.preventDefault();
+  const btn = document.getElementById('modal-btn');
+  btn.textContent = 'Envoi en cours…'; btn.disabled = true;
+  setTimeout(() => {
+    document.querySelector('.modal-form').style.display = 'none';
+    document.getElementById('modal-success').style.display = 'block';
+  }, 1200);
+}
+
+// Close modal on Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.getElementById('interest-modal').classList.remove('open');
+});
+</script>
+</body>
+</html>

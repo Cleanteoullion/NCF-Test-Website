@@ -1,0 +1,7 @@
+# Claude Code internal files
+.claude/
+CLAUDE*.md
+
+# OS
+.DS_Store
+Thumbs.db

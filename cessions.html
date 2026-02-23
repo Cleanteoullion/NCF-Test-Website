@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cessions en cours — NCF</title>
+  <meta name="description" content="Consultez la liste de nos opportunités d'acquisition d'entreprises disponibles. PME et TPE à céder dans toute la France." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --navy: #1B244B;
+      --blue: #00B0F0;
+      --green: #22C55E;
+      --orange: #F97316;
+      --gl: #F8F9FA;
+      --border: #E5E7EB;
+      --gm: #6B7A9E;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: var(--navy); overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--gl); }
+    ::-webkit-scrollbar-thumb { background: rgba(27,36,75,0.2); border-radius: 999px; }
+
+    /* NAVBAR */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: #fff; border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s;
+    }
+    #navbar.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .nav-links { display: flex; align-items: center; gap: 1.75rem; }
+    .nav-link { font-size: 0.82rem; font-weight: 500; color: var(--navy); text-decoration: none; transition: color 0.2s; white-space: nowrap; }
+    .nav-link:hover, .nav-link.active { color: var(--blue); }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 9px 22px; background: var(--blue); color: #fff;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em;
+      text-decoration: none; border-radius: 2px;
+      transition: background 0.2s, transform 0.15s; white-space: nowrap;
+    }
+    .nav-cta:hover { background: #12beff; transform: translateY(-1px); }
+    #hbg { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    #hbg span { display: block; width: 22px; height: 1.5px; background: var(--navy); transition: transform 0.3s, opacity 0.3s; }
+    @media (max-width: 960px) { #hbg { display: flex; } .nav-links, .nav-cta-wrap { display: none !important; } }
+    #mob-menu { display: none; position: fixed; inset: 0; top: 68px; background: #fff; z-index: 199; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; border-top: 1px solid var(--border); }
+    #mob-menu.open { display: flex; }
+    #mob-menu a { font-size: 1.1rem; font-weight: 500; color: var(--navy); text-decoration: none; }
+    #mob-menu a:hover { color: var(--blue); }
+
+    /* PAGE HERO */
+    .page-hero {
+      padding-top: 68px;
+      background: #fff;
+      padding-bottom: 0;
+    }
+    .page-hero-inner {
+      max-width: 1200px; margin: 0 auto; padding: 4rem 2rem 3rem;
+    }
+    .hero-title { font-size: clamp(1.6rem, 3.5vw, 2.75rem); font-weight: 900; letter-spacing: -0.02em; text-transform: uppercase; color: var(--navy); line-height: 1.1; }
+    .hero-underline { width: 60px; height: 4px; background: var(--blue); margin-top: 1rem; border-radius: 2px; }
+
+    /* SEARCH BAR */
+    .search-wrap {
+      max-width: 1200px; margin: 0 auto; padding: 0 2rem 3rem;
+    }
+    .search-box {
+      background: var(--gl); border: 1.5px solid var(--border); border-radius: 6px;
+      padding: 1.25rem 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .search-box svg { width: 20px; height: 20px; stroke: var(--gm); fill: none; stroke-width: 2; flex-shrink: 0; }
+    .search-box input {
+      flex: 1; background: none; border: none; outline: none;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--navy);
+    }
+    .search-box input::placeholder { color: var(--gm); }
+
+    /* FILTERS */
+    .filters-bar {
+      max-width: 1200px; margin: 0 auto; padding: 0 2rem 2rem;
+      display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;
+    }
+    .filter-label { font-size: 0.75rem; font-weight: 700; color: var(--gm); text-transform: uppercase; letter-spacing: 0.08em; }
+    .filter-chip {
+      padding: 5px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 600;
+      cursor: pointer; border: 1.5px solid var(--border); background: #fff; color: var(--gm);
+      transition: all 0.2s;
+    }
+    .filter-chip.active, .filter-chip:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+    /* LISTINGS SECTION */
+    .listings-section { background: var(--gl); padding: 0 0 4rem; }
+    .listings-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .listings-header { padding: 3rem 0 1.5rem; }
+    .listings-title { font-size: 1.35rem; font-weight: 800; color: var(--navy); }
+    .listings-sub { font-size: 0.85rem; color: var(--gm); margin-top: 0.3rem; }
+
+    /* LISTING ROW */
+    .listing-row {
+      background: #fff; border: 1px solid var(--border); border-radius: 8px;
+      display: grid; grid-template-columns: 140px 1fr auto auto;
+      gap: 0; overflow: hidden; margin-bottom: 1.25rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .listing-row:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(27,36,75,0.1); border-color: rgba(0,176,240,0.3); }
+    @media (max-width: 800px) {
+      .listing-row { grid-template-columns: 1fr; }
+      .listing-chart-col { display: none; }
+    }
+
+    /* Photo */
+    .listing-photo { height: 100%; min-height: 130px; overflow: hidden; }
+    .listing-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+    .listing-row:hover .listing-photo img { transform: scale(1.05); }
+
+    /* Info */
+    .listing-info { padding: 1.25rem 1.5rem; display: flex; flex-direction: column; justify-content: center; }
+    .listing-sector { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.3rem; }
+    .listing-name { font-size: 0.98rem; font-weight: 700; color: var(--navy); margin-bottom: 0.2rem; }
+    .listing-location { font-size: 0.78rem; color: var(--gm); display: flex; align-items: center; gap: 4px; margin-bottom: 0.875rem; }
+    .listing-location svg { width: 12px; height: 12px; stroke: var(--gm); fill: none; stroke-width: 2; }
+    .listing-metrics { display: flex; gap: 1.5rem; margin-bottom: 0.875rem; }
+    .listing-metric-label { font-size: 0.68rem; color: var(--gm); }
+    .listing-metric-val { font-size: 0.9rem; font-weight: 700; color: var(--navy); margin-top: 1px; }
+    .listing-meta { display: flex; gap: 1rem; }
+    .listing-meta-item { display: flex; align-items: center; gap: 4px; font-size: 0.75rem; color: var(--gm); }
+    .listing-meta-item svg { width: 13px; height: 13px; stroke: var(--gm); fill: none; stroke-width: 2; }
+
+    /* Chart column */
+    .listing-chart-col {
+      padding: 1.25rem 1rem;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      border-left: 1px solid var(--border); min-width: 200px;
+    }
+    .chart-title { font-size: 0.65rem; font-weight: 700; color: var(--gm); letter-spacing: 0.06em; text-transform: uppercase; text-align: center; margin-bottom: 0.5rem; }
+
+    /* Status button */
+    .listing-status-col {
+      display: flex; align-items: center; padding: 1.25rem 1.5rem;
+      border-left: 1px solid var(--border);
+    }
+    .status-btn {
+      padding: 0.625rem 1.25rem; font-size: 0.78rem; font-weight: 700;
+      color: #fff; border: none; border-radius: 4px; cursor: pointer;
+      text-align: center; white-space: nowrap; text-decoration: none;
+      display: block; width: 130px;
+      line-height: 1.4;
+    }
+    .status-green { background: var(--green); }
+    .status-orange { background: var(--orange); }
+
+    /* SCROLL REVEAL */
+    .rv { opacity: 0; transform: translateY(20px); transition: opacity 0.55s cubic-bezier(.4,0,.2,1), transform 0.55s cubic-bezier(.4,0,.2,1); }
+    .rv.in { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: 0.08s; }
+    .d2 { transition-delay: 0.16s; }
+    .d3 { transition-delay: 0.24s; }
+    .d4 { transition-delay: 0.32s; }
+
+    /* FOOTER */
+    .footer { background: #111827; padding: 3rem 0 1.5rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .footer-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 2rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-brand-desc { font-size: 0.82rem; color: rgba(255,255,255,0.4); line-height: 1.7; margin-top: 0.875rem; max-width: 240px; }
+    .footer-col-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 1rem; }
+    .footer-links { display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer-link { font-size: 0.82rem; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+    .footer-link:hover { color: var(--blue); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding-top: 1.5rem; }
+    .footer-copy { font-size: 0.75rem; color: rgba(255,255,255,0.25); }
+    .social-btn { width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; transition: border-color 0.2s; }
+    .social-btn:hover { border-color: var(--blue); }
+    .social-btn svg { width: 15px; height: 15px; fill: rgba(255,255,255,0.5); }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;">
+      <img src="brand_assets/Logo NCF BL Marine 3.png" alt="NCF" style="height:32px;width:auto;" />
+    </a>
+    <div class="nav-links">
+      <a href="cessions.html" class="nav-link active">Cessions en cours</a>
+      <a href="index.html#offres" class="nav-link">Évaluation d'entreprises</a>
+      <a href="index.html#adn" class="nav-link">Nos opérations</a>
+      <a href="index.html#articles" class="nav-link">Actualités</a>
+      <a href="index.html#temoignages" class="nav-link">Équipe</a>
+    </div>
+    <div class="nav-cta-wrap">
+      <a href="index.html#contact" class="nav-cta">
+        Nous contacter
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <button id="hbg" aria-label="Menu"><span id="b1"></span><span id="b2"></span><span id="b3"></span></button>
+  </div>
+</nav>
+<div id="mob-menu">
+  <a href="cessions.html" onclick="closeNav()">Cessions en cours</a>
+  <a href="index.html#offres" onclick="closeNav()">Évaluation d'entreprises</a>
+  <a href="index.html#adn" onclick="closeNav()">Nos opérations</a>
+  <a href="index.html#articles" onclick="closeNav()">Actualités</a>
+  <a href="index.html#contact" onclick="closeNav()" class="nav-cta" style="margin-top:0.5rem;">Nous contacter</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <h1 class="hero-title">ENTREPRISE DE MENUISERIE<br>500K EBITDA 40 SALARIÉS</h1>
+    <div class="hero-underline"></div>
+  </div>
+</div>
+
+<!-- SEARCH BAR -->
+<div class="search-wrap">
+  <div class="search-box">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" placeholder="Rechercher une opportunité (secteur, localisation, CA…)" id="search-input" />
+  </div>
+</div>
+
+<!-- LISTINGS SECTION -->
+<section class="listings-section">
+  <div class="listings-inner">
+    <div class="listings-header rv">
+      <h2 class="listings-title">Liste de nos coportunités d'acquisitions</h2>
+      <p class="listings-sub">Notre plateforme vise à offrir une expérience fluide et conviviale pour les individus et les familles à la recherche de leur prochaine opportunité idéale.</p>
+    </div>
+
+    <!-- Row 1 -->
+    <a class="listing-row rv d1" href="cession-detail.html" style="text-decoration:none;color:inherit;">
+      <div class="listing-photo">
+        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=300&fit=crop" alt="Menuiserie" />
+      </div>
+      <div class="listing-info">
+        <div class="listing-sector">Construction</div>
+        <div class="listing-name">Menuiserie, spécialisée vérandas</div>
+        <div class="listing-location">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Sud Est
+        </div>
+        <div class="listing-metrics">
+          <div>
+            <div class="listing-metric-label">CA</div>
+            <div class="listing-metric-val">~2 m€</div>
+          </div>
+          <div>
+            <div class="listing-metric-label">Marge d'EBITDA</div>
+            <div class="listing-metric-val">7%</div>
+          </div>
+        </div>
+        <div class="listing-meta">
+          <div class="listing-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            15 salariés
+          </div>
+          <div class="listing-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            3 ans
+          </div>
+          <div class="listing-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            2 min
+          </div>
+        </div>
+      </div>
+      <div class="listing-chart-col">
+        <div class="chart-title">Chiffres d'affaires & EBITDA</div>
+        <svg width="180" height="88" viewBox="0 0 180 88">
+          <!-- Grid lines -->
+          <line x1="0" y1="18" x2="175" y2="18" stroke="#F3F4F6" stroke-width="1"/>
+          <line x1="0" y1="36" x2="175" y2="36" stroke="#F3F4F6" stroke-width="1"/>
+          <line x1="0" y1="54" x2="175" y2="54" stroke="#F3F4F6" stroke-width="1"/>
+          <line x1="0" y1="72" x2="175" y2="72" stroke="#E5E7EB" stroke-width="1"/>
+          <!-- 2022 -->
+          <rect x="4"  y="38" width="14" height="34" fill="#1B244B" rx="2"/>
+          <rect x="20" y="52" width="14" height="20" fill="#00B0F0" rx="2"/>
+          <!-- 2023 -->
+          <rect x="48" y="30" width="14" height="42" fill="#1B244B" rx="2"/>
+          <rect x="64" y="46" width="14" height="26" fill="#00B0F0" rx="2"/>
+          <!-- 2024 -->
+          <rect x="92" y="22" width="14" height="50" fill="#1B244B" rx="2"/>
+          <rect x="108" y="38" width="14" height="34" fill="#00B0F0" rx="2"/>
+          <!-- 2025 -->
+          <rect x="136" y="14" width="14" height="58" fill="#1B244B" rx="2"/>
+          <rect x="152" y="30" width="14" height="42" fill="#00B0F0" rx="2"/>
+          <!-- Labels -->
+          <text x="6"   y="84" font-size="9" fill="#9CA3AF" font-family="Inter,sans-serif">2022</text>
+          <text x="50"  y="84" font-size="9" fill="#9CA3AF" font-family="Inter,sans-serif">2023</text>
+          <text x="94"  y="84" font-size="9" fill="#9CA3AF" font-family="Inter,sans-serif">2024</text>
+          <text x="138" y="84" font-size="9" fill="#9CA3AF" font-family="Inter,sans-serif">2025</text>
+        </svg>
+      </div>
+      <div class="listing-status-col">
+        <span class="status-btn status-green">Cession<br>en cours</span>
+      </div>
+    </a>
+
+    <!-- Row 2 -->
+    <a class="listing-row rv d2" href="cession-detail.html" style="text-decoration:none;color:inherit;">
+      <div class="listing-photo">
+        <img src="https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=400&h=300&fit=crop" alt="Traitement surface" />
+      </div>
+      <div class="listing-info">
+        <div class="listing-sector">Industrie</div>
+        <div class="listing-name">Traitement de surface, industriel</div>
+        <div class="listing-location">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Nord
+        </div>
+        <div class="listing-metrics">
+          <div>
+            <div class="listing-metric-label">CA</div>
+            <div class="listing-metric-val">~5 m€</div>
+          </div>
+          <div>
+            <div class="listing-metric-label">Marge d'EBITDA</div>
+            <div class="listing-metric-val">5%</div>
+          </div>
+        </div>
+        <div class="listing-meta">
+          <div class="listing-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            38 salariés
+          </div>
+          <div class="listing-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            5 ans
+          </div>
+          <div class="listing-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            3 min
+          </div>
+        </div>
+      </div>
+      <div class="listing-chart-col">
+        <div class="chart-title">Chiffres d'affaires & EBITDA</div>
+        <svg width="180" height="88" viewBox="0 0 180 88">
+          <line x1="0" y1="18" x2="175" y2="18" stroke="#F3F4F6" stroke-width="1"/>
+          <line x1="0" y1="36" x2="175" y2="36" stroke="#F3F4F6" stroke-width="1"/>
+          <line x1="0" y1="54" x2="175" y2="54" stroke="#F3F4F6" stroke-width="1"/>
+          <line x1="0" y1="72" x2="175" y2="72" stroke="#E5E7EB" stroke-width="1"/>
+          <rect x="4"  y="42" width="14" height="30" fill="#1B244B" rx="2"/>
+          <rect x="20" y="56" width="14" height="16" fill="#00B0F0" rx="2"/>
+          <rect x="48" y="36" width="14" height="36" fill="#1B244B" rx="2"/>
+          <rect x="64" y="50" width="14" height="22" fill="#00B0F0" rx="2"/>
+          <rect x="92" y="24" width="14" height="48" fill="#1B244B" rx="2"/>
+          <rect x="108" y="36" width="14" height="36" fill="#00B0F0" rx="2"/>
+          <rect x="136" y="16" width="14" height="56" fill="#1B244B" rx="2"/>
+          <rect x="152" y="28" width="14" height="44" fill="#00B0F0" rx="2"/>
+          <text x="6"   y="84" font-size="9" fill="#9CA3AF" font-family="Inter,sans-serif">2022</text>
+          <text x="50"  y="84" font-size="9" fill="#9CA3AF" font-family="Inter,sans-serif">2023</text>
+          <text x="94"  y="84" font-size="9" fill="#9CA3AF" font-family="Inter,sans-serif">2024</text>
+          <text x="138" y="84" font-size="9" fill="#9CA3AF" font-family="Inter,sans-serif">2025</text>
+        </svg>
+      </div>
+      <div class="listing-status-col">
+        <span class="status-btn status-orange">Cession<br>effectuée</span>
+      </div>
+    </a>
+
+    <!-- Row 3 -->
+    <a class="listing-row rv d3" href="cession-detail.html" style="text-decoration:none;color:inherit;">
+      <div class="listing-photo">
+        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=300&fit=crop" alt="Chauffagiste" />
+      </div>
+      <div class="listing-info">
+        <div class="listing-sector">Services</div>
+        <div class="listing-name">Chauffagiste et plomberie</div>
+        <div class="listing-location">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Sud Est
+        </div>
+        <div class="listing-metrics">
+          <div>
+            <div class="listing-metric-label">CA</div>
+            <div class="listing-metric-val">~3,5 m€</div>
+          </div>
+          <div>
+            <div class="listing-metric-label">Marge d'EBITDA</div>
+            <div class="listing-metric-val">10%</div>
+          </div>
+        </div>
+        <div class="listing-meta">
+          <div class="listing-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            22 salariés
+          </div>
+          <div class="listing-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            4 ans
+          </div>
+          <div class="listing-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            5 min
+          </div>
+        </div>
+      </div>
+      <div class="listing-chart-col">
+        <div class="chart-title">Chiffres d'affaires & EBITDA</div>
+        <svg width="180" height="88" viewBox="0 0 180 88">
+          <line x1="0" y1="18" x2="175" y2="18" stroke="#F3F4F6" stroke-width="1"/>
+          <line x1="0" y1="36" x2="175" y2="36" stroke="#F3F4F6" stroke-width="1"/>
+          <line x1="0" y1="54" x2="175" y2="54" stroke="#F3F4F6" stroke-width="1"/>
+          <line x1="0" y1="72" x2="175" y2="72" stroke="#E5E7EB" stroke-width="1"/>
+          <rect x="4"  y="46" width="14" height="26" fill="#1B244B" rx="2"/>
+          <rect x="20" y="62" width="14" height="10" fill="#00B0F0" rx="2"/>
+          <rect x="48" y="38" width="14" height="34" fill="#1B244B" rx="2"/>
+          <rect x="64" y="52" width="14" height="20" fill="#00B0F0" rx="2"/>
+          <rect x="92" y="26" width="14" height="46" fill="#1B244B" rx="2"/>
+          <rect x="108" y="38" width="14" height="34" fill="#00B0F0" rx="2"/>
+          <rect x="136" y="14" width="14" height="58" fill="#1B244B" rx="2"/>
+          <rect x="152" y="24" width="14" height="48" fill="#00B0F0" rx="2"/>
+          <text x="6"   y="84" font-size="9" fill="#9CA3AF" font-family="Inter,sans-serif">2022</text>
+          <text x="50"  y="84" font-size="9" fill="#9CA3AF" font-family="Inter,sans-serif">2023</text>
+          <text x="94"  y="84" font-size="9" fill="#9CA3AF" font-family="Inter,sans-serif">2024</text>
+          <text x="138" y="84" font-size="9" fill="#9CA3AF" font-family="Inter,sans-serif">2025</text>
+        </svg>
+      </div>
+      <div class="listing-status-col">
+        <span class="status-btn status-green">Cession<br>en cours</span>
+      </div>
+    </a>
+
+    <!-- Row 4 -->
+    <a class="listing-row rv d4" href="cession-detail.html" style="text-decoration:none;color:inherit;">
+      <div class="listing-photo">
+        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop" alt="Rénovation" />
+      </div>
+      <div class="listing-info">
+        <div class="listing-sector">Construction</div>
+        <div class="listing-name">Rénovation de l'habitat</div>
+        <div class="listing-location">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Île-de-France
+        </div>
+        <div class="listing-metrics">
+          <div>
+            <div class="listing-metric-label">CA</div>
+            <div class="listing-metric-val">2 – 3 m€</div>
+          </div>
+          <div>
+            <div class="listing-metric-label">Marge d'EBITDA</div>
+            <div class="listing-metric-val">7%</div>
+          </div>
+        </div>
+        <div class="listing-meta">
+          <div class="listing-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            18 salariés
+          </div>
+          <div class="listing-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            6 ans
+          </div>
+          <div class="listing-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            4 min
+          </div>
+        </div>
+      </div>
+      <div class="listing-chart-col">
+        <div class="chart-title">Chiffres d'affaires & EBITDA</div>
+        <svg width="180" height="88" viewBox="0 0 180 88">
+          <line x1="0" y1="18" x2="175" y2="18" stroke="#F3F4F6" stroke-width="1"/>
+          <line x1="0" y1="36" x2="175" y2="36" stroke="#F3F4F6" stroke-width="1"/>
+          <line x1="0" y1="54" x2="175" y2="54" stroke="#F3F4F6" stroke-width="1"/>
+          <line x1="0" y1="72" x2="175" y2="72" stroke="#E5E7EB" stroke-width="1"/>
+          <rect x="4"  y="40" width="14" height="32" fill="#1B244B" rx="2"/>
+          <rect x="20" y="54" width="14" height="18" fill="#00B0F0" rx="2"/>
+          <rect x="48" y="32" width="14" height="40" fill="#1B244B" rx="2"/>
+          <rect x="64" y="46" width="14" height="26" fill="#00B0F0" rx="2"/>
+          <rect x="92" y="24" width="14" height="48" fill="#1B244B" rx="2"/>
+          <rect x="108" y="36" width="14" height="36" fill="#00B0F0" rx="2"/>
+          <rect x="136" y="16" width="14" height="56" fill="#1B244B" rx="2"/>
+          <rect x="152" y="28" width="14" height="44" fill="#00B0F0" rx="2"/>
+          <text x="6"   y="84" font-size="9" fill="#9CA3AF" font-family="Inter,sans-serif">2022</text>
+          <text x="50"  y="84" font-size="9" fill="#9CA3AF" font-family="Inter,sans-serif">2023</text>
+          <text x="94"  y="84" font-size="9" fill="#9CA3AF" font-family="Inter,sans-serif">2024</text>
+          <text x="138" y="84" font-size="9" fill="#9CA3AF" font-family="Inter,sans-serif">2025</text>
+        </svg>
+      </div>
+      <div class="listing-status-col">
+        <span class="status-btn status-green">Cession<br>en cours</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <img src="brand_assets/Logo NCF BL Marine 3.png" alt="NCF" style="height:28px;filter:brightness(0) invert(1);" />
+        <p class="footer-brand-desc">Cabinet indépendant de conseil en cession de PME et TPE.</p>
+      </div>
+      <div style="display:flex;gap:3rem;flex-wrap:wrap;">
+        <div>
+          <div class="footer-col-title">Navigation</div>
+          <div class="footer-links">
+            <a href="index.html" class="footer-link">Accueil</a>
+            <a href="cessions.html" class="footer-link">Cessions</a>
+            <a href="index.html#offres" class="footer-link">Services</a>
+            <a href="index.html#articles" class="footer-link">Blog</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Cabinet</div>
+          <div class="footer-links">
+            <a href="index.html#adn" class="footer-link">Notre ADN</a>
+            <a href="index.html#temoignages" class="footer-link">Témoignages</a>
+            <a href="index.html#contact" class="footer-link">Contact</a>
+            <a href="#" class="footer-link">Mentions légales</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div style="display:flex;gap:0.75rem;">
+        <a href="#" class="social-btn" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="Twitter">
+          <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+      </div>
+      <div class="footer-copy">© 2026 NCF — Tous droits réservés.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', scrollY > 40), { passive: true });
+let open = false;
+const hbg = document.getElementById('hbg');
+const mob = document.getElementById('mob-menu');
+hbg.addEventListener('click', () => {
+  open = !open; mob.classList.toggle('open', open);
+  const [b1,b2,b3] = ['b1','b2','b3'].map(id => document.getElementById(id));
+  b1.style.transform = open ? 'translateY(6.5px) rotate(45deg)' : '';
+  b2.style.opacity = open ? '0' : '';
+  b3.style.transform = open ? 'translateY(-6.5px) rotate(-45deg)' : '';
+});
+function closeNav() { open = false; mob.classList.remove('open'); ['b1','b2','b3'].forEach(id => document.getElementById(id).style.cssText = ''); }
+const ro = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: 0.06 });
+document.querySelectorAll('.rv').forEach(el => ro.observe(el));
+
+// Search filter
+document.getElementById('search-input').addEventListener('input', function() {
+  const q = this.value.toLowerCase();
+  document.querySelectorAll('.listing-row').forEach(row => {
+    row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+});
+</script>
+</body>
+</html>
