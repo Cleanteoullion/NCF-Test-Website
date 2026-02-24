@@ -160,11 +160,11 @@
       overflow: hidden;
       border: 4px solid #fff;
       box-shadow: 0 6px 24px rgba(27,36,75,0.15);
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
       cursor: pointer;
     }
-    .tw1 .tc { border-color: rgba(0,176,240,0.5); }
-    .tc-wrap:hover .tc { box-shadow: 0 10px 30px rgba(0,176,240,0.32); }
+    .tc-wrap:hover .tc { box-shadow: 0 10px 30px rgba(0,176,240,0.32); border-color: rgba(0,176,240,0.5); }
+    .tc-wrap.active .tc { border-color: rgba(0,176,240,0.5); }
     .tc img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform 0.4s ease; }
     .tc-wrap:hover .tc img { transform: scale(1.13); }
 
@@ -334,8 +334,8 @@
       flex-shrink: 0;
     }
     .trust-logo img {
-      height: 52px;
-      max-width: 160px;
+      height: 60px;
+      max-width: 175px;
       object-fit: contain;
       filter: grayscale(100%) opacity(0.45);
       transition: filter 0.35s ease, transform 0.2s ease;
@@ -346,7 +346,7 @@
     }
     @media (max-width: 600px) {
       .trust-logo { padding: 0.5rem 1.75rem; }
-      .trust-logo img { height: 40px; max-width: 130px; }
+      .trust-logo img { height: 46px; max-width: 140px; }
     }
 
     /* ARTICLES */
