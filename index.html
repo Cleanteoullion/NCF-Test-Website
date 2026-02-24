@@ -351,7 +351,6 @@
 
     /* ARTICLES */
     .articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
-    @media (max-width: 800px) { .articles-grid { grid-template-columns: 1fr; } }
     .article-card { background: #fff; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s; }
     .article-card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(27,36,75,0.1); }
     .article-img { height: 180px; overflow: hidden; }
@@ -393,6 +392,60 @@
     .d2 { transition-delay: 0.2s; }
     .d3 { transition-delay: 0.3s; }
     .d4 { transition-delay: 0.4s; }
+
+    /* ── RESPONSIVE FIXES ─────────────────────────────────────── */
+
+    /* Active class for team tooltips (click/tap on all devices) */
+    .tc-wrap.active .tc-tooltip { opacity: 1; pointer-events: auto; }
+
+    /* Team section — flex grid on mobile instead of fixed absolute layout */
+    @media (max-width: 700px) {
+      .team-wrap {
+        width: 100%; height: auto;
+        display: flex; flex-wrap: wrap;
+        justify-content: center; gap: 1.5rem;
+        padding: 1rem 0.5rem;
+      }
+      .tc-ring, .tc-dot { display: none; }
+      .tc-wrap {
+        position: relative;
+        top: auto !important; left: auto !important;
+        width: 96px; height: 96px;
+      }
+      /* All tooltips appear above the circle on mobile */
+      .tw1 .tc-tooltip, .tw2 .tc-tooltip, .tw3 .tc-tooltip,
+      .tw4 .tc-tooltip, .tw5 .tc-tooltip {
+        left: 50%; right: auto; top: auto;
+        bottom: calc(100% + 10px);
+        transform: translateX(-50%) translateY(6px);
+        width: 190px;
+      }
+      /* Hover doesn't work on touch — disable it */
+      .tc-wrap:hover .tc-tooltip { opacity: 0; }
+      /* Show on tap (.active toggled by JS) */
+      .tc-wrap.active .tc-tooltip {
+        opacity: 1; pointer-events: auto;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    /* ADN badge — prevent right overflow on mobile */
+    @media (max-width: 900px) {
+      .adn-stat-badge {
+        position: relative;
+        bottom: auto; right: auto;
+        display: inline-block;
+        margin-top: 1.5rem;
+      }
+    }
+
+    /* Articles grid — 2-col on tablet, 1-col on small mobile */
+    @media (max-width: 800px)  { .articles-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 520px)  { .articles-grid { grid-template-columns: 1fr; } }
+
+    /* Contact form — Prénom/Nom side-by-side, stacked on small screens */
+    .contact-name-grid { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 500px) { .contact-name-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -435,7 +488,7 @@
   <div class="hero-inner">
     <div>
       <div class="hero-eyebrow">Cabinet M&A</div>
-      <h1 class="hero-h1">LE PREMIER CHOIX DANS<br>L'ACCOMPAGNEMENT À<br>LA CESSION DE PME<br>ET TPE.</h1>
+      <h1 class="hero-h1">LE PREMIER CHOIX DANS L'ACCOMPAGNEMENT À LA CESSION DE PME ET TPE.</h1>
       <p class="hero-sub">NCF vous accompagne à chaque étape de la cession ou de l'acquisition de votre entreprise. Expertise, confidentialité et proximité sont au cœur de notre démarche.</p>
       <div class="hero-btns">
         <a href="cessions.html" class="btn-primary">
@@ -1031,7 +1084,7 @@
 
       <div class="rv d1">
         <form id="contact-form" onsubmit="handleForm(event)" style="display:flex;flex-direction:column;gap:1rem;">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div class="contact-name-grid" style="display:grid;gap:1rem;">
             <div>
               <label style="display:block;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--navy);margin-bottom:6px;">Prénom *</label>
               <input type="text" required placeholder="Jean" style="width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:4px;font-family:Inter,sans-serif;font-size:0.875rem;color:var(--navy);outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='var(--border)'" />
@@ -1167,6 +1220,18 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     const t = document.querySelector(a.getAttribute('href'));
     if (t) { e.preventDefault(); window.scrollTo({ top: t.getBoundingClientRect().top + pageYOffset - 80, behavior: 'smooth' }); }
   });
+});
+
+// Team tooltips — tap/click support (touch devices)
+document.querySelectorAll('.tc-wrap').forEach(wrap => {
+  wrap.addEventListener('click', e => {
+    const wasActive = wrap.classList.contains('active');
+    document.querySelectorAll('.tc-wrap').forEach(w => w.classList.remove('active'));
+    if (!wasActive) { wrap.classList.add('active'); e.stopPropagation(); }
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.tc-wrap').forEach(w => w.classList.remove('active'));
 });
 </script>
 </body>
