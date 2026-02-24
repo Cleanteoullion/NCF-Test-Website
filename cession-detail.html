@@ -150,9 +150,14 @@
 
     /* France region map */
     .france-map svg { width: 100%; max-width: 210px; height: auto; display: block; margin: 0 auto; }
-    .region { fill: #E5E7EB; stroke: #fff; stroke-width: 2; transition: fill 0.35s ease; }
+    .region { fill: #E5E7EB; stroke: #fff; stroke-width: 1.5; transition: fill 0.35s ease; }
     .region.active { fill: var(--blue); }
-    .region:not(.active) { opacity: 0.85; }
+    .map-loading {
+      width: 210px; height: 230px; margin: 0 auto; border-radius: 6px;
+      background: linear-gradient(90deg, #E5E7EB 25%, #EDEEF1 50%, #E5E7EB 75%);
+      background-size: 400% 100%; animation: mapShimmer 1.4s ease infinite;
+    }
+    @keyframes mapShimmer { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
 
     /* Modal overlay */
     #interest-modal {
@@ -249,31 +254,17 @@
         <!-- Localisation -->
         <div class="info-block">
           <div class="info-label">Localisation</div>
-          <div class="france-map" data-region="auvergne-rhone-alpes">
-            <!--
-              Carte SVG des 13 régions métropolitaines.
-              Pour changer la région mise en évidence, modifier data-region sur le div parent.
-              IDs disponibles :
-                hauts-de-france | normandie | grand-est | ile-de-france | bretagne
-                pays-de-la-loire | centre-val-de-loire | bourgogne-franche-comte
-                nouvelle-aquitaine | auvergne-rhone-alpes | occitanie
-                provence-alpes-cote-dazur | corse
-            -->
-            <svg viewBox="0 0 540 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path class="region" id="hauts-de-france"           d="M120,5 L360,2 L388,52 L358,95 L292,110 L235,102 L172,85 L130,58 L112,20 Z"/>
-              <path class="region" id="normandie"                 d="M2,48 L75,45 L112,20 L130,58 L92,108 L32,130 L2,108 Z"/>
-              <path class="region" id="grand-est"                 d="M360,2 L540,2 L540,212 L495,225 L448,208 L420,152 L390,94 L388,52 Z"/>
-              <path class="region" id="ile-de-france"             d="M235,102 L292,110 L312,138 L292,178 L248,172 L222,148 L228,110 Z"/>
-              <path class="region" id="bretagne"                  d="M2,108 L32,130 L92,108 L130,58 L172,85 L162,160 L114,200 L50,228 L2,200 Z"/>
-              <path class="region" id="pays-de-la-loire"          d="M2,200 L50,228 L114,200 L162,160 L172,85 L228,110 L222,148 L194,252 L125,292 L46,296 L6,268 Z"/>
-              <path class="region" id="centre-val-de-loire"       d="M194,252 L222,148 L312,138 L388,158 L395,218 L336,280 L254,293 Z"/>
-              <path class="region" id="bourgogne-franche-comte"   d="M388,158 L495,225 L540,212 L540,362 L450,362 L378,340 L335,280 L395,218 Z"/>
-              <path class="region" id="nouvelle-aquitaine"        d="M6,268 L46,296 L125,292 L194,252 L254,293 L268,318 L288,398 L155,462 L70,445 L20,450 L2,410 L2,312 Z"/>
-              <path class="region" id="auvergne-rhone-alpes"      d="M254,293 L336,280 L378,340 L450,362 L540,362 L540,452 L480,470 L408,470 L358,428 L285,395 L268,318 Z"/>
-              <path class="region" id="occitanie"                 d="M155,462 L288,398 L358,428 L408,470 L378,530 L288,548 L185,538 L98,512 L58,502 L20,490 L20,450 L70,445 Z"/>
-              <path class="region" id="provence-alpes-cote-dazur" d="M408,470 L480,470 L540,452 L540,542 L492,548 L438,530 L378,530 Z"/>
-              <path class="region" id="corse"                     d="M492,508 L506,496 L520,510 L524,548 L510,562 L494,552 L488,535 Z"/>
-            </svg>
+          <!--
+            data-region : nom exact de la région (correspond au champ "nom" du GeoJSON).
+            Valeurs disponibles :
+              Auvergne-Rhône-Alpes | Bourgogne-Franche-Comté | Bretagne
+              Centre-Val de Loire  | Corse | Grand Est | Hauts-de-France
+              Île-de-France | Normandie | Nouvelle-Aquitaine | Occitanie
+              Pays de la Loire | Provence-Alpes-Côte d'Azur
+          -->
+          <div class="france-map" data-region="Auvergne-Rhône-Alpes">
+            <div class="map-loading" id="map-placeholder"></div>
+            <svg id="france-svg" viewBox="0 0 540 600" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none;width:100%;max-width:210px;height:auto;margin:0 auto;"></svg>
             <div class="location-name">Auvergne-Rhône-Alpes</div>
           </div>
         </div>
@@ -652,12 +643,52 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') document.getElementById('interest-modal').classList.remove('open');
 });
 
-// France region map — highlight the region specified in data-region
-const mapEl = document.querySelector('.france-map[data-region]');
-if (mapEl) {
-  const path = mapEl.querySelector('#' + mapEl.dataset.region);
-  if (path) path.classList.add('active');
-}
+// France region map — rendu via GeoJSON officiel (gregoiredavid/france-geojson)
+(async () => {
+  const container  = document.querySelector('.france-map[data-region]');
+  if (!container) return;
+
+  const target      = container.dataset.region;
+  const placeholder = document.getElementById('map-placeholder');
+  const svg         = document.getElementById('france-svg');
+
+  // Régions métropolitaines uniquement (exclut DOM/TOM)
+  const METRO = new Set([
+    "Auvergne-Rhône-Alpes","Bourgogne-Franche-Comté","Bretagne",
+    "Centre-Val de Loire","Corse","Grand Est","Hauts-de-France",
+    "Île-de-France","Normandie","Nouvelle-Aquitaine","Occitanie",
+    "Pays de la Loire","Provence-Alpes-Côte d'Azur"
+  ]);
+
+  // Projection équirectangulaire — France métropolitaine
+  const W = 540, H = 600;
+  const minLon = -5.14, maxLon = 9.56, minLat = 41.33, maxLat = 51.09;
+  const sx = W / (maxLon - minLon), sy = H / (maxLat - minLat);
+
+  const pt  = (lo, la) => `${((lo - minLon) * sx).toFixed(1)},${(H - (la - minLat) * sy).toFixed(1)}`;
+  const r2d = r => r.map(([lo, la], i) => `${i ? 'L' : 'M'}${pt(lo, la)}`).join('') + 'Z';
+  const g2d = g => (g.type === 'Polygon' ? g.coordinates : g.coordinates.flat(1)).map(r2d).join('');
+
+  try {
+    const res  = await fetch('https://cdn.jsdelivr.net/gh/gregoiredavid/france-geojson@master/regions-version-simplifiee.geojson');
+    const data = await res.json();
+
+    data.features
+      .filter(f => METRO.has(f.properties.nom))
+      .forEach(f => {
+        const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        p.setAttribute('d', g2d(f.geometry));
+        p.setAttribute('class', 'region' + (f.properties.nom === target ? ' active' : ''));
+        svg.appendChild(p);
+      });
+
+    placeholder.remove();
+    svg.style.display = 'block';
+  } catch {
+    placeholder.style.cssText = 'display:flex;align-items:center;justify-content:center;font-size:0.72rem;color:var(--gm);animation:none;background:var(--gl);';
+    placeholder.textContent = 'Carte indisponible';
+  }
+})();
 </script>
 </body>
 </html>
