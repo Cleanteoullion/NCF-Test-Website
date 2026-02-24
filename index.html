@@ -242,6 +242,54 @@
     .testi-quote { font-size: 0.85rem; color: #4B5563; line-height: 1.7; font-style: italic; }
     .testi-logo { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em; color: var(--blue); display: flex; align-items: center; gap: 5px; }
 
+    /* ILS NOUS FONT CONFIANCE */
+    .trust-section { background: var(--gl); padding: 4rem 0; }
+    .trust-header { text-align: center; margin-bottom: 2.5rem; }
+    .trust-track-wrap {
+      overflow: hidden;
+      position: relative;
+    }
+    .trust-track-wrap::before,
+    .trust-track-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; width: 100px; z-index: 2;
+      pointer-events: none;
+    }
+    .trust-track-wrap::before { left: 0; background: linear-gradient(to right, var(--gl) 0%, transparent 100%); }
+    .trust-track-wrap::after  { right: 0; background: linear-gradient(to left,  var(--gl) 0%, transparent 100%); }
+    .trust-track {
+      display: flex;
+      align-items: center;
+      width: max-content;
+      animation: trustScroll 32s linear infinite;
+    }
+    .trust-track:hover { animation-play-state: paused; }
+    @keyframes trustScroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .trust-logo {
+      display: flex; align-items: center; justify-content: center;
+      padding: 0.75rem 2.75rem;
+      flex-shrink: 0;
+    }
+    .trust-logo img {
+      height: 38px;
+      max-width: 130px;
+      object-fit: contain;
+      filter: grayscale(100%) opacity(0.45);
+      transition: filter 0.35s ease, transform 0.2s ease;
+    }
+    .trust-logo img:hover {
+      filter: grayscale(0%) opacity(1);
+      transform: scale(1.06);
+    }
+    @media (max-width: 600px) {
+      .trust-logo { padding: 0.5rem 1.75rem; }
+      .trust-logo img { height: 30px; max-width: 100px; }
+    }
+
     /* ARTICLES */
     .articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
     @media (max-width: 800px) { .articles-grid { grid-template-columns: 1fr; } }
@@ -737,6 +785,46 @@
           NCF
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ ILS NOUS FONT CONFIANCE -->
+<section class="trust-section" id="references">
+  <div class="section-inner">
+    <div class="trust-header rv">
+      <div class="section-eyebrow" style="justify-content:center;">Références</div>
+      <h2 class="section-title">Ils nous font confiance</h2>
+    </div>
+  </div>
+  <div class="trust-track-wrap rv d1">
+    <div class="trust-track">
+      <!-- Set 1 -->
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/aluthea.png" alt="Aluthea" /></div>
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/borini-megeve.png" alt="Borini Megève" /></div>
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/clinique-saint-charles-lyon.png" alt="Clinique Saint-Charles Lyon" /></div>
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/emisys.png" alt="Emisys" /></div>
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/euromag.png" alt="Euromag" /></div>
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/groupe-ldlc.png" alt="Groupe LDLC" /></div>
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/interface-transport.png" alt="Interface Transport" /></div>
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/ldlc-asvel.png" alt="LDLC ASVEL" /></div>
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/magic-form.png" alt="Magic Form" /></div>
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/securispace.png" alt="Securispace" /></div>
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/siparex-groupe.png" alt="Siparex Groupe" /></div>
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/technogenia.png" alt="Technogenia" /></div>
+      <!-- Set 2 (duplicate for seamless loop) -->
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/aluthea.png" alt="Aluthea" /></div>
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/borini-megeve.png" alt="Borini Megève" /></div>
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/clinique-saint-charles-lyon.png" alt="Clinique Saint-Charles Lyon" /></div>
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/emisys.png" alt="Emisys" /></div>
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/euromag.png" alt="Euromag" /></div>
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/groupe-ldlc.png" alt="Groupe LDLC" /></div>
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/interface-transport.png" alt="Interface Transport" /></div>
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/ldlc-asvel.png" alt="LDLC ASVEL" /></div>
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/magic-form.png" alt="Magic Form" /></div>
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/securispace.png" alt="Securispace" /></div>
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/siparex-groupe.png" alt="Siparex Groupe" /></div>
+      <div class="trust-logo"><img src="brand_assets/Logo_confiance/technogenia.png" alt="Technogenia" /></div>
     </div>
   </div>
 </section>
