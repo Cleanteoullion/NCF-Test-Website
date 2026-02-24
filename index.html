@@ -164,8 +164,9 @@
       cursor: pointer;
     }
     .tw1 .tc { border-color: rgba(0,176,240,0.5); }
-    .tc-wrap:hover .tc { transform: translateY(-4px) scale(1.04); box-shadow: 0 12px 32px rgba(0,176,240,0.28); }
-    .tc img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+    .tc-wrap:hover .tc { box-shadow: 0 10px 30px rgba(0,176,240,0.32); }
+    .tc img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform 0.4s ease; }
+    .tc-wrap:hover .tc img { transform: scale(1.13); }
 
     /* Team tooltip */
     .tc-tooltip {
@@ -185,21 +186,22 @@
     .tc-tt-name { font-size: 0.82rem; font-weight: 700; color: var(--navy); }
     .tc-tt-role { font-size: 0.68rem; color: var(--blue); font-weight: 700; margin: 3px 0 7px; letter-spacing: 0.1em; text-transform: uppercase; }
     .tc-tt-bio { font-size: 0.74rem; color: var(--gm); line-height: 1.58; border-top: 1px solid var(--border); padding-top: 7px; }
-    /* tw1 top-center → below */
-    .tw1 .tc-tooltip { top: calc(100% + 10px); left: 50%; transform: translateX(-50%) translateY(5px); }
-    .tw1:hover .tc-tooltip { transform: translateX(-50%) translateY(0); }
-    /* tw2 middle-right → above, right-aligned */
-    .tw2 .tc-tooltip { bottom: calc(100% + 10px); right: 0; transform: translateY(5px); }
-    .tw2:hover .tc-tooltip { transform: translateY(0); }
-    /* tw3 bottom-right → above, centered */
-    .tw3 .tc-tooltip { bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%) translateY(5px); }
-    .tw3:hover .tc-tooltip { transform: translateX(-50%) translateY(0); }
-    /* tw4 bottom-left → above, centered */
-    .tw4 .tc-tooltip { bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%) translateY(5px); }
-    .tw4:hover .tc-tooltip { transform: translateX(-50%) translateY(0); }
-    /* tw5 middle-left → above, left-aligned */
-    .tw5 .tc-tooltip { bottom: calc(100% + 10px); left: 0; transform: translateY(5px); }
-    .tw5:hover .tc-tooltip { transform: translateY(0); }
+    /* tw1 (top-center), tw2 (right), tw3 (bottom-right) → tooltip à droite */
+    .tw1 .tc-tooltip, .tw2 .tc-tooltip, .tw3 .tc-tooltip {
+      left: calc(100% + 14px); top: 50%;
+      transform: translateY(-50%) translateX(6px);
+    }
+    .tw1:hover .tc-tooltip, .tw2:hover .tc-tooltip, .tw3:hover .tc-tooltip {
+      transform: translateY(-50%) translateX(0);
+    }
+    /* tw4 (bottom-left), tw5 (left) → tooltip à gauche */
+    .tw4 .tc-tooltip, .tw5 .tc-tooltip {
+      right: calc(100% + 14px); top: 50%;
+      transform: translateY(-50%) translateX(-6px);
+    }
+    .tw4:hover .tc-tooltip, .tw5:hover .tc-tooltip {
+      transform: translateY(-50%) translateX(0);
+    }
 
     /* SECTION SHARED */
     .section { padding: 5rem 0; }
