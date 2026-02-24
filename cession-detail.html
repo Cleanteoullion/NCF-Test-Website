@@ -148,6 +148,12 @@
     .social-btn:hover { border-color: var(--blue); }
     .social-btn svg { width: 15px; height: 15px; fill: rgba(255,255,255,0.5); }
 
+    /* France region map */
+    .france-map svg { width: 100%; max-width: 210px; height: auto; display: block; margin: 0 auto; }
+    .region { fill: #E5E7EB; stroke: #fff; stroke-width: 2; transition: fill 0.35s ease; }
+    .region.active { fill: var(--blue); }
+    .region:not(.active) { opacity: 0.85; }
+
     /* Modal overlay */
     #interest-modal {
       display: none; position: fixed; inset: 0; z-index: 300;
@@ -243,23 +249,32 @@
         <!-- Localisation -->
         <div class="info-block">
           <div class="info-label">Localisation</div>
-          <div class="france-map">
-            <!-- France SVG with Rhône-Alpes / Sud-Est highlighted -->
-            <svg viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100px;height:120px;">
-              <!-- France base -->
-              <path d="M35,8 L42,5 L50,4 L58,6 L68,10 L75,18 L80,26 L82,36 L78,44 L82,52 L80,62 L74,72 L68,80 L60,88 L52,96 L45,100 L38,96 L30,88 L22,78 L16,68 L12,56 L14,44 L18,34 L20,24 L26,16 Z" fill="#E5E7EB" stroke="#D1D5DB" stroke-width="1.5"/>
-              <!-- Alsace bump -->
-              <path d="M80,26 L86,28 L88,34 L84,38 L80,36 L82,36" fill="#E5E7EB" stroke="#D1D5DB" stroke-width="1"/>
-              <!-- Normandie bump -->
-              <path d="M26,16 L22,10 L28,6 L35,8" fill="#E5E7EB" stroke="#D1D5DB" stroke-width="1"/>
-              <!-- Rhône-Alpes + PACA / Sud-Est highlighted region -->
-              <path d="M56,46 L78,44 L82,52 L80,62 L74,72 L68,80 L60,87 L50,82 L48,70 L52,56 Z" fill="#00B0F0" opacity="0.8" stroke="#0099D6" stroke-width="0.5"/>
-              <!-- Location pin — Lyon area -->
-              <circle cx="64" cy="63" r="7" fill="#00B0F0" opacity="0.18"/>
-              <circle cx="64" cy="63" r="3.5" fill="#1B244B"/>
-              <circle cx="64" cy="63" r="1.6" fill="#fff"/>
+          <div class="france-map" data-region="auvergne-rhone-alpes">
+            <!--
+              Carte SVG des 13 régions métropolitaines.
+              Pour changer la région mise en évidence, modifier data-region sur le div parent.
+              IDs disponibles :
+                hauts-de-france | normandie | grand-est | ile-de-france | bretagne
+                pays-de-la-loire | centre-val-de-loire | bourgogne-franche-comte
+                nouvelle-aquitaine | auvergne-rhone-alpes | occitanie
+                provence-alpes-cote-dazur | corse
+            -->
+            <svg viewBox="0 0 540 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path class="region" id="hauts-de-france"           d="M120,5 L360,2 L388,52 L358,95 L292,110 L235,102 L172,85 L130,58 L112,20 Z"/>
+              <path class="region" id="normandie"                 d="M2,48 L75,45 L112,20 L130,58 L92,108 L32,130 L2,108 Z"/>
+              <path class="region" id="grand-est"                 d="M360,2 L540,2 L540,212 L495,225 L448,208 L420,152 L390,94 L388,52 Z"/>
+              <path class="region" id="ile-de-france"             d="M235,102 L292,110 L312,138 L292,178 L248,172 L222,148 L228,110 Z"/>
+              <path class="region" id="bretagne"                  d="M2,108 L32,130 L92,108 L130,58 L172,85 L162,160 L114,200 L50,228 L2,200 Z"/>
+              <path class="region" id="pays-de-la-loire"          d="M2,200 L50,228 L114,200 L162,160 L172,85 L228,110 L222,148 L194,252 L125,292 L46,296 L6,268 Z"/>
+              <path class="region" id="centre-val-de-loire"       d="M194,252 L222,148 L312,138 L388,158 L395,218 L336,280 L254,293 Z"/>
+              <path class="region" id="bourgogne-franche-comte"   d="M388,158 L495,225 L540,212 L540,362 L450,362 L378,340 L335,280 L395,218 Z"/>
+              <path class="region" id="nouvelle-aquitaine"        d="M6,268 L46,296 L125,292 L194,252 L254,293 L268,318 L288,398 L155,462 L70,445 L20,450 L2,410 L2,312 Z"/>
+              <path class="region" id="auvergne-rhone-alpes"      d="M254,293 L336,280 L378,340 L450,362 L540,362 L540,452 L480,470 L408,470 L358,428 L285,395 L268,318 Z"/>
+              <path class="region" id="occitanie"                 d="M155,462 L288,398 L358,428 L408,470 L378,530 L288,548 L185,538 L98,512 L58,502 L20,490 L20,450 L70,445 Z"/>
+              <path class="region" id="provence-alpes-cote-dazur" d="M408,470 L480,470 L540,452 L540,542 L492,548 L438,530 L378,530 Z"/>
+              <path class="region" id="corse"                     d="M492,508 L506,496 L520,510 L524,548 L510,562 L494,552 L488,535 Z"/>
             </svg>
-            <div class="location-name">Sud Est — Rhône-Alpes</div>
+            <div class="location-name">Auvergne-Rhône-Alpes</div>
           </div>
         </div>
 
@@ -636,6 +651,13 @@ function handleModalForm(e) {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') document.getElementById('interest-modal').classList.remove('open');
 });
+
+// France region map — highlight the region specified in data-region
+const mapEl = document.querySelector('.france-map[data-region]');
+if (mapEl) {
+  const path = mapEl.querySelector('#' + mapEl.dataset.region);
+  if (path) path.classList.add('active');
+}
 </script>
 </body>
 </html>
