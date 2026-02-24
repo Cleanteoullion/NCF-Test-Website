@@ -90,8 +90,8 @@
       display: flex; align-items: center;
     }
     .hero-inner {
-      max-width: 1200px; margin: 0 auto; padding: 5rem 2rem;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+      max-width: 1200px; margin: 0 auto; padding: 4rem 2rem;
+      display: grid; grid-template-columns: 1fr 1.1fr; gap: 3.5rem; align-items: center;
     }
     @media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; } .hero-photos { display: none; } }
     .hero-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px; }
@@ -116,22 +116,26 @@
     }
     .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
 
-    /* Hero — photo stack */
-    .hero-photos { position: relative; height: 420px; display: flex; align-items: center; justify-content: center; }
-    .photo-stack { position: relative; width: 340px; height: 380px; }
-    .photo-card {
-      position: absolute; width: 300px;
-      border-radius: 8px; overflow: hidden;
-      border: 4px solid #fff;
-      box-shadow: 0 8px 28px rgba(27,36,75,0.16);
-      transition: transform 0.3s, box-shadow 0.3s;
+    /* Hero — photo grid */
+    .hero-photos { display: flex; align-items: stretch; }
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      grid-template-rows: 58% 42%;
+      gap: 10px;
+      width: 100%;
+      height: 480px;
     }
-    .photo-card img { width: 100%; height: 175px; object-fit: cover; display: block; }
-    .pc1 { top: 0;   left: 38px; transform: rotate(-4deg);   z-index: 1; }
-    .pc2 { top: 68px;  left: 18px; transform: rotate(2deg);   z-index: 2; }
-    .pc3 { top: 136px; left: 32px; transform: rotate(-1.5deg); z-index: 3; }
-    .pc4 { top: 204px; left: 8px;  transform: rotate(3deg);   z-index: 4; }
-    .photo-card:hover { transform: translateY(-6px) rotate(0deg) !important; box-shadow: 0 14px 40px rgba(27,36,75,0.22); z-index: 10; }
+    .photo-tile {
+      border-radius: 6px; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(27,36,75,0.12);
+      transition: transform 0.35s, box-shadow 0.35s;
+    }
+    .photo-tile img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s; }
+    .photo-tile:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(27,36,75,0.2); }
+    .photo-tile:hover img { transform: scale(1.04); }
+    .pt-right { display: grid; grid-template-rows: 1fr 1fr; gap: 10px; }
+    @media (max-width: 900px) { .hero-photos { display: none; } }
 
     /* Team circles (équipe section) */
     .team-wrap { position: relative; width: 400px; height: 340px; }
@@ -144,21 +148,58 @@
       position: absolute; width: 10px; height: 10px; border-radius: 50%;
       background: var(--blue); top: 165px; left: 195px; z-index: 1;
     }
+    .tc-wrap { position: absolute; z-index: 2; width: 118px; height: 118px; }
+    .tc-wrap:hover { z-index: 20; }
+    .tw1 { top: 1px;   left: 141px; }
+    .tw2 { top: 77px;  left: 246px; }
+    .tw3 { top: 200px; left: 206px; }
+    .tw4 { top: 200px; left: 76px;  }
+    .tw5 { top: 77px;  left: 36px;  }
     .tc {
-      position: absolute; z-index: 2;
-      width: 118px; height: 118px; border-radius: 50%;
+      width: 100%; height: 100%; border-radius: 50%;
       overflow: hidden;
       border: 4px solid #fff;
       box-shadow: 0 6px 24px rgba(27,36,75,0.15);
       transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
     }
-    .tc:hover { transform: translateY(-4px) scale(1.04); box-shadow: 0 12px 32px rgba(0,176,240,0.28); }
+    .tw1 .tc { border-color: rgba(0,176,240,0.5); }
+    .tc-wrap:hover .tc { transform: translateY(-4px) scale(1.04); box-shadow: 0 12px 32px rgba(0,176,240,0.28); }
     .tc img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
-    .tc1 { top: 1px; left: 141px; border-color: rgba(0,176,240,0.5); }
-    .tc2 { top: 77px; left: 246px; }
-    .tc3 { top: 200px; left: 206px; }
-    .tc4 { top: 200px; left: 76px; }
-    .tc5 { top: 77px; left: 36px; }
+
+    /* Team tooltip */
+    .tc-tooltip {
+      position: absolute;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.875rem 1rem;
+      width: 215px;
+      box-shadow: 0 8px 28px rgba(27,36,75,0.14);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease, transform 0.22s ease;
+      z-index: 100;
+    }
+    .tc-wrap:hover .tc-tooltip { opacity: 1; }
+    .tc-tt-name { font-size: 0.82rem; font-weight: 700; color: var(--navy); }
+    .tc-tt-role { font-size: 0.68rem; color: var(--blue); font-weight: 700; margin: 3px 0 7px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .tc-tt-bio { font-size: 0.74rem; color: var(--gm); line-height: 1.58; border-top: 1px solid var(--border); padding-top: 7px; }
+    /* tw1 top-center → below */
+    .tw1 .tc-tooltip { top: calc(100% + 10px); left: 50%; transform: translateX(-50%) translateY(5px); }
+    .tw1:hover .tc-tooltip { transform: translateX(-50%) translateY(0); }
+    /* tw2 middle-right → above, right-aligned */
+    .tw2 .tc-tooltip { bottom: calc(100% + 10px); right: 0; transform: translateY(5px); }
+    .tw2:hover .tc-tooltip { transform: translateY(0); }
+    /* tw3 bottom-right → above, centered */
+    .tw3 .tc-tooltip { bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%) translateY(5px); }
+    .tw3:hover .tc-tooltip { transform: translateX(-50%) translateY(0); }
+    /* tw4 bottom-left → above, centered */
+    .tw4 .tc-tooltip { bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%) translateY(5px); }
+    .tw4:hover .tc-tooltip { transform: translateX(-50%) translateY(0); }
+    /* tw5 middle-left → above, left-aligned */
+    .tw5 .tc-tooltip { bottom: calc(100% + 10px); left: 0; transform: translateY(5px); }
+    .tw5:hover .tc-tooltip { transform: translateY(0); }
 
     /* SECTION SHARED */
     .section { padding: 5rem 0; }
@@ -365,7 +406,7 @@
       <a href="#offres" class="nav-link">Évaluation d'entreprises</a>
       <a href="#adn" class="nav-link">Nos opérations</a>
       <a href="#articles" class="nav-link">Actualités</a>
-      <a href="#temoignages" class="nav-link">Équipe</a>
+      <a href="#equipe" class="nav-link">Équipe</a>
     </div>
     <div class="nav-cta-wrap">
       <a href="#contact" class="nav-cta">
@@ -383,7 +424,7 @@
   <a href="#offres" onclick="closeNav()">Évaluation d'entreprises</a>
   <a href="#adn" onclick="closeNav()">Nos opérations</a>
   <a href="#articles" onclick="closeNav()">Actualités</a>
-  <a href="#contact" onclick="closeNav()">Équipe</a>
+  <a href="#equipe" onclick="closeNav()">Équipe</a>
   <a href="#contact" onclick="closeNav()" class="nav-cta" style="margin-top:0.5rem;">Nous contacter</a>
 </div>
 
@@ -402,13 +443,17 @@
         <a href="#contact" class="btn-outline">Nous contacter</a>
       </div>
     </div>
-    <!-- Company photo stack -->
+    <!-- Company photo grid -->
     <div class="hero-photos">
-      <div class="photo-stack">
-        <div class="photo-card pc1"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=350&fit=crop" alt="Entreprise" /></div>
-        <div class="photo-card pc2"><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&h=350&fit=crop" alt="Entreprise" /></div>
-        <div class="photo-card pc3"><img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600&h=350&fit=crop" alt="Entreprise" /></div>
-        <div class="photo-card pc4"><img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&h=350&fit=crop" alt="Entreprise" /></div>
+      <div class="photo-grid">
+        <!-- Left col: 1 large photo top + 1 photo bottom -->
+        <div class="photo-tile" style="grid-row:1;"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=540&fit=crop" alt="Bureaux NCF" /></div>
+        <div class="photo-tile" style="grid-row:2;"><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&h=380&fit=crop" alt="Équipe NCF" /></div>
+        <!-- Right col: 2 photos stacked -->
+        <div class="pt-right" style="grid-column:2; grid-row:1/3;">
+          <div class="photo-tile"><img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600&h=400&fit=crop" alt="Réunion NCF" /></div>
+          <div class="photo-tile"><img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&h=400&fit=crop" alt="Cabinet NCF" /></div>
+        </div>
       </div>
     </div>
   </div>
@@ -801,17 +846,52 @@
     </div>
 
     <!-- Équipe -->
-    <div class="rv" style="margin-top:3.5rem; text-align:center;">
+    <div id="equipe" class="rv" style="margin-top:3.5rem; text-align:center;">
       <div class="section-eyebrow" style="justify-content:center; margin-top:0;">Notre équipe</div>
       <div style="display:flex; justify-content:center; margin-top:1.5rem;">
         <div class="team-wrap">
           <div class="tc-ring"></div>
           <div class="tc-dot"></div>
-          <div class="tc tc1"><img src="brand_assets/image 7.png" alt="Membre équipe NCF" /></div>
-          <div class="tc tc2"><img src="brand_assets/image 8.png" alt="Membre équipe NCF" /></div>
-          <div class="tc tc3"><img src="brand_assets/image 9.png" alt="Membre équipe NCF" /></div>
-          <div class="tc tc4"><img src="brand_assets/image 10.png" alt="Membre équipe NCF" /></div>
-          <div class="tc tc5"><img src="brand_assets/image 11.png" alt="Membre équipe NCF" /></div>
+          <div class="tc-wrap tw1">
+            <div class="tc"><img src="brand_assets/Image_Equipe/Frederic_Lemonnier.png" alt="Frédéric Lemonnier" /></div>
+            <div class="tc-tooltip">
+              <div class="tc-tt-name">Frédéric Lemonnier</div>
+              <div class="tc-tt-role">Associé</div>
+              <div class="tc-tt-bio">Dirigeant de NCF, expert-comptable diplômé spécialisé en évaluation et transmission d'entreprise. Expériences chez Deloitte Finance et Mazars sur des opérations M&A à forte valeur ajoutée pour les PME-TPE.</div>
+            </div>
+          </div>
+          <div class="tc-wrap tw2">
+            <div class="tc"><img src="brand_assets/Image_Equipe/Florian_Lopez.png" alt="Florian Lopez" /></div>
+            <div class="tc-tooltip">
+              <div class="tc-tt-name">Florian Lopez</div>
+              <div class="tc-tt-role">Manager</div>
+              <div class="tc-tt-bio">Master 2 Ingénierie Financière et Transactions (IAE Lyon 3). Intervient sur des missions d'évaluation indépendante, de cession d'entreprise et de recherche de cibles.</div>
+            </div>
+          </div>
+          <div class="tc-wrap tw3">
+            <div class="tc"><img src="brand_assets/Image_Equipe/Malo_Duquenne.png" alt="Malo Duquenne" /></div>
+            <div class="tc-tooltip">
+              <div class="tc-tt-name">Malo Duquenne</div>
+              <div class="tc-tt-role">Analyste</div>
+              <div class="tc-tt-bio">Master 2 Finance et Contrôle de Gestion (Université Lyon 2), expérience en cabinet comptable et audit financier. Missions d'évaluation et de cession d'entreprise chez NCF.</div>
+            </div>
+          </div>
+          <div class="tc-wrap tw4">
+            <div class="tc"><img src="brand_assets/Image_Equipe/Cleante_Oullion.png" alt="Cléante Oullion" /></div>
+            <div class="tc-tooltip">
+              <div class="tc-tt-name">Cléante Oullion</div>
+              <div class="tc-tt-role">Analyste</div>
+              <div class="tc-tt-bio">Formation en finance d'entreprise, analyste M&A chez NCF. Intervient sur des missions d'évaluation, de valorisation et de cession d'entreprise en appui aux équipes transactionnelles.</div>
+            </div>
+          </div>
+          <div class="tc-wrap tw5">
+            <div class="tc"><img src="brand_assets/Image_Equipe/Paul_Michel.png" alt="Paul Michel" /></div>
+            <div class="tc-tooltip">
+              <div class="tc-tt-name">Paul Michel</div>
+              <div class="tc-tt-role">Analyste</div>
+              <div class="tc-tt-bio">Master Finance à l'EM Grenoble. Contribue aux opérations de cession et de croissance externe à travers des travaux d'évaluation et d'analyse financière.</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
