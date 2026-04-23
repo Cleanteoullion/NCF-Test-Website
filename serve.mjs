@@ -18,6 +18,8 @@ const MIME = {
   '.jpeg': 'image/jpeg',
   '.gif':  'image/gif',
   '.svg':  'image/svg+xml',
+  '.avif': 'image/avif',
+  '.webp': 'image/webp',
   '.ico':  'image/x-icon',
   '.woff': 'font/woff',
   '.woff2':'font/woff2',
@@ -25,8 +27,10 @@ const MIME = {
 };
 
 const server = createServer(async (req, res) => {
-  let url = req.url.split('?')[0];
+  let url = decodeURIComponent(req.url.split('?')[0]);
   if (url === '/') url = '/index.html';
+  // Clean URLs : /succession/  ->  /succession/index.html
+  if (url.endsWith('/')) url += 'index.html';
 
   const filePath = join(__dirname, url);
 

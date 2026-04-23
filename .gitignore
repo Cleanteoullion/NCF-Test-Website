@@ -5,3 +5,32 @@ CLAUDE*.md
 # OS
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# Node / build
+node_modules/
+dist/
+.cache/
+
+# Vercel
+.vercel/
+
+# Documents sensibles (cadrage stratégique, briefs internes)
+*.pdf
+*.docx
+*.doc
+
+# Screenshots de travail à la racine (les assets sont dans brand_assets/)
+/*.png
+/*.jpg
+/*.jpeg
+
+# Logs
+*.log
+npm-debug.log*
+
+# Éditeur
+.vscode/
+.idea/
+*.swp
+*~
