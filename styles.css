@@ -329,3 +329,26 @@ body > * { position: relative; z-index: 1; }
 .footer-legal { display: flex; gap: 1.25rem; }
 .footer-legal a { font-size: 0.78rem; color: rgba(255,255,255,0.5); text-decoration: none; }
 .footer-legal a:hover { color: var(--cyan-bright); }
+
+/* ─────────── LUEUR CYAN SOUS LE CURSEUR (site-wide) ─────────── */
+#cursor-glow {
+  position: fixed;
+  top: 0; left: 0;
+  width: 320px; height: 320px;
+  pointer-events: none;
+  z-index: 9999;
+  background: radial-gradient(circle at center,
+    rgba(0, 184, 255, 0.18) 0%,
+    rgba(0, 184, 255, 0.07) 35%,
+    transparent 65%);
+  filter: blur(18px);
+  opacity: 0;
+  transform: translate3d(-50%, -50%, 0);
+  transition: opacity 0.4s ease;
+  will-change: transform, opacity;
+}
+body.cursor-glow-active #cursor-glow { opacity: 1; }
+
+@media (max-width: 980px), (hover: none), (prefers-reduced-motion: reduce) {
+  #cursor-glow { display: none !important; }
+}
