@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Création de holding : l'évaluation qui sécurise votre apport-cession | NCF Advisory</title>
+  <meta name="description" content="Évaluation d'entreprise pour création de holding, apport-cession (150-0 B ter), pacte Dutreil et structuration patrimoniale. Rapport opposable et exploitable par vos conseils. Cabinet NCF, Lyon." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+
+  <style>
+    /* ═══════════════════ Spécifique page creation-holding ═══════════════════ */
+
+    /* Accent émeraude (var --c-holding) sur les eyebrows partagés */
+    body.holding-page .section-eyebrow { color: var(--c-holding); }
+    body.holding-page .section-eyebrow::before {
+      background: linear-gradient(90deg, var(--c-holding), transparent);
+    }
+    body.holding-page .nav-link.active { color: #fff; }
+    body.holding-page .nav-link.active::after {
+      background: var(--c-holding);
+      box-shadow: 0 0 8px var(--c-holding-soft);
+    }
+
+    /* Sections alternées */
+    .sec-dark   { background: var(--navy-deep); }
+    .sec-soft   { background: linear-gradient(180deg, var(--navy-deep), #08162d 50%, var(--navy-deep)); }
+    .sec-raised { background: radial-gradient(800px 500px at 50% 0%, rgba(16, 185, 129, 0.04), transparent 65%), var(--navy-deep); }
+
+    /* ═══════════════════ HERO ═══════════════════ */
+    #hero-holding {
+      padding: 138px 0 4.5rem;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      background: var(--navy-deep);
+    }
+    #hero-holding::before {
+      content: '';
+      position: absolute; inset: 0; z-index: -1;
+      background:
+        radial-gradient(900px 600px at 15% 20%, rgba(16, 185, 129, 0.10), transparent 60%),
+        radial-gradient(700px 500px at 85% 80%, rgba(0, 184, 255, 0.04), transparent 65%);
+    }
+    #hero-holding::after {
+      content: '';
+      position: absolute; inset: 0; z-index: -1;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(ellipse 70% 60% at 60% 40%, #000 10%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 60% 40%, #000 10%, transparent 75%);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    .hero-s-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 3rem 2rem 1rem;
+      position: relative;
+    }
+    .hero-s-breadcrumb {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      margin-bottom: 1.4rem;
+    }
+    .hero-s-breadcrumb a { color: var(--ink-dim); text-decoration: none; transition: color 0.2s; }
+    .hero-s-breadcrumb a:hover { color: var(--c-holding); }
+    .hero-s-breadcrumb .sep { margin: 0 0.5rem; color: var(--border-strong); }
+    .hero-s-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--c-holding);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-s-eyebrow::before {
+      content: '';
+      width: 32px; height: 2px;
+      background: linear-gradient(90deg, var(--c-holding), transparent);
+      display: inline-block;
+    }
+    .hero-s-h1 {
+      font-size: clamp(2rem, 4.6vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.028em;
+      color: #fff;
+      max-width: 960px;
+      margin-top: 1.1rem;
+    }
+    .hero-s-h1 .accent {
+      color: var(--c-holding);
+      position: relative;
+    }
+    .hero-s-h1 .accent::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 0.08em;
+      height: 0.32em;
+      background: rgba(16, 185, 129, 0.18);
+      z-index: -1;
+      border-radius: 2px;
+    }
+    .hero-s-sub {
+      font-size: 1.08rem;
+      color: var(--ink-dim);
+      line-height: 1.7;
+      max-width: 760px;
+      margin-top: 1.35rem;
+    }
+    .hero-s-ctas {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .hero-s-reassure {
+      margin-top: 1.4rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-s-reassure svg { stroke: var(--c-holding); flex-shrink: 0; }
+
+    /* ═══════════════════ VOTRE SITUATION — 3 tuiles ═══════════════════ */
+    .situation-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 2.75rem;
+    }
+    @media (max-width: 900px) { .situation-grid { grid-template-columns: 1fr; gap: 1rem; } }
+    .situation-card {
+      padding: 2rem 1.75rem;
+      background: linear-gradient(160deg, rgba(26,48,85,0.48), rgba(10,31,61,0.35));
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--c-holding);
+      border-radius: 14px;
+    }
+    .situation-title {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.7rem;
+    }
+    .situation-body {
+      font-size: 0.93rem;
+      color: var(--ink-dim);
+      line-height: 1.7;
+    }
+    .situation-body a {
+      color: var(--c-holding);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--c-holding-soft);
+    }
+    .situation-body a:hover { border-bottom-color: var(--c-holding); }
+
+    /* ═══════════════════ APPORTS — 3 piliers numérotés ═══════════════════ */
+    .diff-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 2.75rem;
+    }
+    @media (max-width: 900px) { .diff-pillars { grid-template-columns: 1fr; } }
+    .diff-pillar {
+      padding: 1.85rem;
+      background: rgba(10, 31, 61, 0.38);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      position: relative;
+    }
+    .diff-num {
+      display: inline-flex;
+      width: 38px; height: 38px;
+      background: var(--c-holding);
+      color: var(--navy-deep);
+      font-weight: 800;
+      font-size: 0.9rem;
+      align-items: center; justify-content: center;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      letter-spacing: 0.02em;
+    }
+    .diff-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.55rem;
+      letter-spacing: -0.01em;
+    }
+    .diff-body {
+      font-size: 0.93rem;
+      color: var(--ink-dim);
+      line-height: 1.7;
+    }
+
+    /* ═══════════════════ LIVRABLE — 4 cartes 2x2 ═══════════════════ */
+    .apports-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-top: 2.75rem;
+    }
+    @media (max-width: 820px) { .apports-grid { grid-template-columns: 1fr; } }
+    .apport-card {
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(26,48,85,0.5), rgba(5,13,29,0.55));
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .apport-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(16, 185, 129, 0.32);
+      box-shadow: 0 18px 40px -18px rgba(16, 185, 129, 0.25);
+    }
+    .apport-icon {
+      width: 48px; height: 48px;
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      border-radius: 12px;
+      background: var(--c-holding-soft);
+      color: var(--c-holding);
+      margin-bottom: 1.1rem;
+    }
+    .apport-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.55rem;
+      letter-spacing: -0.01em;
+    }
+    .apport-body {
+      font-size: 0.94rem;
+      color: var(--ink-dim);
+      line-height: 1.7;
+    }
+    .livrable-foot-link {
+      margin-top: 1.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      color: var(--c-holding);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--c-holding-soft);
+      padding-bottom: 1px;
+      transition: border-color 0.2s;
+    }
+    .livrable-foot-link:hover { border-bottom-color: var(--c-holding); }
+
+    /* ═══════════════════ PROCESS — timeline 5 étapes ═══════════════════ */
+    .process-timeline {
+      margin-top: 3rem;
+      position: relative;
+      max-width: 820px;
+      margin-left: auto; margin-right: auto;
+    }
+    .process-step {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 1.5rem;
+      padding: 1rem 0 1.5rem;
+      position: relative;
+    }
+    .process-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 35px; top: 76px; bottom: -6px;
+      width: 2px;
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.45), rgba(16, 185, 129, 0.12));
+      z-index: 0;
+    }
+    .process-num {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.08);
+      border: 2px solid var(--c-holding);
+      color: var(--c-holding);
+      font-size: 1.4rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      position: relative; z-index: 2;
+      letter-spacing: 0;
+    }
+    .process-content { padding-top: 14px; }
+    .process-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.01em;
+    }
+    .process-body {
+      font-size: 0.95rem;
+      color: var(--ink-dim);
+      line-height: 1.7;
+    }
+    .process-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 0.7rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--c-holding);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+    .process-badge svg { stroke: var(--c-holding); }
+
+    /* ═══════════════════ CAS D'ÉCOLE — narratif long ═══════════════════ */
+    .case-narrative {
+      max-width: 860px;
+      margin: 2.75rem auto 0;
+      padding: 2.75rem 2.5rem;
+      border: 1px solid var(--border-strong);
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(26,48,85,0.55), rgba(10,31,61,0.4));
+      position: relative;
+    }
+    @media (max-width: 760px) { .case-narrative { padding: 2rem 1.5rem; } }
+    .case-anon-badge {
+      position: absolute;
+      top: 20px; right: 20px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.45);
+      color: var(--ink-dim);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      z-index: 3;
+      backdrop-filter: blur(8px);
+    }
+    .case-heading {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.015em;
+      margin-bottom: 1.75rem;
+      line-height: 1.3;
+    }
+    .case-section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--c-holding);
+      font-style: italic;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .case-section-label:first-of-type { margin-top: 0; }
+    .case-section-body {
+      font-size: 0.95rem;
+      color: var(--ink-dim);
+      line-height: 1.75;
+    }
+    .case-section-body + .case-section-body { margin-top: 0.5rem; }
+    .case-internal-note {
+      max-width: 860px;
+      margin: 0.9rem auto 0;
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-style: italic;
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
+
+    /* ═══════════════════ TÉMOIGNAGES ═══════════════════ */
+    .testi-partner-wrap {
+      max-width: 720px;
+      margin: 2.75rem auto 0;
+    }
+    .testi-card {
+      background: linear-gradient(140deg, rgba(26, 48, 85, 0.4) 0%, rgba(10, 31, 61, 0.3) 100%);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem 1.5rem;
+      display: flex; flex-direction: column;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .testi-card:hover { border-color: var(--border-strong); transform: translateY(-3px); }
+    .testi-card--partner {
+      border-left: 3px solid var(--c-holding);
+      padding: 2rem 2rem;
+    }
+    .testi-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+    .testi-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; color: #fff; font-size: 0.85rem;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.08);
+    }
+    .testi-name { font-weight: 600; font-size: 0.95rem; color: #fff; }
+    .testi-role { font-size: 0.76rem; color: var(--ink-dim); margin-top: 1px; }
+    .testi-stars { display: flex; gap: 2px; margin-bottom: 0.75rem; }
+    .testi-stars svg { width: 14px; height: 14px; }
+    .testi-quote {
+      font-size: 0.92rem; color: var(--ink-dim); line-height: 1.65; flex-grow: 1;
+      font-style: italic;
+    }
+    .testi-source {
+      margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--border);
+      font-size: 0.72rem; color: var(--muted); display: flex; align-items: center; gap: 6px;
+    }
+    .testi-source--partner {
+      color: var(--c-holding);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .testi-source--partner svg { stroke: var(--c-holding); }
+
+    .testi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      max-width: 1180px;
+      margin: 1.5rem auto 0;
+    }
+    @media (max-width: 820px) { .testi-grid { grid-template-columns: 1fr; } }
+
+    /* ═══════════════════ PARTENAIRES (teaser simplifié) ═══════════════════ */
+    .partners-teaser-inner {
+      max-width: 980px; margin: 2.75rem auto 0;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.06) 0%, rgba(0, 184, 255, 0.05) 100%);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 2.75rem 3rem;
+      display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center;
+      box-shadow: 0 20px 40px -18px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    @media (max-width: 800px) { .partners-teaser-inner { grid-template-columns: 1fr; padding: 2rem 1.75rem; } }
+    .partners-teaser-inner h3 {
+      font-size: clamp(1.2rem, 2vw, 1.55rem);
+      font-weight: 700; color: #fff; letter-spacing: -0.02em;
+      margin-bottom: 0.875rem;
+    }
+    .partners-teaser-inner p { font-size: 0.95rem; color: var(--ink-dim); line-height: 1.7; }
+
+    /* ═══════════════════ FAQ ═══════════════════ */
+    .faq-list {
+      max-width: 820px;
+      margin: 2.75rem auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .faq-item {
+      background: rgba(10, 31, 61, 0.45);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .faq-item[open] {
+      border-color: rgba(16, 185, 129, 0.3);
+      background: rgba(10, 31, 61, 0.6);
+    }
+    .faq-item summary {
+      cursor: pointer;
+      padding: 1.15rem 3rem 1.15rem 1.35rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      list-style: none;
+      position: relative;
+      transition: color 0.2s;
+      line-height: 1.4;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: '';
+      position: absolute;
+      right: 1.3rem;
+      top: 50%;
+      width: 14px; height: 14px;
+      transform: translateY(-50%);
+      background-image:
+        linear-gradient(var(--c-holding), var(--c-holding)),
+        linear-gradient(var(--c-holding), var(--c-holding));
+      background-size: 14px 2px, 2px 14px;
+      background-position: center, center;
+      background-repeat: no-repeat;
+      transition: transform 0.3s ease;
+    }
+    .faq-item[open] summary::after {
+      background-size: 14px 2px, 0 0;
+      transform: translateY(-50%) rotate(90deg);
+    }
+    .faq-item summary:hover { color: var(--c-holding); }
+    .faq-body {
+      padding: 0 1.35rem 1.3rem;
+      font-size: 0.94rem;
+      color: var(--ink-dim);
+      line-height: 1.75;
+    }
+    .faq-body p + p { margin-top: 0.8rem; }
+
+    /* ═══════════════════ CTA FINAL ═══════════════════ */
+    .cta-final {
+      background:
+        radial-gradient(800px 500px at 30% 50%, rgba(16, 185, 129, 0.14), transparent 60%),
+        radial-gradient(600px 400px at 80% 40%, rgba(0,184,255,0.06), transparent 65%),
+        linear-gradient(135deg, var(--navy), var(--navy-deep));
+      border-top: 1px solid rgba(16, 185, 129, 0.2);
+      padding: 5rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-final::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, #000 20%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, #000 20%, transparent 80%);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .cta-inner {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      text-align: center;
+      position: relative;
+    }
+    .cta-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--c-holding);
+      margin-bottom: 1rem;
+    }
+    .cta-eyebrow::before {
+      content: ''; width: 24px; height: 2px;
+      background: linear-gradient(90deg, var(--c-holding), transparent);
+    }
+    .cta-title {
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+    }
+    .cta-title .accent { color: var(--c-holding); }
+    .cta-sub {
+      font-size: 1.02rem;
+      color: var(--ink-dim);
+      margin-top: 1.15rem;
+      line-height: 1.65;
+      max-width: 620px;
+      margin-left: auto; margin-right: auto;
+    }
+    .cta-btn-wrap {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cta-engagement {
+      margin-top: 1.25rem;
+      font-size: 0.84rem;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cta-engagement svg { stroke: var(--c-holding); flex-shrink: 0; }
+
+    /* ═══════════════════ RESPONSIVE FINETUNING ═══════════════════ */
+    @media (max-width: 760px) {
+      #hero-holding { padding: 128px 0 3rem; }
+      .hero-s-inner { padding: 2rem 1.25rem 0.5rem; }
+      .hero-s-ctas .btn-primary,
+      .hero-s-ctas .btn-outline { width: 100%; justify-content: center; }
+      .process-step { grid-template-columns: 56px 1fr; gap: 1rem; }
+      .process-num { width: 56px; height: 56px; font-size: 1.1rem; }
+      .process-step:not(:last-child)::after { left: 27px; top: 60px; }
+      .apport-card, .diff-pillar, .situation-card, .testi-card { padding: 1.5rem; }
+      .cta-btn-wrap .btn-primary, .cta-btn-wrap .btn-outline { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body class="holding-page">
+
+<!-- Lueur cyan qui suit le curseur (site-wide) -->
+<div id="cursor-glow" aria-hidden="true"></div>
+
+<!-- ═══════════════════ BANDEAU GROUPE NOVANCES ═══════════════════ -->
+<div id="novances-band">
+  <div class="nb-inner">
+    <span>Membre du <strong>Groupe Novances</strong></span>
+    <img src="/brand_assets/logo_novances.avif" alt="Groupe Novances" class="nb-logo" />
+    <span class="nb-sep nb-sep-md">·</span>
+    <span class="nb-tag">La force d'un groupe pluridisciplinaire derrière votre évaluation</span>
+  </div>
+</div>
+
+<!-- ═══════════════════ NAVBAR ═══════════════════ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo" aria-label="NCF — accueil">
+      <img src="/brand_assets/Logo NCF BL Marine.png" alt="NCF" />
+    </a>
+    <div class="nav-links">
+      <a href="/transmission/" class="nav-link">Transmission</a>
+      <a href="/valorisation-minoritaires/" class="nav-link">Valorisation de minoritaires</a>
+      <a href="/creation-holding/" class="nav-link active" aria-current="page">Création de holding</a>
+      <a href="/ressources/" class="nav-link">Ressources</a>
+      <a href="/a-propos/" class="nav-link">À propos</a>
+    </div>
+    <div class="nav-cta-wrap">
+      <a href="/#contact" class="nav-cta">
+        Parler à un expert
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <button id="hbg" aria-label="Menu" aria-expanded="false">
+      <span id="b1"></span><span id="b2"></span><span id="b3"></span>
+    </button>
+  </div>
+</nav>
+<div id="mob-menu">
+  <a href="/transmission/" onclick="closeNav()">Transmission</a>
+  <a href="/valorisation-minoritaires/" onclick="closeNav()">Valorisation de minoritaires</a>
+  <a href="/creation-holding/" onclick="closeNav()" aria-current="page">Création de holding</a>
+  <a href="/ressources/" onclick="closeNav()">Ressources</a>
+  <a href="/a-propos/" onclick="closeNav()">À propos</a>
+  <a href="/#contact" onclick="closeNav()" class="nav-cta">Parler à un expert</a>
+</div>
+
+<!-- ═══════════════════ BLOC 1 — HERO ═══════════════════ -->
+<section id="hero-holding">
+  <div class="hero-s-inner rv">
+    <nav class="hero-s-breadcrumb" aria-label="Fil d'Ariane">
+      <a href="/">Accueil</a><span class="sep">›</span><span>Cas d'usage</span><span class="sep">›</span><span style="color: var(--ink);">Création de holding</span>
+    </nav>
+    <div class="hero-s-eyebrow">Création de holding</div>
+    <h1 class="hero-s-h1">
+      Créer une holding : une évaluation qui <span class="accent">sécurise votre montage.</span>
+    </h1>
+    <p class="hero-s-sub">
+      Apport-cession, pacte Dutreil, structuration patrimoniale — l'évaluation de vos titres conditionne la solidité de votre projet face à l'administration et à vos conseils.
+    </p>
+    <div class="hero-s-ctas">
+      <a href="/#contact" class="btn-primary btn-magnetic">
+        <span class="btn-content">
+          Parler à un expert sur ce sujet
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </a>
+      <a href="#livrable" class="btn-outline">Voir ce que contient le rapport</a>
+    </div>
+    <div class="hero-s-reassure">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Rappel sous 24 h ouvrées · Premier échange confidentiel
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ BLOC 2 — VOTRE SITUATION ═══════════════════ -->
+<section class="section sec-dark" id="situation">
+  <div class="section-inner">
+    <div class="rv" style="max-width: 720px;">
+      <div class="section-eyebrow">Votre situation</div>
+      <h2 class="section-title">Vous êtes concerné si…</h2>
+      <p class="section-sub">
+        Trois situations reviennent régulièrement en RDV de cadrage, avec chaque fois la même question de départ : quelle valeur retenir pour les titres apportés — et comment la défendre.
+      </p>
+    </div>
+
+    <div class="situation-grid">
+      <div class="situation-card rv d1">
+        <div class="situation-title">Vous préparez un apport-cession.</div>
+        <p class="situation-body">
+          Vous envisagez de céder votre entreprise à horizon 2 à 5 ans et votre avocat fiscaliste vous recommande d'apporter vos titres à une holding pour bénéficier du report d'imposition prévu à l'article 150-0 B ter.
+        </p>
+      </div>
+
+      <div class="situation-card rv d2">
+        <div class="situation-title">Vous structurez une transmission familiale.</div>
+        <p class="situation-body">
+          Vous préparez une donation à vos enfants, avec ou sans <a href="/transmission/">pacte Dutreil</a>. Une holding familiale vous permet d'organiser la gouvernance, d'associer progressivement la génération suivante et d'optimiser la fiscalité de la transmission.
+        </p>
+      </div>
+
+      <div class="situation-card rv d3">
+        <div class="situation-title">Vous consolidez votre groupe.</div>
+        <p class="situation-body">
+          Vous logez plusieurs participations sous une même holding — opérationnelles, immobilières, financières — pour préparer un LBO familial, <a href="/valorisation-minoritaires/">accueillir un associé minoritaire</a>, ou qualifier votre holding d'animatrice.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ BLOC 3 — CE QUE VOUS EN RETIREZ (3 piliers) ═══════════════════ -->
+<section class="section sec-soft" id="apports">
+  <div class="section-inner">
+    <div class="rv" style="max-width: 720px;">
+      <div class="section-eyebrow">Nos apports</div>
+      <h2 class="section-title">Ce que vous en retirez.</h2>
+      <p class="section-sub">
+        Trois bénéfices concrets, pensés pour la réalité d'un projet de holding — là où la valeur des titres conditionne à la fois le report d'imposition, la donation et la crédibilité du montage en cas de contrôle.
+      </p>
+    </div>
+
+    <div class="diff-pillars">
+      <div class="diff-pillar rv d1">
+        <div class="diff-num">01</div>
+        <div class="diff-title">Une valeur d'apport qui tient face à un contrôle</div>
+        <p class="diff-body">
+          Méthodes reconnues, argumentation écrite, référentiels de place (BOFIP, jurisprudence) : votre rapport est conçu pour être opposable à l'administration fiscale en cas de discussion sur la valeur retenue.
+        </p>
+      </div>
+
+      <div class="diff-pillar rv d2">
+        <div class="diff-num">02</div>
+        <div class="diff-title">Un rapport exploitable par vos conseils</div>
+        <p class="diff-body">
+          Votre avocat fiscaliste, votre notaire et votre expert-comptable reprennent le rapport tel quel pour l'acte d'apport, la donation ou le montage Dutreil. Pas de retraitement, pas d'allers-retours.
+        </p>
+      </div>
+
+      <div class="diff-pillar rv d3">
+        <div class="diff-num">03</div>
+        <div class="diff-title">Une évaluation pensée pour votre schéma patrimonial</div>
+        <p class="diff-body">
+          Qualification holding animatrice, retraitement de la trésorerie excédentaire, traitement des actifs immobiliers, cohérence avec un éventuel pacte Dutreil : chaque spécificité de votre dossier est intégrée au travail d'évaluation.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ BLOC 4 — NOTRE LIVRABLE (4 cartes) ═══════════════════ -->
+<section class="section sec-raised" id="livrable">
+  <div class="section-inner">
+    <div class="rv" style="max-width: 720px;">
+      <div class="section-eyebrow">Notre livrable sur ce cas</div>
+      <h2 class="section-title">Un rapport conçu pour les spécificités d'un projet de holding.</h2>
+      <p class="section-sub">
+        Au-delà des méthodes d'évaluation classiques, le rapport intègre les paramètres qui font la différence sur un montage holding — et que vos conseils viennent chercher.
+      </p>
+    </div>
+
+    <div class="apports-grid">
+      <div class="apport-card rv d1">
+        <div class="apport-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="apport-title">Valeur des titres apportés par méthode</div>
+        <p class="apport-body">
+          Pondération DCF, multiples de transactions comparables et actif net réévalué, à la date d'apport que vous calez avec vos conseils.
+        </p>
+      </div>
+
+      <div class="apport-card rv d2">
+        <div class="apport-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3h18v4H3zM3 10h18v4H3zM3 17h18v4H3z"/><path d="M7 5h2M7 12h2M7 19h2"/></svg>
+        </div>
+        <div class="apport-title">Traitement des spécificités de votre dossier</div>
+        <p class="apport-body">
+          Retraitement de la trésorerie excédentaire, valorisation distincte des participations et des actifs immobiliers logés, cohérence avec le périmètre de consolidation visé.
+        </p>
+      </div>
+
+      <div class="apport-card rv d3">
+        <div class="apport-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20"/></svg>
+        </div>
+        <div class="apport-title">Qualification holding animatrice ou passive</div>
+        <p class="apport-body">
+          Si vous revendiquez le caractère animateur de votre future holding — déterminant pour le Dutreil et pour l'IFI — le rapport intègre une analyse factuelle des critères (animation réelle, conventions, services rendus), exploitable par votre avocat fiscaliste.
+        </p>
+      </div>
+
+      <div class="apport-card rv d4">
+        <div class="apport-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg>
+        </div>
+        <div class="apport-title">Cohérence avec votre pacte Dutreil</div>
+        <p class="apport-body">
+          Si l'opération s'accompagne d'un engagement Dutreil, le rapport est rédigé pour être exploitable à la fois pour l'apport et pour la donation des titres de holding, en coordination directe avec votre notaire.
+        </p>
+      </div>
+    </div>
+
+    <a href="/ressources/creation-holding-evaluation-structuration-patrimoniale/" class="livrable-foot-link rv">
+      Approfondir dans notre article pédagogique
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════════ BLOC 5 — PROCESS 5 ÉTAPES ═══════════════════ -->
+<section class="section sec-dark" id="process">
+  <div class="section-inner">
+    <div class="rv" style="max-width: 720px;">
+      <div class="section-eyebrow">Comment nous travaillons</div>
+      <h2 class="section-title">Notre process en 5 étapes.</h2>
+      <p class="section-sub">
+        Un parcours lisible, conçu pour s'insérer dans le calendrier de votre avocat fiscaliste ou de votre notaire — sans friction.
+      </p>
+    </div>
+
+    <div class="process-timeline">
+      <div class="process-step rv d1">
+        <div class="process-num">1</div>
+        <div class="process-content">
+          <div class="process-title">Cadrage de votre projet patrimonial</div>
+          <p class="process-body">
+            30 à 45 minutes en visio ou au cabinet. Vous exposez votre schéma cible (apport-cession, Dutreil, consolidation), vos interlocuteurs déjà en place, et la date d'évaluation pertinente. Proposition de mission chiffrée sous 48 heures.
+          </p>
+          <span class="process-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Devis sous 48 h
+          </span>
+        </div>
+      </div>
+
+      <div class="process-step rv d2">
+        <div class="process-num">2</div>
+        <div class="process-content">
+          <div class="process-title">Collecte documentaire</div>
+          <p class="process-body">
+            Pièces transmises via circuit confidentiel : 3 derniers exercices (liasses fiscales, grands livres si besoin), prévisionnel à 3–5 ans, statuts de la société à apporter, pacte d'associés, projets de statuts de la holding, documentation sur les actifs particuliers, projet de convention d'animation le cas échéant.
+          </p>
+        </div>
+      </div>
+
+      <div class="process-step rv d3">
+        <div class="process-num">3</div>
+        <div class="process-content">
+          <div class="process-title">Analyse et valorisation</div>
+          <p class="process-body">
+            Retraitements de la liasse, construction du DCF, sélection des comparables, valorisation séparée des éléments spécifiques, analyse des critères d'animation si pertinent. Délai typique : 2 à 3 semaines selon la complexité.
+          </p>
+        </div>
+      </div>
+
+      <div class="process-step rv d4">
+        <div class="process-num">4</div>
+        <div class="process-content">
+          <div class="process-title">Restitution et échange</div>
+          <p class="process-body">
+            Réunion de restitution avec vous et, si vous le souhaitez, votre avocat fiscaliste ou votre notaire. Présentation de la valorisation retenue, justification des choix, réponse aux questions. Ajustements si éléments nouveaux.
+          </p>
+        </div>
+      </div>
+
+      <div class="process-step rv d4">
+        <div class="process-num">5</div>
+        <div class="process-content">
+          <div class="process-title">Remise du rapport final</div>
+          <p class="process-body">
+            Rapport daté et signé, opposable à l'administration, transmissible tel quel à vos conseils. Disponibilité de l'équipe pendant et après l'opération si questions complémentaires ou contrôle ultérieur.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ BLOC 6 — CAS D'ÉCOLE ═══════════════════ -->
+<section class="section sec-soft" id="cas-ecole">
+  <div class="section-inner">
+    <div class="rv" style="max-width: 780px;">
+      <div class="section-eyebrow">Cas d'école</div>
+      <h2 class="section-title">Un exemple de mission.</h2>
+      <p class="section-sub">
+        Cas réel, anonymisé — représentatif des dossiers de holding familiale avec apport-cession et transmission progressive traités chez NCF.
+      </p>
+    </div>
+
+    <div class="case-narrative rv">
+      <span class="case-anon-badge">Cas anonymisé</span>
+      <div class="case-heading">Groupe familial du second œuvre — Apport-cession et transmission progressive</div>
+
+      <div class="case-section-label">Profil sectoriel</div>
+      <p class="case-section-body">
+        Groupe familial spécialisé en menuiserie aluminium et métallerie, basé dans l'Ouest lyonnais. 27 ans d'activité, 34 collaborateurs, deux associés fondateurs — deux frères, 58 et 54 ans. Activité profitable et récurrente sur le marché du second œuvre tertiaire et résidentiel haut de gamme. Immobilier d'exploitation détenu dans une SCI familiale distincte.
+      </p>
+
+      <div class="case-section-label">Problématique</div>
+      <p class="case-section-body">
+        Le frère aîné prépare son retrait opérationnel à horizon 3 ans et souhaite sécuriser et diversifier son patrimoine, aujourd'hui concentré à 85 % sur l'entreprise. Le frère cadet entend poursuivre l'activité et associer progressivement son fils, déjà en poste depuis 4 ans comme directeur technique. L'avocat fiscaliste recommande un double mouvement : création d'une holding familiale commune, apport-cession des titres de la société opérationnelle sous bénéfice du report d'imposition de l'article 150-0 B ter, puis donation-partage d'une partie des titres de la holding au fils, sécurisée par un pacte Dutreil.
+      </p>
+
+      <div class="case-section-label">Intervention NCF</div>
+      <p class="case-section-body">
+        Évaluation des titres de la société opérationnelle à la date d'apport retenue, par pondération DCF, multiples de transactions comparables et actif net réévalué. Retraitement de la trésorerie excédentaire sur les trois derniers exercices, traitement distinct des flux de loyers avec la SCI, analyse qualitative des critères d'animation de la future holding pour sécuriser la qualification animatrice. Coordination avec l'avocat fiscaliste pour l'apport, le notaire pour la donation-partage et le pacte Dutreil, et l'expert-comptable pour les retraitements de liasse.
+      </p>
+
+      <div class="case-section-label">Résultat qualitatif</div>
+      <p class="case-section-body">
+        Rapport remis en 4 semaines, repris sans retraitement par l'avocat fiscaliste pour l'acte d'apport et par le notaire pour la donation. Opération bouclée dans le calendrier fiscal visé. La qualification holding animatrice a tenu lors d'un échange ultérieur avec l'administration, le rapport servant de pièce justificative. Le cabinet a été de nouveau sollicité 20 mois plus tard pour accompagner la cession d'une participation complémentaire du frère aîné à un fonds régional.
+      </p>
+    </div>
+    <p class="case-internal-note">Cas anonymisé. Les détails sectoriels et géographiques ont été maintenus pour illustrer le type de mission traité.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════ BLOC 7 — TÉMOIGNAGES ═══════════════════ -->
+<section class="section sec-raised" id="temoignages">
+  <div class="section-inner">
+    <div class="rv" style="max-width: 720px;">
+      <div class="section-eyebrow">Témoignages</div>
+      <h2 class="section-title">Ce qu'en disent nos partenaires.</h2>
+      <p class="section-sub">
+        Sur ce type de mission, les premiers lecteurs du rapport sont vos conseils — notaires, avocats fiscalistes — qui le reprennent pour leurs actes. Leur retour est un indicateur direct de la qualité du livrable.
+      </p>
+    </div>
+
+    <!-- TEMP : remplacer par témoignage nominatif réel avant mise en ligne publique -->
+    <div class="testi-partner-wrap rv">
+      <div class="testi-card testi-card--partner">
+        <div class="testi-header">
+          <div class="testi-avatar" style="background:#047857;">NA</div>
+          <div>
+            <div class="testi-name">Notaire associée</div>
+            <div class="testi-role">Étude notariale à Lyon · Mars 2026</div>
+          </div>
+        </div>
+        <p class="testi-quote">
+          « Lorsque nos clients dirigeants préparent une création de holding avec apport-cession ou un pacte Dutreil, nous les orientons systématiquement vers NCF. Le rapport d'évaluation nous parvient structuré, argumenté et exploitable tel quel pour l'acte de donation ou d'apport — sans retraitement de notre côté. Nos clients apprécient la clarté des échanges et la coordination directe entre le cabinet et l'étude. »
+        </p>
+        <div class="testi-source testi-source--partner">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Témoignage partenaire
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-grid">
+      <div class="testi-card rv d1">
+        <div class="testi-header">
+          <div class="testi-avatar" style="background:#BE185D;">HC</div>
+          <div>
+            <div class="testi-name">Hervé Clarin</div>
+            <div class="testi-role">Client · Décembre 2025</div>
+          </div>
+        </div>
+        <div class="testi-stars" aria-label="4 étoiles sur 5">
+          <svg viewBox="0 0 24 24" fill="#FBBF24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24" fill="#FBBF24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24" fill="#FBBF24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24" fill="#FBBF24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24" fill="#E5E7EB"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="testi-quote">« Merci à l'équipe NCF pour la qualité de leur travail, un rapport juste complété d'un argumentaire factuel. »</p>
+        <div class="testi-source">
+          <svg width="14" height="14" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          Avis Google
+        </div>
+      </div>
+
+      <div class="testi-card rv d2">
+        <div class="testi-header">
+          <div class="testi-avatar" style="background:#B45309;">LP</div>
+          <div>
+            <div class="testi-name">Laurence Putoud</div>
+            <div class="testi-role">Cliente fidèle · Juillet 2025</div>
+          </div>
+        </div>
+        <div class="testi-stars" aria-label="5 étoiles sur 5">
+          <svg viewBox="0 0 24 24" fill="#FBBF24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24" fill="#FBBF24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24" fill="#FBBF24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24" fill="#FBBF24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24" fill="#FBBF24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="testi-quote">« Nous avons fait appel à plusieurs reprises à Novances et leurs services ont toujours été à la hauteur de nos attentes : réactivité, conseil, professionnalisme. Je recommande sans hésitation. »</p>
+        <div class="testi-source">
+          <svg width="14" height="14" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          Avis Google
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ BLOC 8 — PARTENAIRES (teaser simplifié) ═══════════════════ -->
+<section class="section sec-dark" id="partenaires">
+  <div class="section-inner">
+    <div class="rv" style="max-width: 720px;">
+      <div class="section-eyebrow">Partenaires sur ce sujet</div>
+      <h2 class="section-title">Avec qui nous travaillons sur ce type de mission.</h2>
+    </div>
+
+    <div class="partners-teaser-inner rv">
+      <div>
+        <h3>Vos conseils habituels reprennent le rapport tel quel.</h3>
+        <p>
+          Sur un projet de holding, votre évaluation s'articule avec le travail de votre avocat fiscaliste, de votre notaire et de votre expert-comptable. NCF intervient en coordination directe avec ces conseils — souvent à leur demande — pour produire un rapport qu'ils peuvent reprendre tel quel pour l'acte d'apport, la donation ou la structuration fiscale.
+        </p>
+      </div>
+      <div>
+        <a href="/partenaires/" class="btn-primary">
+          Découvrir nos partenaires
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ BLOC 9 — FAQ ═══════════════════ -->
+<section class="section sec-soft" id="faq">
+  <div class="section-inner">
+    <div class="rv" style="max-width: 720px;">
+      <div class="section-eyebrow">Questions fréquentes</div>
+      <h2 class="section-title">Les questions que vos pairs posent en RDV de cadrage.</h2>
+    </div>
+
+    <div class="faq-list">
+      <details class="faq-item rv">
+        <summary>À quel moment dois-je faire évaluer mon entreprise dans un projet de holding ?</summary>
+        <div class="faq-body">
+          <p>L'évaluation doit intervenir en amont de l'apport, à une date cohérente avec votre calendrier juridique et fiscal. Trop tôt, la valeur sera contestée comme obsolète ; trop tard, elle retarde l'opération. En pratique, le rapport se cale sur la date d'apport projetée par votre avocat fiscaliste ou votre notaire.</p>
+          <p>Nous coordonnons cette date avec vos conseils dès le cadrage.</p>
+        </div>
+      </details>
+
+      <details class="faq-item rv">
+        <summary>Ma holding doit-elle être animatrice ou passive, et est-ce que ça change votre travail ?</summary>
+        <div class="faq-body">
+          <p>La qualification holding animatrice n'est pas un choix marketing : elle dépend de critères factuels (animation réelle des filiales, conventions, services rendus). Son enjeu est majeur pour le Dutreil et pour l'IFI.</p>
+          <p>Notre rapport intègre, si c'est pertinent pour votre dossier, une analyse spécifique des critères d'animation, exploitable par votre avocat fiscaliste pour sécuriser la qualification.</p>
+        </div>
+      </details>
+
+      <details class="faq-item rv">
+        <summary>Votre évaluation est-elle opposable à l'administration fiscale en cas de contrôle ?</summary>
+        <div class="faq-body">
+          <p>Oui. Le rapport s'appuie sur les méthodes reconnues — actualisation des flux, multiples, actif net réévalué — sur les référentiels de place (BOFIP, jurisprudence) et propose une argumentation écrite.</p>
+          <p>Il est conçu pour tenir face à un contrôle et être repris par votre avocat en cas de discussion avec l'administration.</p>
+        </div>
+      </details>
+
+      <details class="faq-item rv">
+        <summary>Je fais un apport-cession (150-0 B ter). Quelles sont les spécificités de votre évaluation ?</summary>
+        <div class="faq-body">
+          <p>L'apport-cession repose sur une valeur d'apport qui doit être fiable et argumentée, parce qu'elle détermine à la fois le report d'imposition et la crédibilité du montage en cas de contrôle.</p>
+          <p>Nous évaluons les titres à la date d'apport, en intégrant les retraitements propres à votre société (trésorerie excédentaire, immobilier, participations), et nous remettons un rapport que votre avocat fiscaliste peut reprendre tel quel.</p>
+        </div>
+      </details>
+
+      <details class="faq-item rv">
+        <summary>Faut-il une évaluation différente si je fais un Dutreil en même temps ?</summary>
+        <div class="faq-body">
+          <p>Non, le même rapport sert les deux objectifs à condition d'être construit en coordination avec votre notaire. Nous calons la date de valeur sur votre engagement collectif, et le rapport est rédigé pour être exploitable à la fois pour l'apport et pour la donation des titres de holding aux enfants.</p>
+        </div>
+      </details>
+
+      <details class="faq-item rv">
+        <summary>Combien coûte une évaluation pour une création de holding ?</summary>
+        <div class="faq-body">
+          <p>Le coût dépend de la taille de l'entreprise, de la complexité du dossier (nombre d'entités à évaluer, présence d'actifs particuliers, typologie de holding envisagée) et des méthodes mobilisées. Le devis est établi à l'issue du rendez-vous de cadrage, sans engagement.</p>
+          <p>Les missions d'évaluation standard démarrent à partir de quelques milliers d'euros.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ BLOC 10 — CTA FINAL ═══════════════════ -->
+<section class="cta-final" id="cta-final">
+  <div class="cta-inner rv">
+    <div class="cta-eyebrow">Prochaine étape</div>
+    <h2 class="cta-title">
+      Parlons de votre <span class="accent">projet de holding.</span>
+    </h2>
+    <p class="cta-sub">
+      Un premier échange confidentiel, sans engagement. Précisez votre situation et un membre de l'équipe NCF vous répond sous 24 h ouvrées.
+    </p>
+    <div class="cta-btn-wrap">
+      <a href="/#contact" class="btn-primary btn-magnetic">
+        <span class="btn-content">
+          Parler à un expert sur ce sujet
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </a>
+      <a href="mailto:contact@ncf-conseil.fr" class="btn-outline">Écrire directement</a>
+    </div>
+    <div class="cta-engagement">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Rappel sous 24 h ouvrées · Échange confidentiel · Sans engagement
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="/brand_assets/Logo NCF BL Marine.png" alt="NCF" />
+        <p class="footer-brand-tag">Cabinet d'évaluation d'entreprise pour les dirigeants de PME en préparation de transmission.</p>
+        <div class="footer-novances">
+          <img src="/brand_assets/logo_novances.avif" alt="Groupe Novances" />
+          <span>Membre du <strong>Groupe Novances</strong></span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Cas d'usage</div>
+        <div class="footer-links">
+          <a href="/transmission/" class="footer-link">Préparation de transmission</a>
+          <a href="/valorisation-minoritaires/" class="footer-link">Valorisation de minoritaires</a>
+          <a href="/creation-holding/" class="footer-link">Création de holding</a>
+          <a href="/cession/" class="footer-link">Cession d'entreprise</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Cabinet</div>
+        <div class="footer-links">
+          <a href="/a-propos/" class="footer-link">À propos</a>
+          <a href="/a-propos/equipe/" class="footer-link">L'équipe</a>
+          <a href="/a-propos/groupe-novances/" class="footer-link">Groupe Novances</a>
+          <a href="/partenaires/" class="footer-link">Partenaires</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Ressources</div>
+        <div class="footer-links">
+          <a href="/ressources/" class="footer-link">Articles</a>
+          <a href="#cta-final" class="footer-link">Contact</a>
+          <a href="mailto:contact@ncf-conseil.fr" class="footer-link">contact@ncf-conseil.fr</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 NCF Advisory — Tous droits réservés.</div>
+      <div class="footer-legal">
+        <a href="#">Mentions légales</a>
+        <a href="#">Confidentialité</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Navbar shadow on scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', scrollY > 40), { passive: true });
+
+  // Mobile menu
+  let navOpen = false;
+  const hbg = document.getElementById('hbg');
+  const mob = document.getElementById('mob-menu');
+  hbg.addEventListener('click', () => {
+    navOpen = !navOpen;
+    mob.classList.toggle('open', navOpen);
+    hbg.setAttribute('aria-expanded', String(navOpen));
+    const [b1, b2, b3] = ['b1','b2','b3'].map(id => document.getElementById(id));
+    b1.style.transform = navOpen ? 'translateY(6.5px) rotate(45deg)' : '';
+    b2.style.opacity   = navOpen ? '0' : '';
+    b3.style.transform = navOpen ? 'translateY(-6.5px) rotate(-45deg)' : '';
+  });
+  function closeNav() {
+    navOpen = false; mob.classList.remove('open');
+    hbg.setAttribute('aria-expanded', 'false');
+    ['b1','b2','b3'].forEach(id => document.getElementById(id).style.cssText = '');
+  }
+
+  // Reveal on scroll
+  const ro = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+  }), { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.rv').forEach(el => ro.observe(el));
+
+  // Smooth scroll pour ancres internes
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (href === '#') return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 118, behavior: 'smooth' });
+      }
+    });
+  });
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ───── Lueur cyan qui suit le curseur (site-wide) ─────
+  const cursorGlow = document.getElementById('cursor-glow');
+  if (cursorGlow && !reducedMotion
+      && window.matchMedia('(hover: hover) and (min-width: 981px)').matches) {
+    let mx = innerWidth / 2, my = innerHeight / 2;
+    let gx = mx, gy = my;
+    let rafId = null;
+    const loop = () => {
+      gx += (mx - gx) * 0.14;
+      gy += (my - gy) * 0.14;
+      cursorGlow.style.transform =
+        `translate3d(${gx.toFixed(1)}px, ${gy.toFixed(1)}px, 0) translate(-50%, -50%)`;
+      if (Math.abs(mx - gx) > 0.3 || Math.abs(my - gy) > 0.3) {
+        rafId = requestAnimationFrame(loop);
+      } else { rafId = null; }
+    };
+    document.addEventListener('pointermove', e => {
+      mx = e.clientX; my = e.clientY;
+      document.body.classList.add('cursor-glow-active');
+      if (rafId === null) rafId = requestAnimationFrame(loop);
+    }, { passive: true });
+  }
+
+  // ───── CTAs magnétiques ─────
+  if (!reducedMotion && window.matchMedia('(hover: hover) and (min-width: 981px)').matches) {
+    document.querySelectorAll('.btn-magnetic').forEach(btn => {
+      const content = btn.querySelector('.btn-content') || btn;
+      btn.addEventListener('pointermove', e => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${(x * 0.25).toFixed(1)}px, ${(y * 0.4).toFixed(1)}px)`;
+        if (content !== btn) content.style.transform = `translate(${(x * 0.12).toFixed(1)}px, ${(y * 0.18).toFixed(1)}px)`;
+      });
+      btn.addEventListener('pointerleave', () => {
+        btn.style.transform = '';
+        if (content !== btn) content.style.transform = '';
+      });
+    });
+  }
+</script>
+
+</body>
+</html>
