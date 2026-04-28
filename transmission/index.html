@@ -24,6 +24,14 @@
       box-shadow: 0 0 8px var(--c-succession-soft);
     }
 
+    /* Lueur curseur teintée or patiné (mêmes paramètres que styles.css, seule la couleur change) */
+    body.transmission-page #cursor-glow {
+      background: radial-gradient(circle at center,
+        rgba(245, 158, 11, 0.18) 0%,
+        rgba(245, 158, 11, 0.07) 35%,
+        transparent 65%);
+    }
+
     /* Sections alternées : fonds très légèrement contrastés pour donner du rythme */
     .sec-dark   { background: var(--navy-deep); }
     .sec-soft   { background: linear-gradient(180deg, var(--navy-deep), #08162d 50%, var(--navy-deep)); }
@@ -745,7 +753,7 @@
       <a href="/valorisation-minoritaires/" class="nav-link">Valorisation de minoritaires</a>
       <a href="/creation-holding/" class="nav-link">Création de holding</a>
       <a href="/ressources/" class="nav-link">Ressources</a>
-      <a href="/a-propos/" class="nav-link">À propos</a>
+      <a href="/equipe/" class="nav-link">L'équipe</a>
     </div>
     <div class="nav-cta-wrap">
       <a href="/#contact" class="nav-cta">
@@ -763,7 +771,7 @@
   <a href="/valorisation-minoritaires/" onclick="closeNav()">Valorisation de minoritaires</a>
   <a href="/creation-holding/" onclick="closeNav()">Création de holding</a>
   <a href="/ressources/" onclick="closeNav()">Ressources</a>
-  <a href="/a-propos/" onclick="closeNav()">À propos</a>
+  <a href="/equipe/" onclick="closeNav()">L'équipe</a>
   <a href="/#contact" onclick="closeNav()" class="nav-cta">Parler à un expert</a>
 </div>
 
@@ -1008,12 +1016,12 @@
 
       <div class="case-left">
         <div class="case-kicker">Le dossier</div>
-        <div class="case-title">Menuiserie industrielle familiale, Rhône-Alpes</div>
+        <div class="case-title">Mécanique de précision familiale, Rhône-Alpes</div>
 
         <div class="case-profile">
           <div class="case-row">
             <span class="case-row-label">Secteur</span>
-            <span class="case-row-value">Menuiserie industrielle</span>
+            <span class="case-row-value">Mécanique de précision (sous-traitance)</span>
           </div>
           <div class="case-row">
             <span class="case-row-label">Localisation</span>
@@ -1238,9 +1246,8 @@
       <div>
         <div class="footer-col-title">Cabinet</div>
         <div class="footer-links">
-          <a href="/a-propos/" class="footer-link">À propos</a>
-          <a href="/a-propos/equipe/" class="footer-link">L'équipe</a>
-          <a href="/a-propos/groupe-novances/" class="footer-link">Groupe Novances</a>
+          <a href="/equipe/" class="footer-link">L'équipe</a>
+          <a href="/equipe/#novances" class="footer-link">Groupe Novances</a>
           <a href="/partenaires/" class="footer-link">Partenaires</a>
         </div>
       </div>

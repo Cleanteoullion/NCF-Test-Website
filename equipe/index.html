@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>L'équipe — NCF Cabinet d'évaluation Lyon</title>
+  <meta name="description" content="Les analystes et associés du cabinet NCF qui réalisent vos évaluations d'entreprise. Cabinet basé à Lyon, membre du Groupe Novances." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+
+  <style>
+    /* ═══════════════════ Spécifique page équipe ═══════════════════ */
+
+    /* Lien actif dans la nav */
+    body.equipe-page .nav-link.active { color: #fff; }
+    body.equipe-page .nav-link.active::after {
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan-soft);
+    }
+
+    /* ═══════════════════ HERO ═══════════════════ */
+    #hero-equipe {
+      padding: 138px 0 4rem;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      background: var(--navy-deep);
+    }
+    #hero-equipe::before {
+      content: '';
+      position: absolute; inset: 0; z-index: -1;
+      background:
+        radial-gradient(900px 600px at 15% 20%, rgba(0, 184, 255, 0.08), transparent 60%),
+        radial-gradient(700px 500px at 85% 80%, rgba(0, 184, 255, 0.04), transparent 65%);
+    }
+    #hero-equipe .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      text-align: center;
+    }
+    #hero-equipe .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+    }
+    #hero-equipe h1 {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      line-height: 1.05;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+    #hero-equipe h1 .accent { color: var(--cyan); }
+    #hero-equipe .hero-sub {
+      max-width: 720px;
+      margin: 1.6rem auto 0;
+      color: var(--ink-dim);
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+
+    /* ═══════════════════ PROFILS ═══════════════════ */
+    .equipe-list {
+      background: var(--navy-deep);
+      padding: 4rem 0 6rem;
+    }
+    .profile {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: 4rem;
+      align-items: center;
+    }
+    .profile + .profile { border-top: 1px solid rgba(255,255,255,0.05); }
+
+    /* Alternance gauche/droite */
+    .profile.flip { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+    .profile.flip .profile-photo { order: 2; }
+    .profile.flip .profile-text  { order: 1; }
+
+    .profile-photo {
+      position: relative;
+      display: block;
+      aspect-ratio: 4 / 5;
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--navy);
+      box-shadow: 0 30px 80px -30px rgba(0, 184, 255, 0.18), 0 1px 0 rgba(255,255,255,0.04) inset;
+      text-decoration: none;
+      color: inherit;
+    }
+    .profile-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: saturate(1.05) contrast(1.02);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .profile-photo:hover img,
+    .profile-photo:focus-visible img { transform: scale(1.03); }
+    .profile-photo::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 55%, rgba(5, 13, 29, 0.45) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .profile-photo-linkedin {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      padding: 0.95rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: linear-gradient(180deg, rgba(10,102,194,0.78) 0%, rgba(10,102,194,0.96) 100%);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.92rem;
+      letter-spacing: 0.01em;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 2;
+      pointer-events: none;
+    }
+    .profile-photo:hover .profile-photo-linkedin,
+    .profile-photo:focus-visible .profile-photo-linkedin {
+      transform: translateY(0);
+    }
+    .profile-photo-linkedin svg {
+      width: 22px; height: 22px;
+      fill: #fff;
+      flex-shrink: 0;
+    }
+    @media (hover: none) {
+      .profile-photo-linkedin { transform: translateY(0); }
+    }
+
+    .profile-text { display: flex; flex-direction: column; }
+    .profile-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .profile-name {
+      font-size: clamp(2.4rem, 5.4vw, 4.6rem);
+      line-height: 1;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0;
+      letter-spacing: -0.025em;
+    }
+    .profile-role {
+      font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+      font-weight: 500;
+      color: var(--cyan-soft);
+      margin: 1rem 0 1.75rem;
+    }
+    .profile-expertise {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--ink-dim);
+      max-width: 540px;
+    }
+    .profile-expertise .todo {
+      display: inline-block;
+      padding: 0.15rem 0.55rem;
+      border-radius: 4px;
+      background: rgba(245, 158, 11, 0.15);
+      color: #F59E0B;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+    }
+
+    /* Animation de reveal — surcharge plus marquée que .rv standard */
+    .profile.rv { opacity: 0; transform: translateY(80px); transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+    .profile.rv.in { opacity: 1; transform: none; }
+    .profile.rv .profile-photo { transform: scale(0.96); transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
+    .profile.rv.in .profile-photo { transform: scale(1); }
+
+    /* ═══════════════════ NOVANCES ═══════════════════ */
+    #novances {
+      background: linear-gradient(180deg, var(--navy-deep), #07142A);
+      padding: 6rem 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .novances-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+      gap: 4rem;
+      align-items: center;
+    }
+    .novances-logo-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      box-shadow: 0 30px 80px -30px rgba(0, 184, 255, 0.18);
+      text-decoration: none;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    }
+    .novances-logo-wrap:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 40px 100px -30px rgba(0, 184, 255, 0.32);
+    }
+    .novances-logo-wrap img { max-width: 100%; height: auto; }
+    .novances-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .novances-title {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+      margin: 0 0 1.4rem;
+      letter-spacing: -0.02em;
+    }
+    .novances-body {
+      color: var(--ink-dim);
+      font-size: 1.02rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+    .novances-body + .novances-body { margin-top: 1rem; }
+
+    /* ═══════════════════ CTA FINAL ═══════════════════ */
+    .equipe-cta {
+      background: var(--navy-deep);
+      padding: 5rem 1.5rem 6rem;
+      text-align: center;
+    }
+    .equipe-cta-inner { max-width: 720px; margin: 0 auto; }
+    .equipe-cta h2 {
+      font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0 0 1rem;
+      letter-spacing: -0.02em;
+    }
+    .equipe-cta p {
+      color: var(--ink-dim);
+      font-size: 1.02rem;
+      line-height: 1.65;
+      margin: 0 0 2rem;
+    }
+    .equipe-cta .cta-row { display: flex; gap: 0.85rem; justify-content: center; flex-wrap: wrap; }
+
+    /* ═══════════════════ Responsive ═══════════════════ */
+    @media (max-width: 900px) {
+      .profile, .profile.flip {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 4rem 1.25rem;
+      }
+      .profile.flip .profile-photo { order: 0; }
+      .profile.flip .profile-text  { order: 0; }
+      .profile-photo { aspect-ratio: 4 / 5; max-width: 420px; margin: 0 auto; }
+      .novances-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .novances-logo-wrap { padding: 2rem 1.5rem; max-width: 280px; margin: 0 auto; }
+    }
+
+    @media (max-width: 640px) {
+      #hero-equipe { padding: 110px 0 3rem; }
+      .equipe-list { padding: 2rem 0 4rem; }
+      .profile, .profile.flip { padding: 3rem 1rem; }
+      .profile + .profile { padding-top: 4rem; }
+    }
+  </style>
+</head>
+
+<body class="equipe-page">
+
+<!-- Lueur cyan qui suit le curseur (site-wide) -->
+<div id="cursor-glow" aria-hidden="true"></div>
+
+<!-- ═══════════════════ BANDEAU GROUPE NOVANCES ═══════════════════ -->
+<div id="novances-band">
+  <div class="nb-inner">
+    <span>Membre du <strong>Groupe Novances</strong></span>
+    <img src="/brand_assets/logo_novances.avif" alt="Groupe Novances" class="nb-logo" />
+    <span class="nb-sep nb-sep-md">·</span>
+    <span class="nb-tag">La force d'un groupe pluridisciplinaire derrière votre évaluation</span>
+  </div>
+</div>
+
+<!-- ═══════════════════ NAVBAR ═══════════════════ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo" aria-label="NCF — accueil">
+      <img src="/brand_assets/Logo NCF BL Marine.png" alt="NCF" />
+    </a>
+    <div class="nav-links">
+      <a href="/transmission/" class="nav-link">Transmission</a>
+      <a href="/valorisation-minoritaires/" class="nav-link">Valorisation de minoritaires</a>
+      <a href="/creation-holding/" class="nav-link">Création de holding</a>
+      <a href="/ressources/" class="nav-link">Ressources</a>
+      <a href="/equipe/" class="nav-link active" aria-current="page">L'équipe</a>
+    </div>
+    <div class="nav-cta-wrap">
+      <a href="/#contact" class="nav-cta">
+        Parler à un expert
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <button id="hbg" aria-label="Menu" aria-expanded="false">
+      <span id="b1"></span><span id="b2"></span><span id="b3"></span>
+    </button>
+  </div>
+</nav>
+<div id="mob-menu">
+  <a href="/transmission/" onclick="closeNav()">Transmission</a>
+  <a href="/valorisation-minoritaires/" onclick="closeNav()">Valorisation de minoritaires</a>
+  <a href="/creation-holding/" onclick="closeNav()">Création de holding</a>
+  <a href="/ressources/" onclick="closeNav()">Ressources</a>
+  <a href="/equipe/" onclick="closeNav()" aria-current="page">L'équipe</a>
+  <a href="/#contact" onclick="closeNav()" class="nav-cta">Parler à un expert</a>
+</div>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section id="hero-equipe">
+  <div class="hero-inner">
+    <div class="hero-eyebrow rv">L'équipe</div>
+    <h1 class="rv d1">Les visages derrière <span class="accent">vos évaluations.</span></h1>
+    <p class="hero-sub rv d2">
+      Quatre interlocuteurs, un cabinet à Lyon. Nous travaillons en circuit court pour que votre dossier reste clair, traçable, et que vous parliez toujours à quelqu'un qui le connaît dans le détail.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════ PROFILS ═══════════════════ -->
+<section class="equipe-list">
+
+  <!-- 1. Frédéric Lemonnier — Associé -->
+  <article class="profile rv">
+    <a class="profile-photo" href="https://www.linkedin.com/in/flemonniernovances/" target="_blank" rel="noopener noreferrer" aria-label="Frédéric Lemonnier sur LinkedIn">
+      <img src="/brand_assets/Image_Equipe/Frederic%20Lemonnier.jpg" alt="Frédéric Lemonnier" />
+      <span class="profile-photo-linkedin">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.36 4.26 5.43v6.31zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+        Voir le profil LinkedIn
+      </span>
+    </a>
+    <div class="profile-text">
+      <div class="profile-eyebrow">01 · Associé</div>
+      <h2 class="profile-name">Frédéric Lemonnier</h2>
+      <div class="profile-role">Associé · Cabinet NCF</div>
+      <p class="profile-expertise">
+        Dirigeant de NCF, expert-comptable diplômé spécialisé en évaluation et transmission d'entreprise. Expériences chez Deloitte Finance et Mazars sur des opérations M&amp;A à forte valeur ajoutée pour les PME-TPE.
+      </p>
+    </div>
+  </article>
+
+  <!-- 2. Florian Lopez — Manager -->
+  <article class="profile flip rv">
+    <a class="profile-photo" href="https://www.linkedin.com/in/florian-lopez-103a10140/" target="_blank" rel="noopener noreferrer" aria-label="Florian Lopez sur LinkedIn">
+      <img src="/brand_assets/Image_Equipe/Florian_Lopez.jpg" alt="Florian Lopez" />
+      <span class="profile-photo-linkedin">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.36 4.26 5.43v6.31zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+        Voir le profil LinkedIn
+      </span>
+    </a>
+    <div class="profile-text">
+      <div class="profile-eyebrow">02 · Manager</div>
+      <h2 class="profile-name">Florian Lopez</h2>
+      <div class="profile-role">Manager · Cabinet NCF</div>
+      <p class="profile-expertise">
+        Master 2 Ingénierie Financière et Transactions (IAE Lyon 3). Intervient sur des missions d'évaluation indépendante, de cession d'entreprise et de recherche de cibles.
+      </p>
+    </div>
+  </article>
+
+  <!-- 3. Malo Duquenne — Analyste -->
+  <article class="profile rv">
+    <a class="profile-photo" href="https://www.linkedin.com/in/malo-duquenne/" target="_blank" rel="noopener noreferrer" aria-label="Malo Duquenne sur LinkedIn">
+      <img src="/brand_assets/Image_Equipe/Malo_Duquenne.jpg" alt="Malo Duquenne" />
+      <span class="profile-photo-linkedin">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.36 4.26 5.43v6.31zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+        Voir le profil LinkedIn
+      </span>
+    </a>
+    <div class="profile-text">
+      <div class="profile-eyebrow">03 · Analyste</div>
+      <h2 class="profile-name">Malo Duquenne</h2>
+      <div class="profile-role">Analyste · Cabinet NCF</div>
+      <p class="profile-expertise">
+        Master 2 Finance et Contrôle de Gestion (Université Lyon 2), expérience en cabinet comptable et audit financier. Missions d'évaluation et de cession d'entreprise chez NCF.
+      </p>
+    </div>
+  </article>
+
+  <!-- 4. Cléante Oullion — Analyste -->
+  <article class="profile flip rv">
+    <a class="profile-photo" href="https://www.linkedin.com/in/cl%C3%A9ante-oullion-a555291a1/" target="_blank" rel="noopener noreferrer" aria-label="Cléante Oullion sur LinkedIn">
+      <img src="/brand_assets/Image_Equipe/Cleante_Oullion.jpg" alt="Cléante Oullion" />
+      <span class="profile-photo-linkedin">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.36 4.26 5.43v6.31zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+        Voir le profil LinkedIn
+      </span>
+    </a>
+    <div class="profile-text">
+      <div class="profile-eyebrow">04 · Analyste</div>
+      <h2 class="profile-name">Cléante Oullion</h2>
+      <div class="profile-role">Analyste · Cabinet NCF</div>
+      <p class="profile-expertise">
+        Formation en finance d'entreprise, analyste M&amp;A chez NCF. Intervient sur des missions d'évaluation, de valorisation et de cession d'entreprise en appui aux équipes transactionnelles.
+      </p>
+    </div>
+  </article>
+
+</section>
+
+<!-- ═══════════════════ GROUPE NOVANCES ═══════════════════ -->
+<section id="novances">
+  <div class="novances-inner">
+    <a href="https://novances.fr/" target="_blank" rel="noopener noreferrer" class="novances-logo-wrap rv" aria-label="Site du Groupe Novances (nouvel onglet)">
+      <img src="/brand_assets/logo_novances.avif" alt="Groupe Novances" />
+    </a>
+    <div class="rv d1">
+      <div class="novances-eyebrow">Notre groupe</div>
+      <h2 class="novances-title">Membre du Groupe Novances.</h2>
+      <p class="novances-body">
+        NCF est intégré au Groupe Novances, cabinet d'expertise-comptable qui rassemble plusieurs dizaines d'associés et collaborateurs.
+      </p>
+      <p class="novances-body">
+        Concrètement pour vous : derrière chaque évaluation NCF, vous pouvez mobiliser des ressources comptables, fiscales et juridiques au sein du même groupe — sans changer d'interlocuteur, sans rouvrir votre dossier ailleurs.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CTA FINAL ═══════════════════ -->
+<section class="equipe-cta">
+  <div class="equipe-cta-inner rv">
+    <h2>Un premier échange avec l'équipe.</h2>
+    <p>Vingt minutes pour écouter votre situation, comprendre l'enjeu, et vous dire ce qu'une évaluation NCF peut vous apporter — sans engagement.</p>
+    <div class="cta-row">
+      <a href="/#contact" class="btn-primary btn-magnetic">
+        <span class="btn-content">
+          Parler à un expert
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </a>
+      <a href="mailto:contact@ncf-conseil.fr" class="btn-outline btn-magnetic">
+        <span class="btn-content">contact@ncf-conseil.fr</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="/brand_assets/Logo NCF BL Marine.png" alt="NCF" />
+        <p class="footer-brand-tag">Cabinet d'évaluation d'entreprise pour les dirigeants de PME en préparation de transmission.</p>
+        <div class="footer-novances">
+          <img src="/brand_assets/logo_novances.avif" alt="Groupe Novances" />
+          <span>Membre du <strong>Groupe Novances</strong></span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Cas d'usage</div>
+        <div class="footer-links">
+          <a href="/transmission/" class="footer-link">Préparation de transmission</a>
+          <a href="/valorisation-minoritaires/" class="footer-link">Valorisation de minoritaires</a>
+          <a href="/creation-holding/" class="footer-link">Création de holding</a>
+          <a href="/cession/" class="footer-link">Cession d'entreprise</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Cabinet</div>
+        <div class="footer-links">
+          <a href="/equipe/" class="footer-link">L'équipe</a>
+          <a href="/equipe/#novances" class="footer-link">Groupe Novances</a>
+          <a href="/partenaires/" class="footer-link">Partenaires</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Ressources</div>
+        <div class="footer-links">
+          <a href="/ressources/" class="footer-link">Articles</a>
+          <a href="/#contact" class="footer-link">Contact</a>
+          <a href="mailto:contact@ncf-conseil.fr" class="footer-link">contact@ncf-conseil.fr</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 NCF Advisory — Tous droits réservés.</div>
+      <div class="footer-legal">
+        <a href="#">Mentions légales</a>
+        <a href="#">Confidentialité</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Navbar shadow on scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', scrollY > 40), { passive: true });
+
+  // Mobile menu
+  let navOpen = false;
+  const hbg = document.getElementById('hbg');
+  const mob = document.getElementById('mob-menu');
+  hbg.addEventListener('click', () => {
+    navOpen = !navOpen;
+    mob.classList.toggle('open', navOpen);
+    hbg.setAttribute('aria-expanded', String(navOpen));
+    const [b1, b2, b3] = ['b1','b2','b3'].map(id => document.getElementById(id));
+    b1.style.transform = navOpen ? 'translateY(6.5px) rotate(45deg)' : '';
+    b2.style.opacity   = navOpen ? '0' : '';
+    b3.style.transform = navOpen ? 'translateY(-6.5px) rotate(-45deg)' : '';
+  });
+  function closeNav() {
+    navOpen = false; mob.classList.remove('open');
+    hbg.setAttribute('aria-expanded', 'false');
+    ['b1','b2','b3'].forEach(id => document.getElementById(id).style.cssText = '');
+  }
+
+  // Reveal on scroll
+  const ro = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+  }), { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.rv').forEach(el => ro.observe(el));
+
+  // Smooth scroll pour ancres internes
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (href === '#') return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 118, behavior: 'smooth' });
+      }
+    });
+  });
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ───── Lueur cyan qui suit le curseur (site-wide) ─────
+  const cursorGlow = document.getElementById('cursor-glow');
+  if (cursorGlow && !reducedMotion
+      && window.matchMedia('(hover: hover) and (min-width: 981px)').matches) {
+    let mx = innerWidth / 2, my = innerHeight / 2;
+    let gx = mx, gy = my;
+    let rafId = null;
+    const loop = () => {
+      gx += (mx - gx) * 0.14;
+      gy += (my - gy) * 0.14;
+      cursorGlow.style.transform =
+        `translate3d(${gx.toFixed(1)}px, ${gy.toFixed(1)}px, 0) translate(-50%, -50%)`;
+      if (Math.abs(mx - gx) > 0.3 || Math.abs(my - gy) > 0.3) {
+        rafId = requestAnimationFrame(loop);
+      } else { rafId = null; }
+    };
+    document.addEventListener('pointermove', e => {
+      mx = e.clientX; my = e.clientY;
+      document.body.classList.add('cursor-glow-active');
+      if (rafId === null) rafId = requestAnimationFrame(loop);
+    }, { passive: true });
+  }
+
+  // ───── CTAs magnétiques ─────
+  if (!reducedMotion && window.matchMedia('(hover: hover) and (min-width: 981px)').matches) {
+    document.querySelectorAll('.btn-magnetic').forEach(btn => {
+      const content = btn.querySelector('.btn-content') || btn;
+      btn.addEventListener('pointermove', e => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${(x * 0.25).toFixed(1)}px, ${(y * 0.4).toFixed(1)}px)`;
+        if (content !== btn) content.style.transform = `translate(${(x * 0.12).toFixed(1)}px, ${(y * 0.18).toFixed(1)}px)`;
+      });
+      btn.addEventListener('pointerleave', () => {
+        btn.style.transform = '';
+        const content = btn.querySelector('.btn-content');
+        if (content) content.style.transform = '';
+      });
+    });
+  }
+</script>
+
+</body>
+</html>

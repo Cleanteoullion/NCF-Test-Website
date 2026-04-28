@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ressources — Comprendre l'évaluation d'entreprise · NCF</title>
+  <meta name="description" content="Articles pédagogiques pour les dirigeants de PME qui préparent une transmission, un rachat de minoritaires ou la création d'une holding. Sans jargon technique." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+
+  <style>
+    /* ═══════════════════ Spécifique page ressources ═══════════════════ */
+
+    body.ressources-page .nav-link.active { color: #fff; }
+    body.ressources-page .nav-link.active::after {
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan-soft);
+    }
+
+    /* ═══════════════════ HERO ═══════════════════ */
+    #hero-ressources {
+      padding: 138px 0 4rem;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      background: var(--navy-deep);
+    }
+    #hero-ressources::before {
+      content: '';
+      position: absolute; inset: 0; z-index: -1;
+      background:
+        radial-gradient(900px 600px at 15% 20%, rgba(0, 184, 255, 0.08), transparent 60%),
+        radial-gradient(700px 500px at 85% 80%, rgba(0, 184, 255, 0.04), transparent 65%);
+    }
+    #hero-ressources .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      text-align: center;
+    }
+    #hero-ressources .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+    }
+    #hero-ressources h1 {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      line-height: 1.05;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+    #hero-ressources h1 .accent { color: var(--cyan); }
+    #hero-ressources .hero-sub {
+      max-width: 720px;
+      margin: 1.6rem auto 0;
+      color: var(--ink-dim);
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+
+    /* ═══════════════════ LISTE MAGAZINE (1 couverture pleine largeur + 2 cartes côte-à-côte) ═══════════════════ */
+    .ressources-list {
+      background: var(--navy-deep);
+      padding: 4rem 0 6rem;
+    }
+    .ressources-magazine {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ─── Article phare : couverture pleine largeur ─── */
+    .mag-feature {
+      position: relative;
+      display: block;
+      min-height: max(540px, 70vh);
+      border-radius: 22px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      background: #0A1F3D;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+      isolation: isolate;
+    }
+    .mag-feature-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mag-feature:hover .mag-feature-bg { transform: scale(1.04); }
+    .mag-feature::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to top, rgba(7,20,42,0.94) 0%, rgba(7,20,42,0.65) 40%, rgba(7,20,42,0.25) 80%, rgba(7,20,42,0.10) 100%),
+        linear-gradient(135deg, rgba(92, 61, 20, 0.25) 0%, transparent 60%);
+      z-index: 1;
+    }
+    .mag-feature::after {
+      content: '01';
+      position: absolute;
+      bottom: 1.5rem;
+      right: 2.5rem;
+      font-size: 12rem;
+      font-weight: 900;
+      line-height: 1;
+      color: rgba(255, 255, 255, 0.10);
+      letter-spacing: -0.05em;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .mag-feature:hover {
+      transform: translateY(-6px);
+      border-color: rgba(245, 158, 11, 0.45);
+      box-shadow: 0 30px 60px -25px rgba(245, 158, 11, 0.28);
+    }
+
+    .mag-feature-body {
+      position: absolute;
+      bottom: 2.75rem;
+      left: 2.75rem;
+      right: 2.75rem;
+      max-width: 760px;
+      z-index: 3;
+    }
+    .mag-feature .bento-tag,
+    .mag-card .bento-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .mag-feature .bento-tag { color: var(--c-succession); }
+    .mag-feature-title {
+      font-size: clamp(2rem, 4.5vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--ink);
+      margin: 0 0 1.1rem;
+      letter-spacing: -0.025em;
+    }
+    .mag-feature-excerpt {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: var(--ink-dim);
+      margin: 0 0 1.6rem;
+      max-width: 620px;
+    }
+    .mag-feature-link {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--cyan-bright);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ─── Cartes secondaires côte-à-côte ─── */
+    .mag-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .mag-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      border-radius: 22px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      background: linear-gradient(140deg, rgba(26, 48, 85, 0.45) 0%, rgba(10, 31, 61, 0.3) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .mag-card-img {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      min-height: 200px;
+      overflow: hidden;
+      background: #0A1F3D;
+    }
+    .mag-card-img img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 0;
+    }
+    .mag-card:hover .mag-card-img img { transform: scale(1.05); }
+    .mag-card-img::before {
+      content: '';
+      position: absolute; inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .mag-card-img::after {
+      position: absolute;
+      bottom: 0.75rem;
+      right: 1.5rem;
+      font-size: 6.5rem;
+      font-weight: 900;
+      line-height: 1;
+      color: rgba(255, 255, 255, 0.18);
+      letter-spacing: -0.05em;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .mag-card--minoritaires .mag-card-img::before {
+      background: linear-gradient(135deg, rgba(74, 38, 112, 0.55) 0%, rgba(10, 31, 61, 0.45) 100%);
+    }
+    .mag-card--minoritaires .mag-card-img::after { content: '02'; }
+    .mag-card--holding .mag-card-img::before {
+      background: linear-gradient(135deg, rgba(20, 84, 58, 0.55) 0%, rgba(10, 31, 61, 0.45) 100%);
+    }
+    .mag-card--holding .mag-card-img::after { content: '03'; }
+
+    .mag-card--minoritaires:hover {
+      transform: translateY(-4px);
+      border-color: rgba(168, 85, 247, 0.45);
+      box-shadow: 0 24px 48px -20px rgba(168, 85, 247, 0.28);
+    }
+    .mag-card--holding:hover {
+      transform: translateY(-4px);
+      border-color: rgba(16, 185, 129, 0.45);
+      box-shadow: 0 24px 48px -20px rgba(16, 185, 129, 0.28);
+    }
+
+    .mag-card-body {
+      padding: 1.85rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .mag-card--minoritaires .bento-tag { color: var(--c-minoritaires); }
+    .mag-card--holding      .bento-tag { color: var(--c-holding); }
+
+    .mag-card-title {
+      font-size: clamp(1.2rem, 1.7vw, 1.5rem);
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--ink);
+      margin: 0 0 0.85rem;
+      letter-spacing: -0.01em;
+    }
+    .mag-card-excerpt {
+      font-size: 0.97rem;
+      line-height: 1.6;
+      color: var(--ink-dim);
+      margin: 0 0 1.4rem;
+      flex: 1;
+    }
+    .mag-card-link {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--cyan-bright);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ═══════════════════ CTA FINAL ═══════════════════ */
+    .ressources-cta {
+      background: linear-gradient(180deg, var(--navy-deep), #07142A);
+      padding: 5rem 1.5rem 6rem;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .ressources-cta-inner { max-width: 720px; margin: 0 auto; }
+    .ressources-cta h2 {
+      font-size: clamp(1.7rem, 3vw, 2.2rem);
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0 0 1rem;
+      letter-spacing: -0.02em;
+    }
+    .ressources-cta p {
+      color: var(--ink-dim);
+      font-size: 1.02rem;
+      line-height: 1.65;
+      margin: 0 0 2rem;
+    }
+    .ressources-cta .cta-row { display: flex; gap: 0.85rem; justify-content: center; flex-wrap: wrap; }
+
+    /* ═══════════════════ Responsive ═══════════════════ */
+    @media (max-width: 900px) {
+      .mag-feature { min-height: max(440px, 56vh); }
+      .mag-feature::after { font-size: 8rem; right: 1.5rem; }
+      .mag-feature-body { bottom: 1.75rem; left: 1.75rem; right: 1.75rem; }
+      .mag-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+      .mag-card-body { padding: 1.5rem 1.5rem 1.75rem; }
+    }
+    @media (max-width: 640px) {
+      #hero-ressources { padding: 110px 0 3rem; }
+      .ressources-list { padding: 2.5rem 0 4rem; }
+      .mag-feature { min-height: max(380px, 50vh); }
+      .mag-feature::after { font-size: 6rem; right: 1rem; bottom: 1rem; }
+      .mag-feature-body { bottom: 1.5rem; left: 1.5rem; right: 1.5rem; }
+      .mag-feature-title { font-size: clamp(1.5rem, 6vw, 2.1rem); }
+      .mag-feature-excerpt { font-size: 0.98rem; }
+    }
+  </style>
+</head>
+
+<body class="ressources-page">
+
+<div id="cursor-glow" aria-hidden="true"></div>
+
+<!-- ═══════════════════ BANDEAU GROUPE NOVANCES ═══════════════════ -->
+<div id="novances-band">
+  <div class="nb-inner">
+    <span>Membre du <strong>Groupe Novances</strong></span>
+    <img src="/brand_assets/logo_novances.avif" alt="Groupe Novances" class="nb-logo" />
+    <span class="nb-sep nb-sep-md">·</span>
+    <span class="nb-tag">La force d'un groupe pluridisciplinaire derrière votre évaluation</span>
+  </div>
+</div>
+
+<!-- ═══════════════════ NAVBAR ═══════════════════ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo" aria-label="NCF — accueil">
+      <img src="/brand_assets/Logo NCF BL Marine.png" alt="NCF" />
+    </a>
+    <div class="nav-links">
+      <a href="/transmission/" class="nav-link">Transmission</a>
+      <a href="/valorisation-minoritaires/" class="nav-link">Valorisation de minoritaires</a>
+      <a href="/creation-holding/" class="nav-link">Création de holding</a>
+      <a href="/ressources/" class="nav-link active" aria-current="page">Ressources</a>
+      <a href="/equipe/" class="nav-link">L'équipe</a>
+    </div>
+    <div class="nav-cta-wrap">
+      <a href="/#contact" class="nav-cta">
+        Parler à un expert
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <button id="hbg" aria-label="Menu" aria-expanded="false">
+      <span id="b1"></span><span id="b2"></span><span id="b3"></span>
+    </button>
+  </div>
+</nav>
+<div id="mob-menu">
+  <a href="/transmission/" onclick="closeNav()">Transmission</a>
+  <a href="/valorisation-minoritaires/" onclick="closeNav()">Valorisation de minoritaires</a>
+  <a href="/creation-holding/" onclick="closeNav()">Création de holding</a>
+  <a href="/ressources/" onclick="closeNav()" aria-current="page">Ressources</a>
+  <a href="/equipe/" onclick="closeNav()">L'équipe</a>
+  <a href="/#contact" onclick="closeNav()" class="nav-cta">Parler à un expert</a>
+</div>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section id="hero-ressources">
+  <div class="hero-inner">
+    <div class="hero-eyebrow rv">Ressources</div>
+    <h1 class="rv d1">Comprendre l'évaluation, <span class="accent">étape par étape.</span></h1>
+    <p class="hero-sub rv d2">
+      Trois lectures pour les dirigeants qui préparent une décision patrimoniale engageante. Pas de jargon technique — juste ce qui change pour vous, et dans quel ordre s'y prendre.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════ LISTE MAGAZINE ═══════════════════ -->
+<section class="ressources-list">
+  <div class="ressources-magazine">
+
+    <!-- Article phare : Transmission, couverture pleine largeur -->
+    <a href="/ressources/preparer-succession-evaluation-premiere-etape/" class="mag-feature rv">
+      <img class="mag-feature-bg" src="https://images.unsplash.com/photo-1753164726479-867fa7a7e341?auto=format&fit=crop&w=1600&q=78" alt="" loading="lazy" decoding="async" />
+      <div class="mag-feature-body">
+        <div class="bento-tag">Transmission · 6 min de lecture</div>
+        <h2 class="mag-feature-title">Préparer sa succession d'entreprise : pourquoi l'évaluation est la première étape.</h2>
+        <p class="mag-feature-excerpt">Avant la donation, avant le pacte Dutreil, avant le notaire : une valeur opposable qui aligne vos enfants, vos conseils et l'administration sur un même chiffre.</p>
+        <span class="mag-feature-link">
+          Lire l'article
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+    </a>
+
+    <!-- 2 cartes secondaires côte-à-côte avec image -->
+    <div class="mag-grid">
+
+      <a href="/ressources/rachat-minoritaires-prix-juste-securise/" class="mag-card mag-card--minoritaires rv d1">
+        <div class="mag-card-img">
+          <img src="https://images.unsplash.com/photo-1758518727707-b023e285b709?auto=format&fit=crop&w=900&q=78" alt="" loading="lazy" decoding="async" />
+        </div>
+        <div class="mag-card-body">
+          <div class="bento-tag">Minoritaires · 7 min de lecture</div>
+          <h3 class="mag-card-title">Rachat de minoritaires : comment fixer un prix juste et sécurisé.</h3>
+          <p class="mag-card-excerpt">Une méthode opposable pour fixer un prix de rachat que toutes les parties acceptent — sans contentieux ni blocage.</p>
+          <span class="mag-card-link">
+            Lire l'article
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a href="/ressources/creation-holding-evaluation-structuration-patrimoniale/" class="mag-card mag-card--holding rv d2">
+        <div class="mag-card-img">
+          <img src="https://images.unsplash.com/photo-1583009640887-eafd1a994d30?auto=format&fit=crop&w=900&q=78" alt="" loading="lazy" decoding="async" />
+        </div>
+        <div class="mag-card-body">
+          <div class="bento-tag">Holding · 8 min de lecture</div>
+          <h3 class="mag-card-title">Création de holding : le rôle de l'évaluation dans la structuration patrimoniale.</h3>
+          <p class="mag-card-excerpt">Apport-cession, pacte Dutreil, holding animatrice : l'évaluation qui sécurise votre montage face à l'administration.</p>
+          <span class="mag-card-link">
+            Lire l'article
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CTA FINAL ═══════════════════ -->
+<section class="ressources-cta">
+  <div class="ressources-cta-inner rv">
+    <h2>Une question qui n'est pas couverte ?</h2>
+    <p>Vingt minutes pour écouter votre situation, comprendre l'enjeu, et vous dire ce qu'une évaluation NCF peut vous apporter — sans engagement.</p>
+    <div class="cta-row">
+      <a href="/#contact" class="btn-primary btn-magnetic">
+        <span class="btn-content">
+          Parler à un expert
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </a>
+      <a href="mailto:contact@ncf-conseil.fr" class="btn-outline btn-magnetic">
+        <span class="btn-content">contact@ncf-conseil.fr</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="/brand_assets/Logo NCF BL Marine.png" alt="NCF" />
+        <p class="footer-brand-tag">Cabinet d'évaluation d'entreprise pour les dirigeants de PME en préparation de transmission.</p>
+        <div class="footer-novances">
+          <img src="/brand_assets/logo_novances.avif" alt="Groupe Novances" />
+          <span>Membre du <strong>Groupe Novances</strong></span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Cas d'usage</div>
+        <div class="footer-links">
+          <a href="/transmission/" class="footer-link">Préparation de transmission</a>
+          <a href="/valorisation-minoritaires/" class="footer-link">Valorisation de minoritaires</a>
+          <a href="/creation-holding/" class="footer-link">Création de holding</a>
+          <a href="/cession/" class="footer-link">Cession d'entreprise</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Cabinet</div>
+        <div class="footer-links">
+          <a href="/equipe/" class="footer-link">L'équipe</a>
+          <a href="/equipe/#novances" class="footer-link">Groupe Novances</a>
+          <a href="/partenaires/" class="footer-link">Partenaires</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Ressources</div>
+        <div class="footer-links">
+          <a href="/ressources/" class="footer-link">Articles</a>
+          <a href="/#contact" class="footer-link">Contact</a>
+          <a href="mailto:contact@ncf-conseil.fr" class="footer-link">contact@ncf-conseil.fr</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 NCF Advisory — Tous droits réservés.</div>
+      <div class="footer-legal">
+        <a href="#">Mentions légales</a>
+        <a href="#">Confidentialité</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', scrollY > 40), { passive: true });
+
+  let navOpen = false;
+  const hbg = document.getElementById('hbg');
+  const mob = document.getElementById('mob-menu');
+  hbg.addEventListener('click', () => {
+    navOpen = !navOpen;
+    mob.classList.toggle('open', navOpen);
+    hbg.setAttribute('aria-expanded', String(navOpen));
+    const [b1, b2, b3] = ['b1','b2','b3'].map(id => document.getElementById(id));
+    b1.style.transform = navOpen ? 'translateY(6.5px) rotate(45deg)' : '';
+    b2.style.opacity   = navOpen ? '0' : '';
+    b3.style.transform = navOpen ? 'translateY(-6.5px) rotate(-45deg)' : '';
+  });
+  function closeNav() {
+    navOpen = false; mob.classList.remove('open');
+    hbg.setAttribute('aria-expanded', 'false');
+    ['b1','b2','b3'].forEach(id => document.getElementById(id).style.cssText = '');
+  }
+
+  const ro = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+  }), { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.rv').forEach(el => ro.observe(el));
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (href === '#') return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 118, behavior: 'smooth' });
+      }
+    });
+  });
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const cursorGlow = document.getElementById('cursor-glow');
+  if (cursorGlow && !reducedMotion
+      && window.matchMedia('(hover: hover) and (min-width: 981px)').matches) {
+    let mx = innerWidth / 2, my = innerHeight / 2;
+    let gx = mx, gy = my;
+    let rafId = null;
+    const loop = () => {
+      gx += (mx - gx) * 0.14;
+      gy += (my - gy) * 0.14;
+      cursorGlow.style.transform =
+        `translate3d(${gx.toFixed(1)}px, ${gy.toFixed(1)}px, 0) translate(-50%, -50%)`;
+      if (Math.abs(mx - gx) > 0.3 || Math.abs(my - gy) > 0.3) {
+        rafId = requestAnimationFrame(loop);
+      } else { rafId = null; }
+    };
+    document.addEventListener('pointermove', e => {
+      mx = e.clientX; my = e.clientY;
+      document.body.classList.add('cursor-glow-active');
+      if (rafId === null) rafId = requestAnimationFrame(loop);
+    }, { passive: true });
+  }
+
+  if (!reducedMotion && window.matchMedia('(hover: hover) and (min-width: 981px)').matches) {
+    document.querySelectorAll('.btn-magnetic').forEach(btn => {
+      const content = btn.querySelector('.btn-content') || btn;
+      btn.addEventListener('pointermove', e => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${(x * 0.25).toFixed(1)}px, ${(y * 0.4).toFixed(1)}px)`;
+        if (content !== btn) content.style.transform = `translate(${(x * 0.12).toFixed(1)}px, ${(y * 0.18).toFixed(1)}px)`;
+      });
+      btn.addEventListener('pointerleave', () => {
+        btn.style.transform = '';
+        const content = btn.querySelector('.btn-content');
+        if (content) content.style.transform = '';
+      });
+    });
+  }
+</script>
+
+</body>
+</html>

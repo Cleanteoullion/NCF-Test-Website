@@ -24,6 +24,14 @@
       box-shadow: 0 0 8px var(--c-holding-soft);
     }
 
+    /* Lueur curseur teintée émeraude (mêmes paramètres que styles.css, seule la couleur change) */
+    body.holding-page #cursor-glow {
+      background: radial-gradient(circle at center,
+        rgba(16, 185, 129, 0.18) 0%,
+        rgba(16, 185, 129, 0.07) 35%,
+        transparent 65%);
+    }
+
     /* Sections alternées */
     .sec-dark   { background: var(--navy-deep); }
     .sec-soft   { background: linear-gradient(180deg, var(--navy-deep), #08162d 50%, var(--navy-deep)); }
@@ -637,7 +645,7 @@
       <a href="/valorisation-minoritaires/" class="nav-link">Valorisation de minoritaires</a>
       <a href="/creation-holding/" class="nav-link active" aria-current="page">Création de holding</a>
       <a href="/ressources/" class="nav-link">Ressources</a>
-      <a href="/a-propos/" class="nav-link">À propos</a>
+      <a href="/equipe/" class="nav-link">L'équipe</a>
     </div>
     <div class="nav-cta-wrap">
       <a href="/#contact" class="nav-cta">
@@ -655,7 +663,7 @@
   <a href="/valorisation-minoritaires/" onclick="closeNav()">Valorisation de minoritaires</a>
   <a href="/creation-holding/" onclick="closeNav()" aria-current="page">Création de holding</a>
   <a href="/ressources/" onclick="closeNav()">Ressources</a>
-  <a href="/a-propos/" onclick="closeNav()">À propos</a>
+  <a href="/equipe/" onclick="closeNav()">L'équipe</a>
   <a href="/#contact" onclick="closeNav()" class="nav-cta">Parler à un expert</a>
 </div>
 
@@ -1144,9 +1152,8 @@
       <div>
         <div class="footer-col-title">Cabinet</div>
         <div class="footer-links">
-          <a href="/a-propos/" class="footer-link">À propos</a>
-          <a href="/a-propos/equipe/" class="footer-link">L'équipe</a>
-          <a href="/a-propos/groupe-novances/" class="footer-link">Groupe Novances</a>
+          <a href="/equipe/" class="footer-link">L'équipe</a>
+          <a href="/equipe/#novances" class="footer-link">Groupe Novances</a>
           <a href="/partenaires/" class="footer-link">Partenaires</a>
         </div>
       </div>
