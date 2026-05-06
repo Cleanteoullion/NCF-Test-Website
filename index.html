@@ -1379,14 +1379,33 @@
     .res-img {
       aspect-ratio: 16/9;
       background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%);
-      position: relative; display: flex; align-items: center; justify-content: center;
-      color: rgba(255,255,255,0.15); font-size: 4rem; font-weight: 900; letter-spacing: -0.04em;
+      position: relative;
+      overflow: hidden;
     }
-    .res-img.r-success { background: linear-gradient(135deg, #0A1F3D 0%, #2A4A6E 100%); }
-    .res-img.r-minorit { background: linear-gradient(135deg, #0A1F3D 0%, #4B2A6E 100%); }
-    .res-img.r-holding { background: linear-gradient(135deg, #0A1F3D 0%, #1E5B44 100%); }
+    .res-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.85) contrast(1.05);
+      transition: transform 0.45s cubic-bezier(.2,.8,.2,1), filter 0.3s;
+    }
+    .res-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to top, rgba(5, 13, 29, 0.42), transparent 58%),
+        linear-gradient(135deg, rgba(10, 31, 61, 0.28), rgba(5, 13, 29, 0.08));
+      pointer-events: none;
+    }
+    .res-card:hover .res-img img {
+      transform: scale(1.05);
+      filter: saturate(1) contrast(1.08);
+    }
     .res-tag {
       position: absolute; top: 14px; left: 14px;
+      z-index: 2;
       background: rgba(0, 184, 255, 0.15);
       color: var(--cyan-bright);
       border: 1px solid rgba(0, 184, 255, 0.3);
@@ -2110,8 +2129,8 @@
     <div class="res-grid">
       <a href="ressources/preparer-succession-evaluation-premiere-etape/" class="res-card rv d1">
         <div class="res-img r-success">
+          <img src="https://images.unsplash.com/photo-1753164726479-867fa7a7e341?auto=format&fit=crop&w=900&q=78" alt="" loading="lazy" decoding="async" />
           <span class="res-tag">Transmission</span>
-          01
         </div>
         <div class="res-body">
           <div class="res-date">Article · Avril 2026</div>
@@ -2125,8 +2144,8 @@
 
       <a href="ressources/rachat-minoritaires-prix-juste-securise/" class="res-card rv d2">
         <div class="res-img r-minorit">
+          <img src="https://images.unsplash.com/photo-1758518727707-b023e285b709?auto=format&fit=crop&w=900&q=78" alt="" loading="lazy" decoding="async" />
           <span class="res-tag">Minoritaires</span>
-          02
         </div>
         <div class="res-body">
           <div class="res-date">Article · Avril 2026</div>
@@ -2140,8 +2159,8 @@
 
       <a href="ressources/creation-holding-evaluation-structuration-patrimoniale/" class="res-card rv d3">
         <div class="res-img r-holding">
+          <img src="https://images.unsplash.com/photo-1583009640887-eafd1a994d30?auto=format&fit=crop&w=900&q=78" alt="" loading="lazy" decoding="async" />
           <span class="res-tag">Holding</span>
-          03
         </div>
         <div class="res-body">
           <div class="res-date">Article · Avril 2026</div>
