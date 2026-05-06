@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /versions/
+Disallow: /disposition-C-bandeau-bas.html
+
+Sitemap: https://www.ncf-advisory.fr/sitemap.xml
