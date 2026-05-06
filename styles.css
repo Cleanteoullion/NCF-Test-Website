@@ -685,3 +685,172 @@ body.cursor-glow-active #cursor-glow { opacity: 1; }
   font-size: 1.35rem;
 }
 .article-cta p { margin-bottom: 1.2rem; }
+
+/* Mobile baseline shared across the static pages */
+@media (max-width: 640px) {
+  body { font-size: 15px; }
+
+  #novances-band {
+    padding: 6px 0.85rem;
+  }
+
+  #navbar {
+    top: 31px;
+  }
+
+  .nav-inner {
+    height: 62px;
+    padding: 0 1rem;
+  }
+
+  .nav-logo img {
+    height: 28px;
+  }
+
+  #mob-menu {
+    top: 93px;
+    justify-content: flex-start;
+    gap: 1.1rem;
+    padding: 3.5rem 1rem 2rem;
+    overflow-y: auto;
+  }
+
+  #mob-menu a {
+    width: min(320px, 100%);
+    max-width: 100%;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  #mob-menu .nav-cta {
+    justify-content: center;
+  }
+
+  :target {
+    scroll-margin-top: 102px;
+  }
+
+  .section {
+    padding: 3.5rem 0;
+  }
+
+  .section-inner,
+  .footer-inner,
+  .article-wrap,
+  .article-layout,
+  .legal-wrap {
+    padding-left: 1.15rem !important;
+    padding-right: 1.15rem !important;
+  }
+
+  .section-title {
+    font-size: clamp(1.35rem, 7vw, 1.9rem);
+  }
+
+  .section-sub {
+    max-width: 100%;
+    font-size: 0.92rem;
+  }
+
+  .section-eyebrow {
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+  }
+
+  .btn-primary,
+  .btn-outline,
+  .btn-ghost,
+  .nav-cta {
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .btn-primary,
+  .btn-outline {
+    width: 100%;
+    padding: 12px 18px;
+  }
+
+  .btn-ghost {
+    width: auto;
+  }
+
+  .footer {
+    padding-top: 3rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-legal {
+    flex-wrap: wrap;
+    gap: 0.85rem;
+  }
+
+  .article-hero {
+    padding-top: 116px;
+  }
+
+  .article-cover {
+    min-height: 210px;
+    margin-top: 2rem;
+    border-radius: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .article-body {
+    padding: 3rem 0 4rem;
+  }
+
+  .article-layout {
+    gap: 2rem;
+  }
+
+  .article-content {
+    max-width: 100%;
+  }
+
+  .article-content p,
+  .article-content li {
+    font-size: 0.94rem;
+    line-height: 1.75;
+  }
+
+  .article-cta,
+  .article-side-card {
+    padding: 1.2rem;
+  }
+
+  .legal-hero {
+    padding: 116px 0 3rem !important;
+  }
+
+  .legal-content {
+    padding-bottom: 4rem !important;
+  }
+
+  .legal-section {
+    padding: 1.6rem 0 !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .section-inner,
+  .footer-inner,
+  .article-wrap,
+  .article-layout,
+  .legal-wrap {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .btn-primary,
+  .btn-outline {
+    font-size: 0.78rem;
+    padding: 11px 14px;
+  }
+}

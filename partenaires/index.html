@@ -216,6 +216,55 @@
       margin: 1rem auto 0;
       max-width: 680px;
     }
+
+    @media (max-width: 640px) {
+      #hero-partenaires {
+        padding: 112px 0 3rem;
+      }
+
+      .partners-hero-inner,
+      .partners-cta-inner {
+        padding-left: 1.15rem;
+        padding-right: 1.15rem;
+      }
+
+      .partners-hero h1 {
+        font-size: clamp(1.9rem, 10vw, 2.55rem);
+      }
+
+      .partners-lead {
+        font-size: 0.96rem;
+      }
+
+      .partners-hero-actions {
+        flex-direction: column;
+      }
+
+      .partner-panel,
+      .partner-type-card,
+      .workflow-step,
+      .standard-card {
+        padding: 1.15rem;
+      }
+
+      .partner-panel-top {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .partner-panel-logo {
+        height: 30px;
+      }
+
+      .partner-panel-list li {
+        grid-template-columns: 22px 1fr;
+        font-size: 0.9rem;
+      }
+
+      .partners-cta {
+        padding: 3.5rem 0;
+      }
+    }
   </style>
 </head>
 <body class="partenaires-page">

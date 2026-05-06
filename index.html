@@ -1558,6 +1558,250 @@
       color: #fff;
     }
     #form-success svg { display: block; margin: 0 auto 1rem; }
+
+    @media (max-width: 640px) {
+      #hero {
+        padding: 110px 0 1.5rem !important;
+      }
+
+      .hero-inner {
+        padding: 1.2rem 1.1rem 1.8rem;
+        gap: 1.5rem;
+      }
+
+      .hero-h1 {
+        font-size: clamp(1.9rem, 10vw, 2.45rem);
+      }
+
+      .hero-sub {
+        font-size: 0.98rem;
+      }
+
+      .hero-btns {
+        width: 100%;
+        flex-direction: column;
+      }
+
+      .hero-btns .btn-primary,
+      .hero-btns .btn-outline {
+        width: 100%;
+      }
+
+      .hero-trust-inline {
+        gap: 0.5rem 0.75rem;
+        font-size: 0.72rem;
+      }
+
+      .hero-media.hero-media--solo {
+        min-height: 0;
+      }
+
+      .hero-rapport.hero-rapport--solo {
+        width: 100%;
+        max-width: 360px;
+      }
+
+      .hero-rapport--solo .hr-card {
+        padding: 1.15rem;
+        border-radius: 16px;
+      }
+
+      .hero-rapport--solo .hr-card::before {
+        border-radius: 16px;
+      }
+
+      .hero-rapport--solo .hr-card .floating-tag {
+        top: -12px;
+        right: 16px;
+        padding: 7px 12px;
+        font-size: 0.58rem;
+      }
+
+      .hero-rapport--solo .hr-client {
+        font-size: 1.15rem;
+      }
+
+      .hero-rapport--solo .hr-vamount {
+        font-size: clamp(1.9rem, 10vw, 2.35rem);
+      }
+
+      .team-strip {
+        padding: 1rem 0.85rem 3rem;
+      }
+
+      .team-strip-inner {
+        padding: 1rem;
+        border-radius: 14px;
+      }
+
+      .team-members {
+        gap: 1rem;
+        padding-bottom: 0.15rem;
+      }
+
+      .team-member {
+        min-width: 178px;
+      }
+
+      .member-photo {
+        width: 48px;
+        height: 48px;
+      }
+
+      .member-name {
+        font-size: 0.9rem;
+      }
+
+      .member-role {
+        font-size: 0.76rem;
+      }
+
+      .enjeu-section,
+      .solution-section,
+      .diff-section,
+      .trust-section,
+      .testi-section,
+      .partners-teaser,
+      .resources-section,
+      .cta-section {
+        padding: 3.5rem 0;
+      }
+
+      .cas-grid,
+      .solution-pillars,
+      .rapport-demo,
+      .testi-grid,
+      .res-grid {
+        margin-top: 2rem;
+      }
+
+      .cas-card,
+      .solution-pillar,
+      .testi-card,
+      .res-body,
+      .partners-card,
+      .form-card {
+        padding: 1.3rem;
+      }
+
+      .rapport-tab {
+        grid-template-columns: 36px 1fr;
+        gap: 0.8rem;
+        padding: 1rem;
+      }
+
+      .rapport-tab.active {
+        transform: none;
+      }
+
+      .rt-icon {
+        width: 36px;
+        height: 36px;
+      }
+
+      .rapport-mockup {
+        padding: 1.2rem 1rem !important;
+        border-radius: 10px;
+      }
+
+      .rm-header {
+        align-items: flex-start;
+        gap: 0.6rem;
+        flex-direction: column;
+      }
+
+      .rm-chart {
+        gap: 6px;
+      }
+
+      .rm-bar span {
+        font-size: 0.5rem;
+      }
+
+      .rm-value-amount {
+        font-size: 1.55rem;
+      }
+
+      .rm-sticky {
+        display: none;
+        position: relative;
+        top: auto;
+        right: auto;
+        width: 100%;
+        margin-top: 1rem;
+        transform: none !important;
+      }
+
+      .rapport-mockup[data-state="personnalise"] .rm-sticky {
+        display: block;
+      }
+
+      .rapport-hint {
+        display: none;
+      }
+
+      .trust-track-wrap {
+        margin-top: 1.75rem;
+        -webkit-mask-image: none;
+                mask-image: none;
+      }
+
+      .trust-track {
+        gap: 1rem;
+        animation-duration: 32s;
+      }
+
+      .trust-logo {
+        height: 58px;
+        padding: 10px 16px;
+      }
+
+      .trust-logo img {
+        max-height: 36px;
+        max-width: 108px;
+      }
+
+      .partners-card {
+        border-radius: 14px;
+      }
+
+      .res-header {
+        align-items: stretch;
+      }
+
+      .res-header .btn-outline {
+        width: 100%;
+      }
+
+      .res-img {
+        aspect-ratio: 16 / 10;
+      }
+
+      .cta-inner {
+        padding: 0 1.1rem;
+      }
+
+      .cta-contact {
+        align-items: flex-start;
+      }
+
+      .form-input,
+      .form-select,
+      .form-textarea {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .hero-rapport--solo .hr-methods span {
+        font-size: 0.5rem;
+        padding: 4px 8px;
+      }
+
+      .rm-stamp-opposable {
+        right: 0.75rem;
+      }
+    }
   </style>
 </head>
 <body>
