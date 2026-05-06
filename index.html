@@ -1478,6 +1478,14 @@
     .form-note {
       font-size: 0.74rem; color: var(--muted); margin-top: 0.75rem; text-align: center;
     }
+    .form-error {
+      display: none;
+      margin-top: 0.75rem;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: #FCA5A5;
+      text-align: center;
+    }
     #form-success {
       display: none; padding: 2rem;
       background: rgba(34,197,94,0.08);
@@ -2174,6 +2182,7 @@
     <div class="rv d1">
       <div class="form-card">
         <form id="contact-form" onsubmit="handleForm(event)">
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; opacity:0;" />
           <div class="form-row">
             <div class="form-field">
               <label class="form-label" for="f-prenom">Prénom *</label>
@@ -2212,6 +2221,7 @@
             Envoyer ma demande
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
+          <p id="form-error" class="form-error" role="alert"></p>
           <p class="form-note">Vos informations restent strictement confidentielles.</p>
         </form>
         <div id="form-success">
@@ -2302,16 +2312,45 @@
   }), { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.rv').forEach(el => ro.observe(el));
 
-  // Contact form (simulé — à câbler à un vrai backend / CRM)
-  function handleForm(e) {
+  // Contact form -> Pipedrive via Vercel serverless function.
+  async function handleForm(e) {
     e.preventDefault();
+    const form = e.currentTarget;
     const btn = document.getElementById('f-submit');
-    btn.textContent = 'Envoi en cours…';
+    const error = document.getElementById('form-error');
+    const originalHtml = btn.innerHTML;
+
+    if (error) {
+      error.style.display = 'none';
+      error.textContent = '';
+    }
+
     btn.disabled = true;
-    setTimeout(() => {
+    btn.textContent = 'Envoi en cours…';
+
+    try {
+      const data = Object.fromEntries(new FormData(form).entries());
+      data.page_url = window.location.href;
+      data.referrer = document.referrer;
+
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) throw new Error('Form submission failed');
+
       document.getElementById('contact-form').style.display = 'none';
       document.getElementById('form-success').style.display = 'block';
-    }, 900);
+    } catch {
+      btn.disabled = false;
+      btn.innerHTML = originalHtml;
+      if (error) {
+        error.textContent = "L'envoi n'a pas abouti. Vous pouvez réessayer ou écrire directement à contact@ncf-conseil.fr.";
+        error.style.display = 'block';
+      }
+    }
   }
 
   // Smooth scroll pour ancres internes
