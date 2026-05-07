@@ -1,0 +1,9 @@
+.claude/
+_work/
+
+*.pdf
+*.docx
+*.doc
+
+NOTES.md
+ARCHITECTURE.md

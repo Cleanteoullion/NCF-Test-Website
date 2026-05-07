@@ -12,7 +12,7 @@
   <meta property="og:title" content="Préparer sa succession d'entreprise : pourquoi l'évaluation est la première étape" />
   <meta property="og:description" content="Avant la donation ou le pacte Dutreil, une valeur défendable permet d'aligner famille, conseils et administration." />
   <meta property="og:url" content="https://www.ncf-advisory.fr/ressources/preparer-succession-evaluation-premiere-etape/" />
-  <meta property="og:image" content="https://www.ncf-advisory.fr/brand_assets/Logo%20NCF%20BL%20Marine.png" />
+  <meta property="og:image" content="https://www.ncf-advisory.fr/assets/img/brand/logo-ncf-bl-marine.png" />
   <meta property="article:author" content="Frédéric Lemonnier" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Préparer sa succession d'entreprise" />
@@ -35,7 +35,7 @@
       "name": "NCF Advisory",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.ncf-advisory.fr/brand_assets/Logo%20NCF%20BL%20Marine.png"
+        "url": "https://www.ncf-advisory.fr/assets/img/brand/logo-ncf-bl-marine.png"
       }
     },
     "datePublished": "2026-05-06",
@@ -47,7 +47,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/assets/css/global.css" />
 </head>
 <body>
 
@@ -56,7 +56,7 @@
 <div id="novances-band">
   <div class="nb-inner">
     <span>Membre du <strong>Groupe Novances</strong></span>
-    <img src="/brand_assets/logo_novances.avif" alt="Groupe Novances" class="nb-logo" />
+    <img src="/assets/img/brand/logo-novances.avif" alt="Groupe Novances" class="nb-logo" />
     <span class="nb-sep nb-sep-md">·</span>
     <span class="nb-tag">La force d'un groupe pluridisciplinaire derrière votre évaluation</span>
   </div>
@@ -65,7 +65,7 @@
 <nav id="navbar">
   <div class="nav-inner">
     <a href="/" class="nav-logo" aria-label="NCF — accueil">
-      <img src="/brand_assets/Logo NCF BL Marine.png" alt="NCF" />
+      <img src="/assets/img/brand/logo-ncf-bl-marine.png" alt="NCF" />
     </a>
     <div class="nav-links">
       <a href="/transmission/" class="nav-link">Transmission</a>
@@ -81,12 +81,12 @@
   </div>
 </nav>
 <div id="mob-menu">
-  <a href="/transmission/" onclick="closeNav()">Transmission</a>
-  <a href="/valorisation-minoritaires/" onclick="closeNav()">Valorisation de minoritaires</a>
-  <a href="/creation-holding/" onclick="closeNav()">Création de holding</a>
-  <a href="/ressources/" onclick="closeNav()" aria-current="page">Ressources</a>
-  <a href="/equipe/" onclick="closeNav()">L'équipe</a>
-  <a href="/#contact" onclick="closeNav()" class="nav-cta">Parler à un expert</a>
+  <a href="/transmission/">Transmission</a>
+  <a href="/valorisation-minoritaires/">Valorisation de minoritaires</a>
+  <a href="/creation-holding/">Création de holding</a>
+  <a href="/ressources/" aria-current="page">Ressources</a>
+  <a href="/equipe/">L'équipe</a>
+  <a href="/#contact" class="nav-cta">Parler à un expert</a>
 </div>
 
 <main>
@@ -185,9 +185,9 @@
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <img src="/brand_assets/Logo NCF BL Marine.png" alt="NCF" />
+        <img src="/assets/img/brand/logo-ncf-bl-marine.png" alt="NCF" />
         <p class="footer-brand-tag">Cabinet d'évaluation d'entreprise pour les dirigeants de PME en préparation de transmission.</p>
-        <div class="footer-novances"><img src="/brand_assets/logo_novances.avif" alt="Groupe Novances" /><span>Membre du <strong>Groupe Novances</strong></span></div>
+        <div class="footer-novances"><img src="/assets/img/brand/logo-novances.avif" alt="Groupe Novances" /><span>Membre du <strong>Groupe Novances</strong></span></div>
       </div>
       <div><div class="footer-col-title">Cas d'usage</div><div class="footer-links"><a href="/transmission/" class="footer-link">Préparation de transmission</a><a href="/valorisation-minoritaires/" class="footer-link">Valorisation de minoritaires</a><a href="/creation-holding/" class="footer-link">Création de holding</a></div></div>
       <div><div class="footer-col-title">Cabinet</div><div class="footer-links"><a href="/equipe/" class="footer-link">L'équipe</a><a href="/equipe/#novances" class="footer-link">Groupe Novances</a><a href="/partenaires/" class="footer-link">Partenaires</a></div></div>
@@ -196,28 +196,7 @@
     <div class="footer-bottom"><div class="footer-copy">© 2026 NCF Advisory — Tous droits réservés.</div><div class="footer-legal"><a href="/mentions-legales/">Mentions légales</a><a href="/confidentialite/">Confidentialité</a></div></div>
   </div>
 </footer>
-
-<script>
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', scrollY > 40), { passive: true });
-  let navOpen = false;
-  const hbg = document.getElementById('hbg');
-  const mob = document.getElementById('mob-menu');
-  hbg.addEventListener('click', () => {
-    navOpen = !navOpen;
-    mob.classList.toggle('open', navOpen);
-    hbg.setAttribute('aria-expanded', String(navOpen));
-    const [b1, b2, b3] = ['b1','b2','b3'].map(id => document.getElementById(id));
-    b1.style.transform = navOpen ? 'translateY(6.5px) rotate(45deg)' : '';
-    b2.style.opacity = navOpen ? '0' : '';
-    b3.style.transform = navOpen ? 'translateY(-6.5px) rotate(-45deg)' : '';
-  });
-  function closeNav() {
-    navOpen = false; mob.classList.remove('open');
-    hbg.setAttribute('aria-expanded', 'false');
-    ['b1','b2','b3'].forEach(id => document.getElementById(id).style.cssText = '');
-  }
-</script>
+<script src="/assets/js/site.js" defer></script>
 
 </body>
 </html>

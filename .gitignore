@@ -21,8 +21,10 @@ dist/
 *.pdf
 *.docx
 *.doc
+_work/docs/
+_work/prompts/
 
-# Screenshots de travail à la racine (les assets sont dans brand_assets/)
+# Screenshots de travail à la racine (les assets sont dans assets/img/)
 /*.png
 /*.jpg
 /*.jpeg

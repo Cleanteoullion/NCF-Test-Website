@@ -21,3 +21,7 @@ Commande utile pour repérer les occurrences :
 ```txt
 Select-String -Path *.html,*\index.html,ressources\*\index.html,robots.txt,sitemap.xml -Pattern "https://www.ncf-advisory.fr"
 ```
+
+## Organisation
+
+Les conventions de dossiers sont décrites dans `ARCHITECTURE.md`.

@@ -1,0 +1,284 @@
+/* ═══════════════════ Spécifique page équipe ═══════════════════ */
+
+    /* Lien actif dans la nav */
+    body.equipe-page .nav-link.active { color: #fff; }
+    body.equipe-page .nav-link.active::after {
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan-soft);
+    }
+
+    /* ═══════════════════ HERO ═══════════════════ */
+    #hero-equipe {
+      padding: 138px 0 4rem;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      background: var(--navy-deep);
+    }
+    #hero-equipe::before {
+      content: '';
+      position: absolute; inset: 0; z-index: -1;
+      background:
+        radial-gradient(900px 600px at 15% 20%, rgba(0, 184, 255, 0.08), transparent 60%),
+        radial-gradient(700px 500px at 85% 80%, rgba(0, 184, 255, 0.04), transparent 65%);
+    }
+    #hero-equipe .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      text-align: center;
+    }
+    #hero-equipe .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+    }
+    #hero-equipe h1 {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      line-height: 1.05;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+    #hero-equipe h1 .accent { color: var(--cyan); }
+    #hero-equipe .hero-sub {
+      max-width: 720px;
+      margin: 1.6rem auto 0;
+      color: var(--ink-dim);
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+
+    /* ═══════════════════ PROFILS ═══════════════════ */
+    .equipe-list {
+      background: var(--navy-deep);
+      padding: 4rem 0 6rem;
+    }
+    .profile {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: 4rem;
+      align-items: center;
+    }
+    .profile + .profile { border-top: 1px solid rgba(255,255,255,0.05); }
+
+    /* Alternance gauche/droite */
+    .profile.flip { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+    .profile.flip .profile-photo { order: 2; }
+    .profile.flip .profile-text  { order: 1; }
+
+    .profile-photo {
+      position: relative;
+      display: block;
+      aspect-ratio: 4 / 5;
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--navy);
+      box-shadow: 0 30px 80px -30px rgba(0, 184, 255, 0.18), 0 1px 0 rgba(255,255,255,0.04) inset;
+      text-decoration: none;
+      color: inherit;
+    }
+    .profile-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: saturate(1.05) contrast(1.02);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .profile-photo:hover img,
+    .profile-photo:focus-visible img { transform: scale(1.03); }
+    .profile-photo::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 55%, rgba(5, 13, 29, 0.45) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .profile-photo-linkedin {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      padding: 0.95rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: linear-gradient(180deg, rgba(10,102,194,0.78) 0%, rgba(10,102,194,0.96) 100%);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.92rem;
+      letter-spacing: 0.01em;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 2;
+      pointer-events: none;
+    }
+    .profile-photo:hover .profile-photo-linkedin,
+    .profile-photo:focus-visible .profile-photo-linkedin {
+      transform: translateY(0);
+    }
+    .profile-photo-linkedin svg {
+      width: 22px; height: 22px;
+      fill: #fff;
+      flex-shrink: 0;
+    }
+    @media (hover: none) {
+      .profile-photo-linkedin { transform: translateY(0); }
+    }
+
+    .profile-text { display: flex; flex-direction: column; }
+    .profile-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .profile-name {
+      font-size: clamp(2.4rem, 5.4vw, 4.6rem);
+      line-height: 1;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0;
+      letter-spacing: -0.025em;
+    }
+    .profile-role {
+      font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+      font-weight: 500;
+      color: var(--cyan-soft);
+      margin: 1rem 0 1.75rem;
+    }
+    .profile-expertise {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--ink-dim);
+      max-width: 540px;
+    }
+    .profile-expertise .todo {
+      display: inline-block;
+      padding: 0.15rem 0.55rem;
+      border-radius: 4px;
+      background: rgba(245, 158, 11, 0.15);
+      color: #F59E0B;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+    }
+
+    /* Animation de reveal — surcharge plus marquée que .rv standard */
+    .profile.rv { opacity: 0; transform: translateY(80px); transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+    .profile.rv.in { opacity: 1; transform: none; }
+    .profile.rv .profile-photo { transform: scale(0.96); transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
+    .profile.rv.in .profile-photo { transform: scale(1); }
+
+    /* ═══════════════════ NOVANCES ═══════════════════ */
+    #novances {
+      background: linear-gradient(180deg, var(--navy-deep), #07142A);
+      padding: 6rem 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .novances-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+      gap: 4rem;
+      align-items: center;
+    }
+    .novances-logo-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      box-shadow: 0 30px 80px -30px rgba(0, 184, 255, 0.18);
+      text-decoration: none;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    }
+    .novances-logo-wrap:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 40px 100px -30px rgba(0, 184, 255, 0.32);
+    }
+    .novances-logo-wrap img { max-width: 100%; height: auto; }
+    .novances-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .novances-title {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+      margin: 0 0 1.4rem;
+      letter-spacing: -0.02em;
+    }
+    .novances-body {
+      color: var(--ink-dim);
+      font-size: 1.02rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+    .novances-body + .novances-body { margin-top: 1rem; }
+
+    /* ═══════════════════ CTA FINAL ═══════════════════ */
+    .equipe-cta {
+      background: var(--navy-deep);
+      padding: 5rem 1.5rem 6rem;
+      text-align: center;
+    }
+    .equipe-cta-inner { max-width: 720px; margin: 0 auto; }
+    .equipe-cta h2 {
+      font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0 0 1rem;
+      letter-spacing: -0.02em;
+    }
+    .equipe-cta p {
+      color: var(--ink-dim);
+      font-size: 1.02rem;
+      line-height: 1.65;
+      margin: 0 0 2rem;
+    }
+    .equipe-cta .cta-row { display: flex; gap: 0.85rem; justify-content: center; flex-wrap: wrap; }
+
+    /* ═══════════════════ Responsive ═══════════════════ */
+    @media (max-width: 900px) {
+      .profile, .profile.flip {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 4rem 1.25rem;
+      }
+      .profile.flip .profile-photo { order: 0; }
+      .profile.flip .profile-text  { order: 0; }
+      .profile-photo { aspect-ratio: 4 / 5; max-width: 420px; margin: 0 auto; }
+      .novances-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .novances-logo-wrap { padding: 2rem 1.5rem; max-width: 280px; margin: 0 auto; }
+    }
+
+    @media (max-width: 640px) {
+      #hero-equipe { padding: 110px 0 3rem; }
+      .equipe-list { padding: 2rem 0 4rem; }
+      .profile, .profile.flip { padding: 3rem 1rem; }
+      .profile + .profile { padding-top: 4rem; }
+    }
+
