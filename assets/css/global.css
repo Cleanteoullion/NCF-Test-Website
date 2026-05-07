@@ -16,7 +16,7 @@
   --blue:        #00B8FF;    /* alias compat — pointe vers cyan */
   --blue-d:      #0090CC;
 
-  --violet:  #A855F7;
+  --violet:  #532EFB;
   --magenta: #EC4899;
   --green:   #22C55E;
 
@@ -44,9 +44,9 @@
   --c-succession:      #F59E0B;               /* ambre brillant (lisible sur dark) */
   --c-succession-soft: rgba(245, 158, 11, 0.14);
   --c-succession-tint: rgba(245, 158, 11, 0.06);
-  --c-minoritaires:      #A855F7;             /* violet */
-  --c-minoritaires-soft: rgba(168, 85, 247, 0.16);
-  --c-minoritaires-tint: rgba(168, 85, 247, 0.06);
+  --c-minoritaires:      #532EFB;             /* violet */
+  --c-minoritaires-soft: rgba(83, 46, 251, 0.16);
+  --c-minoritaires-tint: rgba(83, 46, 251, 0.06);
   --c-holding:      #10B981;                  /* émeraude */
   --c-holding-soft: rgba(16, 185, 129, 0.14);
   --c-holding-tint: rgba(16, 185, 129, 0.06);
@@ -69,7 +69,7 @@ body::before {
   position: fixed; inset: 0;
   background:
     radial-gradient(ellipse 900px 700px at 15% 15%, rgba(0, 184, 255, 0.06) 0%, transparent 55%),
-    radial-gradient(ellipse 700px 500px at 85% 85%, rgba(168, 85, 247, 0.04) 0%, transparent 55%);
+    radial-gradient(ellipse 700px 500px at 85% 85%, rgba(83, 46, 251, 0.04) 0%, transparent 55%);
   z-index: 0; pointer-events: none;
 }
 body > * { position: relative; z-index: 1; }
@@ -506,7 +506,7 @@ body.cursor-glow-active #cursor-glow { opacity: 1; }
   z-index: -1;
   background:
     radial-gradient(900px 620px at 18% 18%, rgba(0, 184, 255, 0.08), transparent 62%),
-    radial-gradient(700px 520px at 88% 80%, rgba(168, 85, 247, 0.05), transparent 65%);
+    radial-gradient(700px 520px at 88% 80%, rgba(83, 46, 251, 0.05), transparent 65%);
 }
 .article-wrap {
   max-width: 1020px;

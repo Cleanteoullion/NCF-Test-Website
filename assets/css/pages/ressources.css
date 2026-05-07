@@ -222,8 +222,8 @@
 
     .mag-card--minoritaires:hover {
       transform: translateY(-4px);
-      border-color: rgba(168, 85, 247, 0.45);
-      box-shadow: 0 24px 48px -20px rgba(168, 85, 247, 0.28);
+      border-color: rgba(83, 46, 251, 0.45);
+      box-shadow: 0 24px 48px -20px rgba(83, 46, 251, 0.28);
     }
     .mag-card--holding:hover {
       transform: translateY(-4px);

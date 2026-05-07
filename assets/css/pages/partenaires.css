@@ -12,7 +12,7 @@
       z-index: -1;
       background:
         radial-gradient(900px 620px at 18% 22%, rgba(0, 184, 255, 0.1), transparent 62%),
-        radial-gradient(760px 540px at 86% 80%, rgba(168, 85, 247, 0.06), transparent 65%);
+        radial-gradient(760px 540px at 86% 80%, rgba(83, 46, 251, 0.06), transparent 65%);
     }
     .partners-hero-inner {
       max-width: 1200px;

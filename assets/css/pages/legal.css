@@ -10,7 +10,7 @@
       inset: 0;
       background:
         radial-gradient(900px 560px at 20% 10%, rgba(0, 184, 255, 0.08), transparent 62%),
-        radial-gradient(720px 520px at 88% 90%, rgba(168, 85, 247, 0.05), transparent 65%);
+        radial-gradient(720px 520px at 88% 90%, rgba(83, 46, 251, 0.05), transparent 65%);
       pointer-events: none;
     }
     .legal-wrap {
