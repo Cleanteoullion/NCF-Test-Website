@@ -2,13 +2,13 @@
 
 ## Domaine SEO canonique
 
-Les balises SEO et le sitemap utilisent provisoirement :
+Les balises SEO et le sitemap utilisent le domaine canonique :
 
 ```txt
-https://www.ncf-advisory.fr
+https://novances-evaluation.fr
 ```
 
-Quand le domaine final du site sera validé et branché sur Vercel, remplacer cette URL dans :
+Si le domaine canonique change, remplacer cette URL dans :
 
 - `sitemap.xml`
 - `robots.txt`
@@ -19,7 +19,7 @@ Quand le domaine final du site sera validé et branché sur Vercel, remplacer ce
 Commande utile pour repérer les occurrences :
 
 ```txt
-Select-String -Path *.html,*\index.html,ressources\*\index.html,robots.txt,sitemap.xml -Pattern "https://www.ncf-advisory.fr"
+Select-String -Path *.html,*\index.html,ressources\*\index.html,robots.txt,sitemap.xml -Pattern "https://novances-evaluation.fr"
 ```
 
 ## Organisation

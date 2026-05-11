@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /_work/
 
-Sitemap: https://www.ncf-advisory.fr/sitemap.xml
+Sitemap: https://novances-evaluation.fr/sitemap.xml
