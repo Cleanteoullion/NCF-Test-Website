@@ -68,37 +68,6 @@
       });
     });
 
-    const cursorGlow = document.getElementById('cursor-glow');
-    if (
-      cursorGlow &&
-      !reducedMotion &&
-      window.matchMedia('(hover: hover) and (min-width: 981px)').matches
-    ) {
-      let mx = window.innerWidth / 2;
-      let my = window.innerHeight / 2;
-      let gx = mx;
-      let gy = my;
-      let rafId = null;
-
-      const loop = () => {
-        gx += (mx - gx) * 0.14;
-        gy += (my - gy) * 0.14;
-        cursorGlow.style.transform = `translate3d(${gx.toFixed(1)}px, ${gy.toFixed(1)}px, 0) translate(-50%, -50%)`;
-        if (Math.abs(mx - gx) > 0.3 || Math.abs(my - gy) > 0.3) {
-          rafId = requestAnimationFrame(loop);
-        } else {
-          rafId = null;
-        }
-      };
-
-      document.addEventListener('pointermove', (event) => {
-        mx = event.clientX;
-        my = event.clientY;
-        document.body.classList.add('cursor-glow-active');
-        if (rafId === null) rafId = requestAnimationFrame(loop);
-      }, { passive: true });
-    }
-
     if (!reducedMotion && window.matchMedia('(hover: hover) and (min-width: 981px)').matches) {
       document.querySelectorAll('.btn-magnetic').forEach((btn) => {
         const content = btn.querySelector('.btn-content') || btn;

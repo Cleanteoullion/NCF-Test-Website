@@ -1,7 +1,7 @@
 const CASE_LABELS = {
   transmission: 'Préparation de transmission',
-  minoritaires: 'Valorisation de minoritaires',
-  holding: 'Création de holding',
+  litiges: 'Litiges entre associés',
+  croissance: 'Croissance externe',
   autre: 'Autre',
 };
 

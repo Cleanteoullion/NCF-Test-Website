@@ -11,14 +11,6 @@
       box-shadow: 0 0 8px var(--c-succession-soft);
     }
 
-    /* Lueur curseur teintée or patiné (mêmes paramètres que global.css, seule la couleur change) */
-    body.transmission-page #cursor-glow {
-      background: radial-gradient(circle at center,
-        rgba(245, 158, 11, 0.18) 0%,
-        rgba(245, 158, 11, 0.07) 35%,
-        transparent 65%);
-    }
-
     /* Sections alternées : fonds très légèrement contrastés pour donner du rythme */
     .sec-dark   { background: var(--navy-deep); }
     .sec-soft   { background: linear-gradient(180deg, var(--navy-deep), #08162d 50%, var(--navy-deep)); }

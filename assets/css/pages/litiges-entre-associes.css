@@ -1,22 +1,14 @@
 /* ═══════════════════ Spécifique page valorisation-minoritaires ═══════════════════ */
 
-    /* Accent violet (var --c-minoritaires) sur les eyebrows partagés */
-    body.minoritaires-page .section-eyebrow { color: var(--c-minoritaires); }
-    body.minoritaires-page .section-eyebrow::before {
-      background: linear-gradient(90deg, var(--c-minoritaires), transparent);
+    /* Accent violet (var --c-litiges) sur les eyebrows partagés */
+    body.litiges-page .section-eyebrow { color: var(--c-litiges); }
+    body.litiges-page .section-eyebrow::before {
+      background: linear-gradient(90deg, var(--c-litiges), transparent);
     }
-    body.minoritaires-page .nav-link.active { color: #fff; }
-    body.minoritaires-page .nav-link.active::after {
-      background: var(--c-minoritaires);
-      box-shadow: 0 0 8px var(--c-minoritaires-soft);
-    }
-
-    /* Lueur curseur teintée violet (mêmes paramètres que global.css, seule la couleur change) */
-    body.minoritaires-page #cursor-glow {
-      background: radial-gradient(circle at center,
-        rgba(83, 46, 251, 0.18) 0%,
-        rgba(83, 46, 251, 0.07) 35%,
-        transparent 65%);
+    body.litiges-page .nav-link.active { color: #fff; }
+    body.litiges-page .nav-link.active::after {
+      background: var(--c-litiges);
+      box-shadow: 0 0 8px var(--c-litiges-soft);
     }
 
     /* Sections alternées : fonds très légèrement contrastés pour donner du rythme */
@@ -25,21 +17,21 @@
     .sec-raised { background: radial-gradient(800px 500px at 50% 0%, rgba(83, 46, 251, 0.04), transparent 65%), var(--navy-deep); }
 
     /* ═══════════════════ HERO ═══════════════════ */
-    #hero-minoritaires {
+    #hero-litiges {
       padding: 138px 0 4.5rem;
       position: relative;
       overflow: hidden;
       isolation: isolate;
       background: var(--navy-deep);
     }
-    #hero-minoritaires::before {
+    #hero-litiges::before {
       content: '';
       position: absolute; inset: 0; z-index: -1;
       background:
         radial-gradient(900px 600px at 15% 20%, rgba(83, 46, 251, 0.10), transparent 60%),
         radial-gradient(700px 500px at 85% 80%, rgba(0, 184, 255, 0.04), transparent 65%);
     }
-    #hero-minoritaires::after {
+    #hero-litiges::after {
       content: '';
       position: absolute; inset: 0; z-index: -1;
       background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
@@ -60,7 +52,7 @@
       font-weight: 700;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--c-minoritaires);
+      color: var(--c-litiges);
       display: inline-flex;
       align-items: center;
       gap: 12px;
@@ -68,7 +60,7 @@
     .hero-s-eyebrow::before {
       content: '';
       width: 32px; height: 2px;
-      background: linear-gradient(90deg, var(--c-minoritaires), transparent);
+      background: linear-gradient(90deg, var(--c-litiges), transparent);
       display: inline-block;
     }
     .hero-s-h1 {
@@ -81,7 +73,7 @@
       margin-top: 1.1rem;
     }
     .hero-s-h1 .accent {
-      color: var(--c-minoritaires);
+      color: var(--c-litiges);
       position: relative;
     }
     .hero-s-h1 .accent::after {
@@ -114,7 +106,7 @@
       align-items: center;
       gap: 10px;
     }
-    .hero-s-reassure svg { stroke: var(--c-minoritaires); flex-shrink: 0; }
+    .hero-s-reassure svg { stroke: var(--c-litiges); flex-shrink: 0; }
 
     /* ═══════════════════ VOTRE SITUATION — pain points en citations ═══════════════════ */
     .pain-grid {
@@ -131,7 +123,7 @@
       padding: 2.25rem 1.75rem 1.5rem;
       background: linear-gradient(160deg, rgba(26,48,85,0.48), rgba(10,31,61,0.35));
       border: 1px solid var(--border);
-      border-left: 3px solid var(--c-minoritaires);
+      border-left: 3px solid var(--c-litiges);
       border-radius: 14px;
       display: flex;
       flex-direction: column;
@@ -144,7 +136,7 @@
       font-family: Georgia, 'Times New Roman', serif;
       font-size: 5.5rem;
       line-height: 1;
-      color: var(--c-minoritaires);
+      color: var(--c-litiges);
       opacity: 0.35;
       font-weight: 700;
       pointer-events: none;
@@ -164,7 +156,7 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       font-weight: 700;
-      color: var(--c-minoritaires);
+      color: var(--c-litiges);
       margin-top: auto;
       display: inline-flex;
       align-items: center;
@@ -174,7 +166,7 @@
       content: '';
       width: 6px; height: 6px;
       border-radius: 50%;
-      background: var(--c-minoritaires);
+      background: var(--c-litiges);
     }
 
     /* ═══════════════════ NOS APPORTS ═══════════════════ */
@@ -202,8 +194,8 @@
       display: inline-flex;
       align-items: center; justify-content: center;
       border-radius: 12px;
-      background: var(--c-minoritaires-soft);
-      color: var(--c-minoritaires);
+      background: var(--c-litiges-soft);
+      color: var(--c-litiges);
       margin-bottom: 1.1rem;
     }
     .apport-title {
@@ -237,7 +229,7 @@
     .diff-num {
       display: inline-flex;
       width: 38px; height: 38px;
-      background: var(--c-minoritaires);
+      background: var(--c-litiges);
       color: var(--navy-deep);
       font-weight: 800;
       font-size: 0.9rem;
@@ -285,8 +277,8 @@
       width: 72px; height: 72px;
       border-radius: 50%;
       background: rgba(83, 46, 251, 0.08);
-      border: 2px solid var(--c-minoritaires);
-      color: var(--c-minoritaires);
+      border: 2px solid var(--c-litiges);
+      color: var(--c-litiges);
       font-size: 1.4rem;
       font-weight: 800;
       display: inline-flex;
@@ -315,14 +307,14 @@
       padding: 4px 12px;
       border-radius: 999px;
       background: rgba(83, 46, 251, 0.12);
-      color: var(--c-minoritaires);
+      color: var(--c-litiges);
       font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       border: 1px solid rgba(83, 46, 251, 0.2);
     }
-    .process-badge svg { stroke: var(--c-minoritaires); }
+    .process-badge svg { stroke: var(--c-litiges); }
 
     /* ═══════════════════ CAS D'ÉCOLE ═══════════════════ */
     .case-panel {
@@ -364,7 +356,7 @@
       letter-spacing: 0.14em;
       font-weight: 700;
       text-transform: uppercase;
-      color: var(--c-minoritaires);
+      color: var(--c-litiges);
       margin-bottom: 0.6rem;
     }
     .case-title {
@@ -405,7 +397,7 @@
       letter-spacing: 0.14em;
       font-weight: 700;
       text-transform: uppercase;
-      color: var(--c-minoritaires);
+      color: var(--c-litiges);
       margin-top: 1.75rem;
       margin-bottom: 0.6rem;
     }
@@ -425,7 +417,7 @@
       letter-spacing: 0.14em;
       font-weight: 700;
       text-transform: uppercase;
-      color: var(--c-minoritaires);
+      color: var(--c-litiges);
       margin-bottom: 1rem;
     }
     .case-result-list {
@@ -448,16 +440,16 @@
       left: 0; top: 0.35em;
       width: 18px; height: 18px;
       border-radius: 50%;
-      background: var(--c-minoritaires-soft);
-      border: 1.5px solid var(--c-minoritaires);
+      background: var(--c-litiges-soft);
+      border: 1.5px solid var(--c-litiges);
     }
     .case-result-list li::after {
       content: '';
       position: absolute;
       left: 5px; top: 0.65em;
       width: 7px; height: 4px;
-      border-left: 2px solid var(--c-minoritaires);
-      border-bottom: 2px solid var(--c-minoritaires);
+      border-left: 2px solid var(--c-litiges);
+      border-bottom: 2px solid var(--c-litiges);
       transform: rotate(-45deg);
     }
     .case-author {
@@ -494,7 +486,7 @@
       flex-direction: column;
     }
     .testi-stars {
-      color: var(--c-minoritaires);
+      color: var(--c-litiges);
       letter-spacing: 0.15em;
       font-size: 0.95rem;
       margin-bottom: 0.6rem;
@@ -525,7 +517,7 @@
       text-decoration: none;
       transition: color 0.2s;
     }
-    .testi-source:hover { color: var(--c-minoritaires); }
+    .testi-source:hover { color: var(--c-litiges); }
 
     /* ═══════════════════ PARTENAIRES ═══════════════════ */
     .partners-grid {
@@ -549,7 +541,7 @@
       align-items: center; justify-content: center;
       border-radius: 10px;
       background: rgba(255,255,255,0.04);
-      color: var(--c-minoritaires);
+      color: var(--c-litiges);
       margin-bottom: 1rem;
       border: 1px solid var(--border);
     }
@@ -558,7 +550,7 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       font-weight: 700;
-      color: var(--c-minoritaires);
+      color: var(--c-litiges);
       margin-bottom: 0.35rem;
     }
     .partner-title {
@@ -613,8 +605,8 @@
       width: 14px; height: 14px;
       transform: translateY(-50%);
       background-image:
-        linear-gradient(var(--c-minoritaires), var(--c-minoritaires)),
-        linear-gradient(var(--c-minoritaires), var(--c-minoritaires));
+        linear-gradient(var(--c-litiges), var(--c-litiges)),
+        linear-gradient(var(--c-litiges), var(--c-litiges));
       background-size: 14px 2px, 2px 14px;
       background-position: center, center;
       background-repeat: no-repeat;
@@ -624,7 +616,7 @@
       background-size: 14px 2px, 0 0;
       transform: translateY(-50%) rotate(90deg);
     }
-    .faq-item summary:hover { color: var(--c-minoritaires); }
+    .faq-item summary:hover { color: var(--c-litiges); }
     .faq-body {
       padding: 0 1.35rem 1.3rem;
       font-size: 0.94rem;
@@ -669,12 +661,12 @@
       font-weight: 700;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--c-minoritaires);
+      color: var(--c-litiges);
       margin-bottom: 1rem;
     }
     .cta-eyebrow::before {
       content: ''; width: 24px; height: 2px;
-      background: linear-gradient(90deg, var(--c-minoritaires), transparent);
+      background: linear-gradient(90deg, var(--c-litiges), transparent);
     }
     .cta-title {
       font-size: clamp(1.6rem, 3vw, 2.3rem);
@@ -683,7 +675,7 @@
       letter-spacing: -0.025em;
       line-height: 1.15;
     }
-    .cta-title .accent { color: var(--c-minoritaires); }
+    .cta-title .accent { color: var(--c-litiges); }
     .cta-sub {
       font-size: 1.02rem;
       color: var(--ink-dim);
@@ -707,11 +699,11 @@
       align-items: center;
       gap: 8px;
     }
-    .cta-engagement svg { stroke: var(--c-minoritaires); flex-shrink: 0; }
+    .cta-engagement svg { stroke: var(--c-litiges); flex-shrink: 0; }
 
     /* ═══════════════════ RESPONSIVE FINETUNING ═══════════════════ */
     @media (max-width: 760px) {
-      #hero-minoritaires { padding: 128px 0 3rem; }
+      #hero-litiges { padding: 128px 0 3rem; }
       .hero-s-inner { padding: 2rem 1.25rem 0.5rem; }
       .hero-s-ctas .btn-primary,
       .hero-s-ctas .btn-outline { width: 100%; justify-content: center; }

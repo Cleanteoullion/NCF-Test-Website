@@ -1,22 +1,14 @@
 /* ═══════════════════ Spécifique page creation-holding ═══════════════════ */
 
-    /* Accent émeraude (var --c-holding) sur les eyebrows partagés */
-    body.holding-page .section-eyebrow { color: var(--c-holding); }
-    body.holding-page .section-eyebrow::before {
-      background: linear-gradient(90deg, var(--c-holding), transparent);
+    /* Accent émeraude (var --c-croissance) sur les eyebrows partagés */
+    body.croissance-page .section-eyebrow { color: var(--c-croissance); }
+    body.croissance-page .section-eyebrow::before {
+      background: linear-gradient(90deg, var(--c-croissance), transparent);
     }
-    body.holding-page .nav-link.active { color: #fff; }
-    body.holding-page .nav-link.active::after {
-      background: var(--c-holding);
-      box-shadow: 0 0 8px var(--c-holding-soft);
-    }
-
-    /* Lueur curseur teintée émeraude (mêmes paramètres que global.css, seule la couleur change) */
-    body.holding-page #cursor-glow {
-      background: radial-gradient(circle at center,
-        rgba(16, 185, 129, 0.18) 0%,
-        rgba(16, 185, 129, 0.07) 35%,
-        transparent 65%);
+    body.croissance-page .nav-link.active { color: #fff; }
+    body.croissance-page .nav-link.active::after {
+      background: var(--c-croissance);
+      box-shadow: 0 0 8px var(--c-croissance-soft);
     }
 
     /* Sections alternées */
@@ -25,21 +17,21 @@
     .sec-raised { background: radial-gradient(800px 500px at 50% 0%, rgba(16, 185, 129, 0.04), transparent 65%), var(--navy-deep); }
 
     /* ═══════════════════ HERO ═══════════════════ */
-    #hero-holding {
+    #hero-croissance {
       padding: 138px 0 4.5rem;
       position: relative;
       overflow: hidden;
       isolation: isolate;
       background: var(--navy-deep);
     }
-    #hero-holding::before {
+    #hero-croissance::before {
       content: '';
       position: absolute; inset: 0; z-index: -1;
       background:
         radial-gradient(900px 600px at 15% 20%, rgba(16, 185, 129, 0.10), transparent 60%),
         radial-gradient(700px 500px at 85% 80%, rgba(0, 184, 255, 0.04), transparent 65%);
     }
-    #hero-holding::after {
+    #hero-croissance::after {
       content: '';
       position: absolute; inset: 0; z-index: -1;
       background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
@@ -62,14 +54,14 @@
       margin-bottom: 1.4rem;
     }
     .hero-s-breadcrumb a { color: var(--ink-dim); text-decoration: none; transition: color 0.2s; }
-    .hero-s-breadcrumb a:hover { color: var(--c-holding); }
+    .hero-s-breadcrumb a:hover { color: var(--c-croissance); }
     .hero-s-breadcrumb .sep { margin: 0 0.5rem; color: var(--border-strong); }
     .hero-s-eyebrow {
       font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--c-holding);
+      color: var(--c-croissance);
       display: inline-flex;
       align-items: center;
       gap: 12px;
@@ -77,7 +69,7 @@
     .hero-s-eyebrow::before {
       content: '';
       width: 32px; height: 2px;
-      background: linear-gradient(90deg, var(--c-holding), transparent);
+      background: linear-gradient(90deg, var(--c-croissance), transparent);
       display: inline-block;
     }
     .hero-s-h1 {
@@ -90,7 +82,7 @@
       margin-top: 1.1rem;
     }
     .hero-s-h1 .accent {
-      color: var(--c-holding);
+      color: var(--c-croissance);
       position: relative;
     }
     .hero-s-h1 .accent::after {
@@ -123,7 +115,7 @@
       align-items: center;
       gap: 10px;
     }
-    .hero-s-reassure svg { stroke: var(--c-holding); flex-shrink: 0; }
+    .hero-s-reassure svg { stroke: var(--c-croissance); flex-shrink: 0; }
 
     /* ═══════════════════ VOTRE SITUATION — 3 tuiles ═══════════════════ */
     .situation-grid {
@@ -137,7 +129,7 @@
       padding: 2rem 1.75rem;
       background: linear-gradient(160deg, rgba(26,48,85,0.48), rgba(10,31,61,0.35));
       border: 1px solid var(--border);
-      border-left: 3px solid var(--c-holding);
+      border-left: 3px solid var(--c-croissance);
       border-radius: 14px;
     }
     .situation-title {
@@ -153,11 +145,11 @@
       line-height: 1.7;
     }
     .situation-body a {
-      color: var(--c-holding);
+      color: var(--c-croissance);
       text-decoration: none;
-      border-bottom: 1px dotted var(--c-holding-soft);
+      border-bottom: 1px dotted var(--c-croissance-soft);
     }
-    .situation-body a:hover { border-bottom-color: var(--c-holding); }
+    .situation-body a:hover { border-bottom-color: var(--c-croissance); }
 
     /* ═══════════════════ APPORTS — 3 piliers numérotés ═══════════════════ */
     .diff-pillars {
@@ -177,7 +169,7 @@
     .diff-num {
       display: inline-flex;
       width: 38px; height: 38px;
-      background: var(--c-holding);
+      background: var(--c-croissance);
       color: var(--navy-deep);
       font-weight: 800;
       font-size: 0.9rem;
@@ -224,8 +216,8 @@
       display: inline-flex;
       align-items: center; justify-content: center;
       border-radius: 12px;
-      background: var(--c-holding-soft);
-      color: var(--c-holding);
+      background: var(--c-croissance-soft);
+      color: var(--c-croissance);
       margin-bottom: 1.1rem;
     }
     .apport-title {
@@ -246,13 +238,13 @@
       align-items: center;
       gap: 8px;
       font-size: 0.88rem;
-      color: var(--c-holding);
+      color: var(--c-croissance);
       text-decoration: none;
-      border-bottom: 1px dotted var(--c-holding-soft);
+      border-bottom: 1px dotted var(--c-croissance-soft);
       padding-bottom: 1px;
       transition: border-color 0.2s;
     }
-    .livrable-foot-link:hover { border-bottom-color: var(--c-holding); }
+    .livrable-foot-link:hover { border-bottom-color: var(--c-croissance); }
 
     /* ═══════════════════ PROCESS — timeline 5 étapes ═══════════════════ */
     .process-timeline {
@@ -280,8 +272,8 @@
       width: 72px; height: 72px;
       border-radius: 50%;
       background: rgba(16, 185, 129, 0.08);
-      border: 2px solid var(--c-holding);
-      color: var(--c-holding);
+      border: 2px solid var(--c-croissance);
+      color: var(--c-croissance);
       font-size: 1.4rem;
       font-weight: 800;
       display: inline-flex;
@@ -310,14 +302,14 @@
       padding: 4px 12px;
       border-radius: 999px;
       background: rgba(16, 185, 129, 0.12);
-      color: var(--c-holding);
+      color: var(--c-croissance);
       font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       border: 1px solid rgba(16, 185, 129, 0.2);
     }
-    .process-badge svg { stroke: var(--c-holding); }
+    .process-badge svg { stroke: var(--c-croissance); }
 
     /* ═══════════════════ CAS D'ÉCOLE — narratif long ═══════════════════ */
     .case-narrative {
@@ -358,7 +350,7 @@
       letter-spacing: 0.14em;
       font-weight: 700;
       text-transform: uppercase;
-      color: var(--c-holding);
+      color: var(--c-croissance);
       font-style: italic;
       margin-top: 1.5rem;
       margin-bottom: 0.5rem;
@@ -397,7 +389,7 @@
     }
     .testi-card:hover { border-color: var(--border-strong); transform: translateY(-3px); }
     .testi-card--partner {
-      border-left: 3px solid var(--c-holding);
+      border-left: 3px solid var(--c-croissance);
       padding: 2rem 2rem;
     }
     .testi-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
@@ -421,12 +413,12 @@
       font-size: 0.72rem; color: var(--muted); display: flex; align-items: center; gap: 6px;
     }
     .testi-source--partner {
-      color: var(--c-holding);
+      color: var(--c-croissance);
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
-    .testi-source--partner svg { stroke: var(--c-holding); }
+    .testi-source--partner svg { stroke: var(--c-croissance); }
 
     .testi-grid {
       display: grid;
@@ -496,8 +488,8 @@
       width: 14px; height: 14px;
       transform: translateY(-50%);
       background-image:
-        linear-gradient(var(--c-holding), var(--c-holding)),
-        linear-gradient(var(--c-holding), var(--c-holding));
+        linear-gradient(var(--c-croissance), var(--c-croissance)),
+        linear-gradient(var(--c-croissance), var(--c-croissance));
       background-size: 14px 2px, 2px 14px;
       background-position: center, center;
       background-repeat: no-repeat;
@@ -507,7 +499,7 @@
       background-size: 14px 2px, 0 0;
       transform: translateY(-50%) rotate(90deg);
     }
-    .faq-item summary:hover { color: var(--c-holding); }
+    .faq-item summary:hover { color: var(--c-croissance); }
     .faq-body {
       padding: 0 1.35rem 1.3rem;
       font-size: 0.94rem;
@@ -552,12 +544,12 @@
       font-weight: 700;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--c-holding);
+      color: var(--c-croissance);
       margin-bottom: 1rem;
     }
     .cta-eyebrow::before {
       content: ''; width: 24px; height: 2px;
-      background: linear-gradient(90deg, var(--c-holding), transparent);
+      background: linear-gradient(90deg, var(--c-croissance), transparent);
     }
     .cta-title {
       font-size: clamp(1.6rem, 3vw, 2.3rem);
@@ -566,7 +558,7 @@
       letter-spacing: -0.025em;
       line-height: 1.15;
     }
-    .cta-title .accent { color: var(--c-holding); }
+    .cta-title .accent { color: var(--c-croissance); }
     .cta-sub {
       font-size: 1.02rem;
       color: var(--ink-dim);
@@ -590,11 +582,11 @@
       align-items: center;
       gap: 8px;
     }
-    .cta-engagement svg { stroke: var(--c-holding); flex-shrink: 0; }
+    .cta-engagement svg { stroke: var(--c-croissance); flex-shrink: 0; }
 
     /* ═══════════════════ RESPONSIVE FINETUNING ═══════════════════ */
     @media (max-width: 760px) {
-      #hero-holding { padding: 128px 0 3rem; }
+      #hero-croissance { padding: 128px 0 3rem; }
       .hero-s-inner { padding: 2rem 1.25rem 0.5rem; }
       .hero-s-ctas .btn-primary,
       .hero-s-ctas .btn-outline { width: 100%; justify-content: center; }
