@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>NCF — Croissance externe · 4 nouvelles pistes</title>
+<style>
+  :root {
+    --c-croissance: #10B981;
+    --c-croissance-deep: #047857;
+    --c-croissance-soft: rgba(16, 185, 129, 0.14);
+    --c-croissance-tint: rgba(16, 185, 129, 0.06);
+    --surface-low: #FAFAF7;
+    --card-bg: #FFFFFF;
+    --text-strong: #061838;
+    --text-2: #3A4A6B;
+    --text-3: #586A8A;
+    --line-2: rgba(15, 23, 42, 0.13);
+    --line-3: rgba(15, 23, 42, 0.20);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--surface-low);
+    color: var(--text-strong);
+    font-family: 'Inter', system-ui, sans-serif;
+    padding: 4rem 5vw;
+  }
+  h1 { font-size: 1.75rem; margin-bottom: 0.5rem; }
+  .sub { color: var(--text-2); margin-bottom: 3rem; max-width: 75ch; line-height: 1.5; }
+
+  .test-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+  }
+  @media (max-width: 800px) { .test-grid { grid-template-columns: 1fr; } }
+
+  .test-card {
+    background: var(--card-bg);
+    border: 1px solid var(--line-2);
+    border-radius: 18px;
+    padding: 1.75rem 1.5rem 1.5rem;
+  }
+  .test-card-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--c-croissance);
+    margin-bottom: 0.4rem;
+  }
+  .test-card h2 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  .test-card p {
+    font-size: 0.82rem;
+    color: var(--text-2);
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+    min-height: 4em;
+  }
+
+  .visual {
+    margin-top: 1rem;
+    min-height: 270px;
+    border-top: 1px solid var(--line-2);
+    position: relative;
+    overflow: hidden;
+    --cas-accent: var(--c-croissance);
+    --cas-soft: var(--c-croissance-soft);
+    --cas-tint: var(--c-croissance-tint);
+  }
+  .visual::before {
+    content: '';
+    position: absolute;
+    inset: 24px 0 0;
+    border-radius: 16px;
+    background:
+      linear-gradient(var(--surface-low) 1px, transparent 1px),
+      linear-gradient(90deg, var(--surface-low) 1px, transparent 1px),
+      var(--cas-tint);
+    background-size: 24px 24px;
+    opacity: 0.6;
+  }
+  .visual > * { position: relative; z-index: 1; }
+
+  /* ═════════════════════════════════════════
+     1. MANGE — ABSORPTION ICÔNIQUE
+     ═════════════════════════════════════════ */
+  .absorb {
+    padding: 1.5rem 1rem;
+    display: grid;
+    align-content: center;
+    height: 100%;
+    position: relative;
+  }
+  .absorb-stage {
+    position: relative;
+    height: 200px;
+  }
+  /* Le gros bâtiment (Vous) */
+  .absorb-host {
+    position: absolute;
+    left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 65%; height: 170px;
+    background: white;
+    border: 2px solid var(--c-croissance);
+    border-radius: 12px;
+    padding: 1rem 0.9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 12px 28px -10px rgba(16, 185, 129, 0.3);
+  }
+  .absorb-host-header {
+    font-size: 0.55rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--c-croissance);
+  }
+  .absorb-host-icon {
+    color: var(--c-croissance);
+    align-self: center;
+  }
+  .absorb-host-icon svg { width: 56px; height: 56px; }
+  .absorb-host-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-strong);
+  }
+  .absorb-host-value small {
+    display: block;
+    font-size: 0.55rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-3);
+    margin-bottom: 0.15rem;
+  }
+  /* La petite cible (animée vers le gros) */
+  .absorb-prey {
+    position: absolute;
+    right: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 32%; height: 95px;
+    background: var(--c-croissance);
+    color: white;
+    border-radius: 10px;
+    padding: 0.6rem 0.65rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    animation: absorb-move 4s ease-in-out infinite;
+    box-shadow: 0 10px 24px -8px rgba(16, 185, 129, 0.5);
+  }
+  .absorb-prey-header {
+    font-size: 0.5rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  .absorb-prey-icon { align-self: center; opacity: 0.95; }
+  .absorb-prey-icon svg { width: 28px; height: 28px; }
+  @keyframes absorb-move {
+    0%      { right: 0; opacity: 1; transform: translateY(-50%) scale(1); }
+    50%     { right: 3%; opacity: 1; transform: translateY(-50%) scale(0.95); }
+    72%     { right: 12%; opacity: 0.85; transform: translateY(-50%) scale(0.65); }
+    85%     { right: 28%; opacity: 0.4; transform: translateY(-50%) scale(0.35); }
+    95%     { right: 38%; opacity: 0; transform: translateY(-50%) scale(0.1); }
+    100%    { right: 0; opacity: 0; transform: translateY(-50%) scale(0); }
+  }
+  /* Flèche directionnelle subtile */
+  .absorb-arrow {
+    position: absolute;
+    left: 60%; top: 50%;
+    transform: translateY(-50%);
+    color: var(--c-croissance);
+    opacity: 0.6;
+    animation: absorb-arrow-pulse 2s ease-in-out infinite;
+  }
+  .absorb-arrow svg { width: 22px; height: 22px; }
+  @keyframes absorb-arrow-pulse {
+    0%, 100% { transform: translate(0, -50%); opacity: 0.3; }
+    50%      { transform: translate(-6px, -50%); opacity: 0.8; }
+  }
+
+  /* ═════════════════════════════════════════
+     2. MANGE — PACMAN INSTITUTIONNEL
+     ═════════════════════════════════════════ */
+  .pac {
+    padding: 1.5rem 1rem;
+    display: grid;
+    align-content: center;
+    height: 100%;
+    position: relative;
+  }
+  .pac-stage {
+    position: relative;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  .pac-mouth {
+    width: 120px;
+    height: 120px;
+    position: relative;
+  }
+  .pac-mouth svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .pac-mouth-fill {
+    fill: var(--c-croissance);
+  }
+  .pac-jaw-top { transform-origin: 60px 60px; animation: pac-bite-top 1.6s ease-in-out infinite; }
+  .pac-jaw-bot { transform-origin: 60px 60px; animation: pac-bite-bot 1.6s ease-in-out infinite; }
+  @keyframes pac-bite-top {
+    0%, 100% { transform: rotate(0deg); }
+    50%      { transform: rotate(-30deg); }
+  }
+  @keyframes pac-bite-bot {
+    0%, 100% { transform: rotate(0deg); }
+    50%      { transform: rotate(30deg); }
+  }
+  .pac-prey {
+    width: 36px; height: 36px;
+    background: var(--c-croissance-deep);
+    border-radius: 8px;
+    animation: pac-prey-move 1.6s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+  .pac-prey svg { width: 18px; height: 18px; }
+  @keyframes pac-prey-move {
+    0%      { transform: translateX(0) scale(1); opacity: 1; }
+    40%     { transform: translateX(-70px) scale(0.7); opacity: 1; }
+    55%     { transform: translateX(-90px) scale(0.3); opacity: 0; }
+    100%    { transform: translateX(0) scale(1); opacity: 0; }
+  }
+  .pac-stage .pac-labels {
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+    display: flex;
+    justify-content: space-around;
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+  }
+  .pac-labels span:first-child { color: var(--c-croissance); }
+
+  /* ═════════════════════════════════════════
+     3. HOLDING ENRICHI — ICÔNES + WRAPPER
+     ═════════════════════════════════════════ */
+  .hcons {
+    padding: 1.5rem 0.75rem;
+    display: grid;
+    align-content: center;
+    height: 100%;
+    position: relative;
+  }
+  .hcons-wrapper {
+    border: 1.5px dashed var(--c-croissance);
+    border-radius: 16px;
+    padding: 1rem 0.9rem 0.9rem;
+    position: relative;
+    background: var(--c-croissance-tint);
+  }
+  .hcons-wrapper-label {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--card-bg);
+    padding: 0 0.6rem;
+    font-size: 0.55rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--c-croissance);
+    white-space: nowrap;
+  }
+  .hcons-top {
+    background: var(--c-croissance);
+    color: white;
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    width: fit-content;
+    margin: 0 auto 0;
+    box-shadow: 0 12px 26px -10px rgba(16, 185, 129, 0.5);
+  }
+  .hcons-top-icon { color: white; }
+  .hcons-top-icon svg { width: 28px; height: 28px; }
+  .hcons-top-text { line-height: 1.2; }
+  .hcons-top-label {
+    font-size: 0.5rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  .hcons-top-value {
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+  /* Branches courbes (SVG) */
+  .hcons-branches {
+    height: 36px;
+    margin-top: 0.4rem;
+  }
+  .hcons-branches svg {
+    width: 100%;
+    height: 100%;
+  }
+  .hcons-branch-path {
+    stroke: var(--c-croissance);
+    stroke-width: 1.8;
+    stroke-dasharray: 4 3;
+    fill: none;
+    animation: hcons-flow 3s linear infinite;
+  }
+  @keyframes hcons-flow {
+    to { stroke-dashoffset: -28; }
+  }
+  .hcons-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+    margin-top: 0.3rem;
+  }
+  .hcons-node {
+    background: white;
+    border: 1px solid var(--line-2);
+    border-radius: 10px;
+    padding: 0.7rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .hcons-node-icon { color: var(--c-croissance); }
+  .hcons-node-icon svg { width: 26px; height: 26px; }
+  .hcons-node-label {
+    font-size: 0.5rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+  .hcons-node-value {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-strong);
+  }
+  .hcons-node--target {
+    border-color: var(--c-croissance);
+    background: var(--c-croissance-soft);
+  }
+  .hcons-node--target .hcons-node-icon { color: var(--c-croissance-deep); }
+  .hcons-node--target .hcons-node-label,
+  .hcons-node--target .hcons-node-value { color: var(--c-croissance-deep); }
+
+  /* ═════════════════════════════════════════
+     4. HOLDING ENRICHI — PYRAMIDE EN COUCHES
+     ═════════════════════════════════════════ */
+  .pyr {
+    padding: 1.75rem 1rem 1.5rem;
+    display: grid;
+    align-content: end;
+    gap: 0;
+    height: 100%;
+  }
+  .pyr-tier {
+    position: relative;
+    padding: 0.7rem 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: white;
+    border-left: 3px solid var(--c-croissance);
+    margin: 0 auto;
+    box-shadow: 0 4px 12px -6px rgba(0,0,0,0.08);
+  }
+  .pyr-tier--1 {
+    width: 70%;
+    background: var(--c-croissance);
+    color: white;
+    border-radius: 8px 8px 0 0;
+    border-left-color: var(--c-croissance-deep);
+    z-index: 3;
+  }
+  .pyr-tier--2 {
+    width: 86%;
+    background: var(--c-croissance-soft);
+    border-color: var(--c-croissance);
+    z-index: 2;
+    margin-top: -4px;
+  }
+  .pyr-tier--3 {
+    width: 100%;
+    border-radius: 0 0 8px 8px;
+    z-index: 1;
+    margin-top: -4px;
+  }
+  .pyr-tier-icon {
+    flex-shrink: 0;
+    color: currentColor;
+  }
+  .pyr-tier-icon svg { width: 24px; height: 24px; }
+  .pyr-tier-text {
+    flex: 1;
+    line-height: 1.2;
+  }
+  .pyr-tier-label {
+    font-size: 0.52rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .pyr-tier--1 .pyr-tier-label { opacity: 0.85; }
+  .pyr-tier-name {
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  .pyr-tier-value {
+    font-size: 0.85rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+</style>
+</head>
+<body>
+
+<h1>Croissance externe — 4 pistes (v2)</h1>
+<p class="sub">
+  2 directions « une entreprise mange une autre » (Absorption · Pacman institutionnel) + 2 refontes plus riches du holding (avec icônes NCF + wrapper, ou en pyramide superposée).
+  Toutes en taille réelle (270 px, vert croissance, animations actives).
+</p>
+
+<div class="test-grid">
+
+  <!-- ═══════════ 1 — ABSORPTION ═══════════ -->
+  <div class="test-card">
+    <div class="test-card-label">1 — Absorption</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>Votre PME (gros bâtiment) absorbe la cible (petit bâtiment qui glisse, rétrécit et disparaît dans la grande). Mouvement répété en boucle.</p>
+
+    <div class="visual">
+      <div class="absorb">
+        <div class="absorb-stage">
+          <div class="absorb-host">
+            <div class="absorb-host-header">VOUS</div>
+            <div class="absorb-host-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M 1 4 L 1 1 L 4 1" stroke-width="1"/>
+                <path d="M 20 23 L 23 23 L 23 20" stroke-width="1"/>
+                <rect x="5" y="6" width="14" height="14"/>
+                <rect x="7.5" y="9" width="2" height="2"/>
+                <rect x="11" y="9" width="2" height="2"/>
+                <rect x="14.5" y="9" width="2" height="2"/>
+                <rect x="7.5" y="13" width="2" height="2"/>
+                <rect x="14.5" y="13" width="2" height="2"/>
+                <rect x="11" y="13" width="2" height="7"/>
+              </svg>
+            </div>
+            <div class="absorb-host-value">
+              <small>CA</small>
+              5,8 M€
+            </div>
+          </div>
+          <div class="absorb-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          </div>
+          <div class="absorb-prey">
+            <div class="absorb-prey-header">CIBLE</div>
+            <div class="absorb-prey-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="7" y="4" width="10" height="16"/>
+                <line x1="7" y1="8" x2="17" y2="8"/>
+                <line x1="7" y1="12" x2="17" y2="12"/>
+                <line x1="7" y1="16" x2="17" y2="16"/>
+                <line x1="12" y1="4" x2="12" y2="16"/>
+                <rect x="10.5" y="17" width="3" height="3"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 2 — PACMAN INSTITUTIONNEL ═══════════ -->
+  <div class="test-card">
+    <div class="test-card-label">2 — Pacman institutionnel</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>Forme « bouche ouverte » qui se referme sur la cible. Métaphore visuelle directe du verbe « manger ». Animation : bite + cible qui rentre.</p>
+
+    <div class="visual">
+      <div class="pac">
+        <div class="pac-stage">
+          <div class="pac-mouth">
+            <svg viewBox="0 0 120 120">
+              <!-- Mâchoire haute -->
+              <path class="pac-mouth-fill pac-jaw-top" d="M 60 60 L 60 0 A 60 60 0 0 1 120 60 Z"/>
+              <!-- Mâchoire basse -->
+              <path class="pac-mouth-fill pac-jaw-bot" d="M 60 60 L 120 60 A 60 60 0 0 1 60 120 Z"/>
+              <!-- Demi-cercle gauche fixe -->
+              <path class="pac-mouth-fill" d="M 60 0 A 60 60 0 0 0 60 120 L 60 60 Z"/>
+            </svg>
+          </div>
+          <div class="pac-prey">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="7" y="4" width="10" height="16"/>
+              <line x1="7" y1="8" x2="17" y2="8"/>
+              <line x1="7" y1="12" x2="17" y2="12"/>
+              <line x1="7" y1="16" x2="17" y2="16"/>
+              <rect x="10.5" y="17" width="3" height="3"/>
+            </svg>
+          </div>
+        </div>
+        <div class="pac-labels">
+          <span>Vous</span>
+          <span>Cible</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 3 — HOLDING + ICÔNES + WRAPPER ═══════════ -->
+  <div class="test-card">
+    <div class="test-card-label">3 — Holding iconique + wrapper</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>Structure de groupe encadrée par un wrapper « Groupe consolidé ». Icônes NCF dans chaque nœud, branches courbes animées (flux de valeur remontant).</p>
+
+    <div class="visual">
+      <div class="hcons">
+        <div class="hcons-wrapper">
+          <div class="hcons-wrapper-label">Groupe consolidé</div>
+
+          <div class="hcons-top">
+            <div class="hcons-top-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M 1 4 L 1 1 L 4 1" stroke-width="1"/>
+                <path d="M 20 23 L 23 23 L 23 20" stroke-width="1"/>
+                <rect x="10" y="5" width="4" height="4"/>
+                <rect x="5" y="16" width="4" height="4"/>
+                <rect x="10" y="16" width="4" height="4"/>
+                <rect x="15" y="16" width="4" height="4"/>
+                <line x1="12" y1="9" x2="12" y2="12.5"/>
+                <line x1="7" y1="12.5" x2="17" y2="12.5"/>
+                <line x1="7" y1="12.5" x2="7" y2="16"/>
+                <line x1="12" y1="12.5" x2="12" y2="16"/>
+                <line x1="17" y1="12.5" x2="17" y2="16"/>
+              </svg>
+            </div>
+            <div class="hcons-top-text">
+              <div class="hcons-top-label">Holding</div>
+              <div class="hcons-top-value">CA 8,6 M€</div>
+            </div>
+          </div>
+
+          <div class="hcons-branches">
+            <svg viewBox="0 0 200 36" preserveAspectRatio="none">
+              <path class="hcons-branch-path" d="M 100 0 Q 100 18 50 22 L 50 36"/>
+              <path class="hcons-branch-path" d="M 100 0 Q 100 18 150 22 L 150 36"/>
+            </svg>
+          </div>
+
+          <div class="hcons-bottom">
+            <div class="hcons-node">
+              <div class="hcons-node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="5" y="6" width="14" height="14"/>
+                  <rect x="7.5" y="9" width="2" height="2"/>
+                  <rect x="11" y="9" width="2" height="2"/>
+                  <rect x="14.5" y="9" width="2" height="2"/>
+                  <rect x="7.5" y="13" width="2" height="2"/>
+                  <rect x="14.5" y="13" width="2" height="2"/>
+                  <rect x="11" y="13" width="2" height="7"/>
+                </svg>
+              </div>
+              <div class="hcons-node-label">Votre PME</div>
+              <div class="hcons-node-value">5,8 M€</div>
+            </div>
+            <div class="hcons-node hcons-node--target">
+              <div class="hcons-node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="7" y="4" width="10" height="16"/>
+                  <line x1="7" y1="8" x2="17" y2="8"/>
+                  <line x1="7" y1="12" x2="17" y2="12"/>
+                  <line x1="7" y1="16" x2="17" y2="16"/>
+                  <line x1="12" y1="4" x2="12" y2="16"/>
+                  <rect x="10.5" y="17" width="3" height="3"/>
+                </svg>
+              </div>
+              <div class="hcons-node-label">Cible acquise</div>
+              <div class="hcons-node-value">2,8 M€</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 4 — PYRAMIDE EN COUCHES ═══════════ -->
+  <div class="test-card">
+    <div class="test-card-label">4 — Pyramide superposée</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>3 étages superposés avec profondeur visuelle : holding au sommet (étroite, en vert plein), votre PME au milieu (soft), cible à la base. Effet architecturé.</p>
+
+    <div class="visual">
+      <div class="pyr">
+
+        <div class="pyr-tier pyr-tier--1">
+          <div class="pyr-tier-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="10" y="5" width="4" height="4"/>
+              <rect x="5" y="16" width="4" height="4"/>
+              <rect x="10" y="16" width="4" height="4"/>
+              <rect x="15" y="16" width="4" height="4"/>
+              <line x1="12" y1="9" x2="12" y2="12.5"/>
+              <line x1="7" y1="12.5" x2="17" y2="12.5"/>
+              <line x1="7" y1="12.5" x2="7" y2="16"/>
+              <line x1="12" y1="12.5" x2="12" y2="16"/>
+              <line x1="17" y1="12.5" x2="17" y2="16"/>
+            </svg>
+          </div>
+          <div class="pyr-tier-text">
+            <div class="pyr-tier-label">Holding</div>
+            <div class="pyr-tier-name">Groupe consolidé</div>
+          </div>
+          <div class="pyr-tier-value">8,6 M€</div>
+        </div>
+
+        <div class="pyr-tier pyr-tier--2">
+          <div class="pyr-tier-icon" style="color: var(--c-croissance);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="6" width="14" height="14"/>
+              <rect x="7.5" y="9" width="2" height="2"/>
+              <rect x="11" y="9" width="2" height="2"/>
+              <rect x="14.5" y="9" width="2" height="2"/>
+              <rect x="7.5" y="13" width="2" height="2"/>
+              <rect x="14.5" y="13" width="2" height="2"/>
+              <rect x="11" y="13" width="2" height="7"/>
+            </svg>
+          </div>
+          <div class="pyr-tier-text">
+            <div class="pyr-tier-label" style="color: var(--c-croissance);">Vous</div>
+            <div class="pyr-tier-name">Votre PME</div>
+          </div>
+          <div class="pyr-tier-value" style="color: var(--c-croissance-deep);">5,8 M€</div>
+        </div>
+
+        <div class="pyr-tier pyr-tier--3">
+          <div class="pyr-tier-icon" style="color: var(--text-2);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="7" y="4" width="10" height="16"/>
+              <line x1="7" y1="8" x2="17" y2="8"/>
+              <line x1="7" y1="12" x2="17" y2="12"/>
+              <line x1="7" y1="16" x2="17" y2="16"/>
+              <line x1="12" y1="4" x2="12" y2="16"/>
+              <rect x="10.5" y="17" width="3" height="3"/>
+            </svg>
+          </div>
+          <div class="pyr-tier-text">
+            <div class="pyr-tier-label" style="color: var(--text-3);">Acquise</div>
+            <div class="pyr-tier-name">Cible</div>
+          </div>
+          <div class="pyr-tier-value" style="color: var(--text-strong);">2,8 M€</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

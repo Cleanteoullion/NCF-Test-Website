@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>NCF — Croissance externe · variantes plante</title>
+<style>
+  :root {
+    --c-croissance: #10B981;
+    --c-croissance-deep: #047857;
+    --c-croissance-light: #6EE7B7;
+    --c-croissance-soft: rgba(16, 185, 129, 0.14);
+    --c-croissance-tint: rgba(16, 185, 129, 0.06);
+    --c-trunk: #78533A;
+    --surface-low: #FAFAF7;
+    --card-bg: #FFFFFF;
+    --text-strong: #061838;
+    --text-2: #3A4A6B;
+    --text-3: #586A8A;
+    --line-2: rgba(15, 23, 42, 0.13);
+    --line-3: rgba(15, 23, 42, 0.20);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--surface-low);
+    color: var(--text-strong);
+    font-family: 'Inter', system-ui, sans-serif;
+    padding: 4rem 5vw;
+  }
+  h1 { font-size: 1.75rem; margin-bottom: 0.5rem; }
+  .sub { color: var(--text-2); margin-bottom: 3rem; max-width: 75ch; line-height: 1.5; }
+
+  .test-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+  }
+  @media (max-width: 800px) { .test-grid { grid-template-columns: 1fr; } }
+
+  .test-card {
+    background: var(--card-bg);
+    border: 1px solid var(--line-2);
+    border-radius: 18px;
+    padding: 1.75rem 1.5rem 1.5rem;
+  }
+  .test-card-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--c-croissance);
+    margin-bottom: 0.4rem;
+  }
+  .test-card h2 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  .test-card p {
+    font-size: 0.82rem;
+    color: var(--text-2);
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+    min-height: 4em;
+  }
+
+  .visual {
+    margin-top: 1rem;
+    min-height: 270px;
+    border-top: 1px solid var(--line-2);
+    position: relative;
+    overflow: hidden;
+    --cas-accent: var(--c-croissance);
+  }
+  .visual::before {
+    content: '';
+    position: absolute;
+    inset: 24px 0 0;
+    border-radius: 16px;
+    background:
+      linear-gradient(var(--surface-low) 1px, transparent 1px),
+      linear-gradient(90deg, var(--surface-low) 1px, transparent 1px),
+      var(--c-croissance-tint);
+    background-size: 24px 24px;
+    opacity: 0.6;
+  }
+  .visual > * { position: relative; z-index: 1; }
+
+  /* ═══════════════════════════════════════════
+     A — ARBRE QUI SE RAMIFIE
+     ═══════════════════════════════════════════ */
+  .ramif {
+    padding: 1rem;
+    display: grid;
+    align-content: center;
+    height: 100%;
+  }
+  .ramif-svg {
+    width: 100%;
+    height: 230px;
+    color: var(--c-croissance);
+  }
+  .ramif-svg svg {
+    width: 100%;
+    height: 100%;
+  }
+  .ramif-trunk {
+    stroke: var(--c-trunk);
+    stroke-width: 4;
+    fill: none;
+    stroke-linecap: round;
+  }
+  .ramif-branch {
+    stroke: var(--c-trunk);
+    stroke-width: 3;
+    fill: none;
+    stroke-linecap: round;
+  }
+  .ramif-branch-new {
+    stroke: var(--c-croissance);
+    stroke-width: 3;
+    fill: none;
+    stroke-linecap: round;
+    stroke-dasharray: 60;
+    stroke-dashoffset: 60;
+    animation: ramif-grow 4s ease-out infinite;
+  }
+  .ramif-leaf {
+    fill: var(--c-croissance);
+    opacity: 0;
+    animation: ramif-leaf-appear 4s ease-out infinite;
+  }
+  .ramif-leaf--existing {
+    opacity: 1;
+    animation: none;
+  }
+  @keyframes ramif-grow {
+    0%   { stroke-dashoffset: 60; }
+    40%  { stroke-dashoffset: 0; }
+    90%  { stroke-dashoffset: 0; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+  }
+  @keyframes ramif-leaf-appear {
+    0%, 50% { opacity: 0; transform: scale(0.3); transform-origin: center; }
+    65%     { opacity: 1; transform: scale(1.2); }
+    80%, 100% { opacity: 1; transform: scale(1); }
+  }
+  .ramif-leaf-1 { animation-delay: -1s; transform-origin: 230px 60px; }
+  .ramif-leaf-2 { animation-delay: -0.7s; transform-origin: 250px 75px; }
+  .ramif-leaf-3 { animation-delay: -0.4s; transform-origin: 270px 60px; }
+  .ramif-label {
+    text-anchor: middle;
+    font-family: Inter, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    fill: var(--text-3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .ramif-label--new {
+    fill: var(--c-croissance);
+    opacity: 0;
+    animation: ramif-leaf-appear 4s ease-out infinite;
+  }
+
+  /* ═══════════════════════════════════════════
+     B — GREFFE D'UNE BRANCHE
+     ═══════════════════════════════════════════ */
+  .greffe {
+    padding: 1rem;
+    display: grid;
+    align-content: center;
+    height: 100%;
+  }
+  .greffe-svg {
+    width: 100%;
+    height: 230px;
+  }
+  .greffe-svg svg { width: 100%; height: 100%; }
+  .greffe-trunk { stroke: var(--c-trunk); stroke-width: 5; fill: none; stroke-linecap: round; }
+  .greffe-branch { stroke: var(--c-trunk); stroke-width: 3; fill: none; stroke-linecap: round; }
+  .greffe-canopy { fill: var(--c-croissance); opacity: 0.85; }
+  .greffe-small-trunk { stroke: var(--c-trunk); stroke-width: 3; fill: none; stroke-linecap: round; opacity: 0.4; animation: greffe-fade 5s ease-in-out infinite; }
+  .greffe-small-canopy { fill: var(--c-croissance-light); opacity: 0.5; animation: greffe-fade 5s ease-in-out infinite; }
+  @keyframes greffe-fade {
+    0%, 30%  { opacity: 0.5; }
+    60%      { opacity: 0.15; }
+    100%     { opacity: 0.5; }
+  }
+  .greffe-arrow {
+    stroke: var(--c-croissance);
+    stroke-width: 2;
+    fill: none;
+    stroke-dasharray: 4 3;
+    stroke-linecap: round;
+    animation: greffe-flow 3s linear infinite;
+  }
+  @keyframes greffe-flow {
+    to { stroke-dashoffset: -28; }
+  }
+  .greffe-new-branch {
+    stroke: var(--c-croissance);
+    stroke-width: 3;
+    fill: none;
+    stroke-linecap: round;
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+    animation: greffe-grow 5s ease-out infinite;
+  }
+  @keyframes greffe-grow {
+    0%, 30% { stroke-dashoffset: 50; }
+    60%     { stroke-dashoffset: 0; }
+    100%    { stroke-dashoffset: 0; }
+  }
+  .greffe-new-leaf {
+    fill: var(--c-croissance);
+    opacity: 0;
+    animation: greffe-leaf 5s ease-out infinite;
+  }
+  @keyframes greffe-leaf {
+    0%, 60% { opacity: 0; transform: scale(0); }
+    75%     { opacity: 1; transform: scale(1.2); }
+    100%    { opacity: 1; transform: scale(1); }
+  }
+  .greffe-label {
+    text-anchor: middle;
+    font-family: Inter, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    fill: var(--text-3);
+  }
+  .greffe-label--target { fill: var(--c-croissance); }
+
+  /* ═══════════════════════════════════════════
+     C — POUSSE → ARBRE (time-lapse)
+     ═══════════════════════════════════════════ */
+  .lapse {
+    padding: 1rem 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem;
+    align-items: end;
+    height: 100%;
+  }
+  .lapse-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding-bottom: 0.5rem;
+  }
+  .lapse-svg {
+    height: 140px;
+    width: 100%;
+    color: var(--c-croissance);
+  }
+  .lapse-svg svg {
+    width: 100%;
+    height: 100%;
+  }
+  .lapse-trunk { stroke: var(--c-trunk); fill: none; stroke-linecap: round; }
+  .lapse-leaf { fill: var(--c-croissance); }
+  .lapse-label {
+    font-size: 0.55rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-3);
+    text-align: center;
+  }
+  .lapse-value {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    font-variant-numeric: tabular-nums;
+  }
+  .lapse-stage--mid .lapse-value,
+  .lapse-stage--mid .lapse-label,
+  .lapse-stage--final .lapse-value,
+  .lapse-stage--final .lapse-label {
+    color: var(--c-croissance);
+  }
+  .lapse-stage--final {
+    position: relative;
+  }
+  .lapse-stage--final::before {
+    content: '★';
+    position: absolute;
+    top: -6px; right: 20%;
+    color: var(--c-croissance);
+    font-size: 0.85rem;
+  }
+  /* Croissance pulsée sur la troisième étape */
+  .lapse-final-canopy {
+    transform-origin: 60px 50px;
+    animation: lapse-breathe 3s ease-in-out infinite;
+  }
+  @keyframes lapse-breathe {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.04); }
+  }
+
+  /* ═══════════════════════════════════════════
+     D — FORÊT → ARBRE PRINCIPAL
+     ═══════════════════════════════════════════ */
+  .foret {
+    padding: 1rem 0.5rem;
+    display: grid;
+    align-content: end;
+    height: 100%;
+    position: relative;
+  }
+  .foret-svg {
+    width: 100%;
+    height: 230px;
+  }
+  .foret-svg svg { width: 100%; height: 100%; }
+  .foret-ground {
+    stroke: var(--text-3);
+    stroke-width: 1;
+    stroke-dasharray: 3 3;
+  }
+  .foret-main-trunk { stroke: var(--c-trunk); stroke-width: 6; fill: none; stroke-linecap: round; }
+  .foret-main-canopy { fill: var(--c-croissance); }
+  .foret-small-trunk { stroke: var(--c-trunk); stroke-width: 3; fill: none; stroke-linecap: round; }
+  .foret-small-canopy { fill: var(--c-croissance-light); }
+  .foret-small-1 { animation: foret-merge-1 6s ease-in-out infinite; transform-origin: 40px 200px; }
+  .foret-small-2 { animation: foret-merge-2 6s ease-in-out infinite; transform-origin: 290px 200px; }
+  .foret-small-3 { animation: foret-merge-3 6s ease-in-out infinite; transform-origin: 320px 200px; }
+  @keyframes foret-merge-1 {
+    0%, 40%  { transform: translateX(0) scale(1); opacity: 1; }
+    60%      { transform: translateX(50px) scale(0.8); opacity: 0.8; }
+    75%      { transform: translateX(100px) scale(0.4); opacity: 0; }
+    100%     { transform: translateX(0) scale(1); opacity: 1; }
+  }
+  @keyframes foret-merge-2 {
+    0%, 45%  { transform: translateX(0) scale(1); opacity: 1; }
+    65%      { transform: translateX(-50px) scale(0.8); opacity: 0.8; }
+    80%      { transform: translateX(-100px) scale(0.4); opacity: 0; }
+    100%     { transform: translateX(0) scale(1); opacity: 1; }
+  }
+  @keyframes foret-merge-3 {
+    0%, 50%  { transform: translateX(0) scale(1); opacity: 1; }
+    70%      { transform: translateX(-90px) scale(0.8); opacity: 0.8; }
+    85%      { transform: translateX(-160px) scale(0.4); opacity: 0; }
+    100%     { transform: translateX(0) scale(1); opacity: 1; }
+  }
+  .foret-main-growth {
+    transform-origin: 170px 150px;
+    animation: foret-main-grow 6s ease-in-out infinite;
+  }
+  @keyframes foret-main-grow {
+    0%, 50%  { transform: scale(1); }
+    75%      { transform: scale(1.1); }
+    100%     { transform: scale(1); }
+  }
+  .foret-label {
+    text-anchor: middle;
+    font-family: Inter, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    fill: var(--text-3);
+  }
+  .foret-label--main { fill: var(--c-croissance); }
+
+</style>
+</head>
+<body>
+
+<h1>Croissance externe — métaphore plante (4 variantes)</h1>
+<p class="sub">
+  Toutes en taille réelle (270 px, vert croissance, animations actives). Les arbres utilisent un brun naturel pour le tronc et le vert NCF pour le feuillage.
+</p>
+
+<div class="test-grid">
+
+  <!-- ═══════════ A — RAMIFICATION ═══════════ -->
+  <div class="test-card">
+    <div class="test-card-label">A — Arbre qui se ramifie</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>Un arbre existant développe une nouvelle branche (= la cible acquise) qui pousse en boucle. Les feuilles apparaissent au bout — synergies générées.</p>
+
+    <div class="visual">
+      <div class="ramif">
+        <div class="ramif-svg">
+          <svg viewBox="0 0 360 230">
+            <!-- Tronc principal -->
+            <line class="ramif-trunk" x1="180" y1="220" x2="180" y2="100"/>
+            <!-- Branches existantes -->
+            <line class="ramif-branch" x1="180" y1="150" x2="120" y2="110"/>
+            <line class="ramif-branch" x1="180" y1="125" x2="135" y2="85"/>
+            <!-- Feuilles existantes -->
+            <circle class="ramif-leaf ramif-leaf--existing" cx="115" cy="105" r="9"/>
+            <circle class="ramif-leaf ramif-leaf--existing" cx="130" cy="80" r="9"/>
+            <circle class="ramif-leaf ramif-leaf--existing" cx="175" cy="95" r="11"/>
+            <!-- Branche NOUVELLE (animée) -->
+            <line class="ramif-branch-new" x1="180" y1="135" x2="250" y2="80"/>
+            <!-- Feuilles nouvelles (animées) -->
+            <circle class="ramif-leaf ramif-leaf-1" cx="230" cy="60" r="10"/>
+            <circle class="ramif-leaf ramif-leaf-2" cx="250" cy="75" r="10"/>
+            <circle class="ramif-leaf ramif-leaf-3" cx="270" cy="60" r="10"/>
+            <!-- Sol -->
+            <line stroke="var(--text-3)" stroke-width="1" stroke-dasharray="3 3" x1="60" y1="220" x2="300" y2="220"/>
+            <!-- Labels -->
+            <text class="ramif-label" x="180" y="240">VOTRE PME</text>
+            <text class="ramif-label ramif-label--new" x="250" y="40">+ CIBLE</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ B — GREFFE ═══════════ -->
+  <div class="test-card">
+    <div class="test-card-label">B — Greffe</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>Un petit arbre à droite (la cible) fournit une branche qui vient se greffer sur votre arbre principal. Le petit arbre s'estompe (absorption), la branche greffée pousse et fleurit.</p>
+
+    <div class="visual">
+      <div class="greffe">
+        <div class="greffe-svg">
+          <svg viewBox="0 0 360 230">
+            <!-- Arbre principal (gauche) -->
+            <line class="greffe-trunk" x1="120" y1="220" x2="120" y2="110"/>
+            <ellipse class="greffe-canopy" cx="120" cy="90" rx="50" ry="42"/>
+            <!-- Petit arbre cible (droite, s'estompe) -->
+            <g>
+              <line class="greffe-small-trunk" x1="290" y1="220" x2="290" y2="160"/>
+              <ellipse class="greffe-small-canopy" cx="290" cy="145" rx="28" ry="24"/>
+            </g>
+            <!-- Flèche de greffe (animée) -->
+            <path class="greffe-arrow" d="M 250 145 Q 200 110 175 100"/>
+            <!-- Branche greffée nouvelle (animée) -->
+            <line class="greffe-new-branch" x1="160" y1="105" x2="220" y2="80"/>
+            <!-- Feuilles nouvelles sur la greffe -->
+            <circle class="greffe-new-leaf" cx="210" cy="70" r="8"/>
+            <circle class="greffe-new-leaf" cx="225" cy="78" r="8" style="animation-delay: -0.3s;"/>
+            <circle class="greffe-new-leaf" cx="220" cy="60" r="7" style="animation-delay: -0.6s;"/>
+            <!-- Sol -->
+            <line class="foret-ground" x1="50" y1="220" x2="320" y2="220"/>
+            <!-- Labels -->
+            <text class="greffe-label" x="120" y="245">VOTRE PME</text>
+            <text class="greffe-label greffe-label--target" x="290" y="245">CIBLE</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ C — POUSSE → ARBRE ═══════════ -->
+  <div class="test-card">
+    <div class="test-card-label">C — Pousse → arbre adulte</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>3 stades successifs : pousse (avant), jeune arbre (mi-parcours), arbre mature (après acquisition). Comparatif visuel direct avec les CA en regard.</p>
+
+    <div class="visual">
+      <div class="lapse">
+        <!-- Stage 1 : Pousse -->
+        <div class="lapse-stage">
+          <div class="lapse-svg">
+            <svg viewBox="0 0 120 140">
+              <!-- Pousse petite -->
+              <line class="lapse-trunk" stroke-width="2" x1="60" y1="130" x2="60" y2="100"/>
+              <ellipse class="lapse-leaf" cx="50" cy="95" rx="8" ry="6"/>
+              <ellipse class="lapse-leaf" cx="70" cy="95" rx="8" ry="6"/>
+              <!-- Sol -->
+              <line stroke="var(--text-3)" stroke-width="1" stroke-dasharray="2 2" x1="30" y1="130" x2="90" y2="130"/>
+            </svg>
+          </div>
+          <div class="lapse-label">Avant</div>
+          <div class="lapse-value">5,8 M€</div>
+        </div>
+
+        <!-- Stage 2 : Jeune arbre -->
+        <div class="lapse-stage lapse-stage--mid">
+          <div class="lapse-svg">
+            <svg viewBox="0 0 120 140">
+              <line class="lapse-trunk" stroke-width="3" x1="60" y1="130" x2="60" y2="80"/>
+              <line class="lapse-trunk" stroke-width="2" x1="60" y1="95" x2="40" y2="75"/>
+              <line class="lapse-trunk" stroke-width="2" x1="60" y1="90" x2="80" y2="70"/>
+              <ellipse class="lapse-leaf" cx="60" cy="70" rx="16" ry="14"/>
+              <ellipse class="lapse-leaf" cx="40" cy="70" rx="10" ry="9"/>
+              <ellipse class="lapse-leaf" cx="80" cy="65" rx="11" ry="10"/>
+              <line stroke="var(--text-3)" stroke-width="1" stroke-dasharray="2 2" x1="30" y1="130" x2="90" y2="130"/>
+            </svg>
+          </div>
+          <div class="lapse-label">+ Cible</div>
+          <div class="lapse-value">7,2 M€</div>
+        </div>
+
+        <!-- Stage 3 : Arbre adulte -->
+        <div class="lapse-stage lapse-stage--final">
+          <div class="lapse-svg">
+            <svg viewBox="0 0 120 140">
+              <line class="lapse-trunk" stroke-width="4" x1="60" y1="130" x2="60" y2="65"/>
+              <line class="lapse-trunk" stroke-width="3" x1="60" y1="85" x2="30" y2="55"/>
+              <line class="lapse-trunk" stroke-width="3" x1="60" y1="80" x2="90" y2="50"/>
+              <g class="lapse-final-canopy">
+                <ellipse class="lapse-leaf" cx="60" cy="50" rx="28" ry="24"/>
+                <ellipse class="lapse-leaf" cx="32" cy="55" rx="14" ry="12"/>
+                <ellipse class="lapse-leaf" cx="88" cy="50" rx="16" ry="14"/>
+              </g>
+              <line stroke="var(--text-3)" stroke-width="1" stroke-dasharray="2 2" x1="20" y1="130" x2="100" y2="130"/>
+            </svg>
+          </div>
+          <div class="lapse-label">Groupe</div>
+          <div class="lapse-value">8,6 M€</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ D — FORÊT → ARBRE PRINCIPAL ═══════════ -->
+  <div class="test-card">
+    <div class="test-card-label">D — Forêt qui converge</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>Votre arbre principal au centre + 3 petits arbres (cibles potentielles) tout autour. Un par un, ils glissent vers le grand et y disparaissent. Le grand grossit.</p>
+
+    <div class="visual">
+      <div class="foret">
+        <div class="foret-svg">
+          <svg viewBox="0 0 340 230">
+            <!-- Arbre principal (centre) -->
+            <g class="foret-main-growth">
+              <line class="foret-main-trunk" x1="170" y1="220" x2="170" y2="120"/>
+              <ellipse class="foret-main-canopy" cx="170" cy="100" rx="55" ry="48"/>
+            </g>
+            <!-- Petit arbre 1 (loin à gauche) -->
+            <g class="foret-small-1">
+              <line class="foret-small-trunk" x1="40" y1="220" x2="40" y2="180"/>
+              <ellipse class="foret-small-canopy" cx="40" cy="170" rx="22" ry="18"/>
+            </g>
+            <!-- Petit arbre 2 (droite proche) -->
+            <g class="foret-small-2">
+              <line class="foret-small-trunk" x1="290" y1="220" x2="290" y2="175"/>
+              <ellipse class="foret-small-canopy" cx="290" cy="165" rx="20" ry="17"/>
+            </g>
+            <!-- Petit arbre 3 (droite loin) -->
+            <g class="foret-small-3">
+              <line class="foret-small-trunk" x1="320" y1="220" x2="320" y2="190"/>
+              <ellipse class="foret-small-canopy" cx="320" cy="180" rx="14" ry="12"/>
+            </g>
+            <!-- Sol -->
+            <line class="foret-ground" x1="20" y1="220" x2="330" y2="220"/>
+            <!-- Labels -->
+            <text class="foret-label foret-label--main" x="170" y="245">VOTRE GROUPE</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

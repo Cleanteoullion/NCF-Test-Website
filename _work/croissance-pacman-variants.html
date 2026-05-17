@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>NCF — Variantes Pacman</title>
+<style>
+  :root {
+    --c-croissance: #10B981;
+    --c-croissance-deep: #047857;
+    --c-croissance-soft: rgba(16, 185, 129, 0.14);
+    --c-croissance-tint: rgba(16, 185, 129, 0.06);
+    --surface-low: #FAFAF7;
+    --card-bg: #FFFFFF;
+    --text-strong: #061838;
+    --text-2: #3A4A6B;
+    --text-3: #586A8A;
+    --line-2: rgba(15, 23, 42, 0.13);
+    --line-3: rgba(15, 23, 42, 0.20);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--surface-low);
+    color: var(--text-strong);
+    font-family: 'Inter', system-ui, sans-serif;
+    padding: 4rem 5vw;
+  }
+  h1 { font-size: 1.75rem; margin-bottom: 0.5rem; }
+  .sub { color: var(--text-2); margin-bottom: 3rem; max-width: 75ch; line-height: 1.5; }
+
+  .test-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+  }
+  @media (max-width: 800px) { .test-grid { grid-template-columns: 1fr; } }
+
+  .test-card {
+    background: var(--card-bg);
+    border: 1px solid var(--line-2);
+    border-radius: 18px;
+    padding: 1.75rem 1.5rem 1.5rem;
+  }
+  .test-card-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--c-croissance);
+    margin-bottom: 0.4rem;
+  }
+  .test-card h2 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  .test-card p {
+    font-size: 0.82rem;
+    color: var(--text-2);
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+    min-height: 4em;
+  }
+
+  .visual {
+    margin-top: 1rem;
+    min-height: 270px;
+    border-top: 1px solid var(--line-2);
+    position: relative;
+    overflow: hidden;
+    --cas-accent: var(--c-croissance);
+    --cas-soft: var(--c-croissance-soft);
+    --cas-tint: var(--c-croissance-tint);
+  }
+  .visual::before {
+    content: '';
+    position: absolute;
+    inset: 24px 0 0;
+    border-radius: 16px;
+    background:
+      linear-gradient(var(--surface-low) 1px, transparent 1px),
+      linear-gradient(90deg, var(--surface-low) 1px, transparent 1px),
+      var(--cas-tint);
+    background-size: 24px 24px;
+    opacity: 0.6;
+  }
+  .visual > * { position: relative; z-index: 1; }
+
+  /* ═══════════════════════════════════════════
+     COMMUN — Pacman bite animation
+     ═══════════════════════════════════════════ */
+  @keyframes pac-bite-top {
+    0%, 100% { transform: rotate(0deg); }
+    50%      { transform: rotate(-30deg); }
+  }
+  @keyframes pac-bite-bot {
+    0%, 100% { transform: rotate(0deg); }
+    50%      { transform: rotate(30deg); }
+  }
+
+  /* ═══════════════════════════════════════════
+     A — PACMAN LINE-ART (style biblio NCF)
+     ═══════════════════════════════════════════ */
+  .pacA {
+    padding: 1rem;
+    display: grid;
+    align-content: center;
+    height: 100%;
+  }
+  .pacA-stage {
+    position: relative;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  .pacA-mouth { width: 120px; height: 120px; color: var(--c-croissance); }
+  .pacA-mouth svg { width: 100%; height: 100%; overflow: visible; }
+  .pacA-stroke {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .pacA-jaw-top { transform-origin: 60px 60px; animation: pac-bite-top 1.6s ease-in-out infinite; }
+  .pacA-jaw-bot { transform-origin: 60px 60px; animation: pac-bite-bot 1.6s ease-in-out infinite; }
+  .pacA-eye {
+    fill: currentColor;
+  }
+  .pacA-prey {
+    width: 36px; height: 36px;
+    border: 2.5px solid var(--c-croissance-deep);
+    border-radius: 8px;
+    background: white;
+    color: var(--c-croissance-deep);
+    animation: prey-move 1.6s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pacA-prey svg { width: 18px; height: 18px; }
+  @keyframes prey-move {
+    0%      { transform: translateX(0) scale(1); opacity: 1; }
+    40%     { transform: translateX(-70px) scale(0.7); opacity: 1; }
+    55%     { transform: translateX(-90px) scale(0.3); opacity: 0; }
+    100%    { transform: translateX(0) scale(1); opacity: 0; }
+  }
+  .pacA-labels {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: space-around;
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+  }
+  .pacA-labels span:first-child { color: var(--c-croissance); }
+
+  /* ═══════════════════════════════════════════
+     B — PACMAN AVEC CHAÎNE DE CIBLES
+     ═══════════════════════════════════════════ */
+  .pacB {
+    padding: 1rem 0.5rem;
+    display: grid;
+    align-content: center;
+    height: 100%;
+  }
+  .pacB-stage {
+    position: relative;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .pacB-mouth {
+    width: 90px;
+    height: 90px;
+    flex-shrink: 0;
+  }
+  .pacB-mouth svg { width: 100%; height: 100%; overflow: visible; }
+  .pacB-fill { fill: var(--c-croissance); }
+  .pacB-jaw-top { transform-origin: 45px 45px; animation: pac-bite-top 1.6s ease-in-out infinite; }
+  .pacB-jaw-bot { transform-origin: 45px 45px; animation: pac-bite-bot 1.6s ease-in-out infinite; }
+  .pacB-prey-row {
+    display: flex;
+    gap: 1.4rem;
+    align-items: center;
+    flex: 1;
+  }
+  .pacB-prey {
+    width: 28px;
+    height: 28px;
+    background: var(--c-croissance-deep);
+    color: white;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .pacB-prey svg { width: 14px; height: 14px; }
+  .pacB-prey--1 { animation: prey-chain 4.8s linear infinite; }
+  .pacB-prey--2 { animation: prey-chain 4.8s linear infinite -1.6s; }
+  .pacB-prey--3 { animation: prey-chain 4.8s linear infinite -3.2s; }
+  @keyframes prey-chain {
+    0%   { transform: translateX(0) scale(1); opacity: 1; }
+    25%  { transform: translateX(-30%) scale(1); opacity: 1; }
+    33%  { transform: translateX(-100%) scale(0.5); opacity: 0; }
+    34%  { transform: translateX(220%) scale(1); opacity: 0; }
+    35%  { transform: translateX(220%) scale(1); opacity: 1; }
+    100% { transform: translateX(0) scale(1); opacity: 1; }
+  }
+  .pacB-foot {
+    margin-top: 0.8rem;
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--text-3);
+  }
+  .pacB-foot strong { color: var(--c-croissance); font-weight: 700; }
+
+  /* ═══════════════════════════════════════════
+     C — PACMAN AVEC STATS
+     ═══════════════════════════════════════════ */
+  .pacC {
+    padding: 1.25rem 1rem;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    height: 100%;
+  }
+  .pacC-side {
+    background: white;
+    border: 1px solid var(--line-2);
+    border-radius: 10px;
+    padding: 0.75rem;
+    text-align: center;
+  }
+  .pacC-side--you {
+    border-color: var(--c-croissance);
+    background: var(--c-croissance-soft);
+  }
+  .pacC-side-label {
+    font-size: 0.55rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 0.3rem;
+  }
+  .pacC-side--you .pacC-side-label { color: var(--c-croissance); }
+  .pacC-side-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-strong);
+  }
+  .pacC-side--you .pacC-side-value { color: var(--c-croissance-deep); }
+  .pacC-side-sub {
+    font-size: 0.62rem;
+    color: var(--text-3);
+    margin-top: 0.1rem;
+  }
+  .pacC-mouth {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+  }
+  .pacC-mouth svg { width: 100%; height: 100%; overflow: visible; }
+  .pacC-fill { fill: var(--c-croissance); }
+  .pacC-jaw-top { transform-origin: 30px 30px; animation: pac-bite-top 1.6s ease-in-out infinite; }
+  .pacC-jaw-bot { transform-origin: 30px 30px; animation: pac-bite-bot 1.6s ease-in-out infinite; }
+  .pacC-result {
+    grid-column: 1 / -1;
+    margin-top: 0.5rem;
+    text-align: center;
+    background: var(--c-croissance);
+    color: white;
+    border-radius: 8px;
+    padding: 0.55rem 0.8rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    box-shadow: 0 10px 24px -8px rgba(16, 185, 129, 0.45);
+  }
+  .pacC-result strong {
+    font-size: 1rem;
+    margin-left: 0.4rem;
+  }
+
+  /* ═══════════════════════════════════════════
+     D — BÂTIMENT « BOUCHE OUVERTE »
+     ═══════════════════════════════════════════ */
+  .pacD {
+    padding: 1.25rem 1rem;
+    display: grid;
+    align-content: center;
+    height: 100%;
+  }
+  .pacD-stage {
+    position: relative;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+  .pacD-building {
+    position: relative;
+    width: 140px;
+    height: 160px;
+  }
+  .pacD-building-fill {
+    fill: var(--c-croissance);
+  }
+  .pacD-building svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .pacD-bite-top {
+    transform-origin: 100px 80px;
+    animation: pacD-bite-top 1.8s ease-in-out infinite;
+  }
+  .pacD-bite-bot {
+    transform-origin: 100px 80px;
+    animation: pacD-bite-bot 1.8s ease-in-out infinite;
+  }
+  @keyframes pacD-bite-top {
+    0%, 100% { transform: rotate(0deg) translateY(0); }
+    50%      { transform: rotate(-12deg) translateY(-6px); }
+  }
+  @keyframes pacD-bite-bot {
+    0%, 100% { transform: rotate(0deg) translateY(0); }
+    50%      { transform: rotate(12deg) translateY(6px); }
+  }
+  .pacD-windows {
+    fill: white;
+  }
+  .pacD-prey {
+    width: 50px; height: 90px;
+    background: var(--c-croissance-deep);
+    border-radius: 4px;
+    position: relative;
+    color: white;
+    padding: 0.5rem 0.3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    animation: prey-move-D 1.8s ease-in-out infinite;
+  }
+  .pacD-prey-floor {
+    width: 70%;
+    height: 8%;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 1px;
+  }
+  @keyframes prey-move-D {
+    0%      { transform: translateX(0); opacity: 1; }
+    40%     { transform: translateX(-50px) scale(0.7); opacity: 1; }
+    55%     { transform: translateX(-90px) scale(0.2); opacity: 0; }
+    100%    { transform: translateX(0); opacity: 0; }
+  }
+  .pacD-labels {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 0.4rem;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+  }
+  .pacD-labels span:first-child { color: var(--c-croissance); }
+
+</style>
+</head>
+<body>
+
+<h1>Variantes du Pacman</h1>
+<p class="sub">
+  4 déclinaisons du concept « manger une autre entreprise ». A : style line-art biblio NCF. B : chaîne de cibles (croissance répétée). C : avec stats CA visibles. D : forme bâtiment au lieu du rond.
+</p>
+
+<div class="test-grid">
+
+  <!-- ═══════════ A. PACMAN LINE-ART ═══════════ -->
+  <div class="test-card">
+    <div class="test-card-label">A — Pacman line-art</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>Même animation que la version pleine, mais en tracé fin (style biblio NCF). Plus discret, plus institutionnel, cohérent avec les autres icônes du site.</p>
+
+    <div class="visual">
+      <div class="pacA">
+        <div class="pacA-stage">
+          <div class="pacA-mouth">
+            <svg viewBox="0 0 120 120">
+              <!-- Demi-cercle gauche fixe -->
+              <path class="pacA-stroke" d="M 60 0 A 60 60 0 0 0 60 120"/>
+              <!-- Mâchoire haute -->
+              <path class="pacA-stroke pacA-jaw-top" d="M 60 0 A 60 60 0 0 1 120 60 L 60 60 Z"/>
+              <!-- Mâchoire basse -->
+              <path class="pacA-stroke pacA-jaw-bot" d="M 120 60 A 60 60 0 0 1 60 120 L 60 60 Z"/>
+              <!-- Œil -->
+              <circle class="pacA-eye" cx="48" cy="40" r="3.5"/>
+            </svg>
+          </div>
+          <div class="pacA-prey">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="7" y="4" width="10" height="16"/>
+              <line x1="7" y1="8" x2="17" y2="8"/>
+              <line x1="7" y1="12" x2="17" y2="12"/>
+              <line x1="7" y1="16" x2="17" y2="16"/>
+              <rect x="10.5" y="17" width="3" height="3"/>
+            </svg>
+          </div>
+        </div>
+        <div class="pacA-labels">
+          <span>Vous</span>
+          <span>Cible</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ B. CHAÎNE DE CIBLES ═══════════ -->
+  <div class="test-card">
+    <div class="test-card-label">B — Chaîne d'acquisitions</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>Pacman + 3 cibles en file qui défilent et se font croquer l'une après l'autre. Suggère plusieurs opérations successives — croissance externe répétée.</p>
+
+    <div class="visual">
+      <div class="pacB">
+        <div class="pacB-stage">
+          <div class="pacB-mouth">
+            <svg viewBox="0 0 90 90">
+              <path class="pacB-fill" d="M 45 0 A 45 45 0 0 0 45 90 L 45 45 Z"/>
+              <path class="pacB-fill pacB-jaw-top" d="M 45 0 A 45 45 0 0 1 90 45 L 45 45 Z"/>
+              <path class="pacB-fill pacB-jaw-bot" d="M 90 45 A 45 45 0 0 1 45 90 L 45 45 Z"/>
+            </svg>
+          </div>
+          <div class="pacB-prey-row">
+            <div class="pacB-prey pacB-prey--1">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="7" y="4" width="10" height="16"/>
+                <line x1="7" y1="9" x2="17" y2="9"/>
+                <line x1="7" y1="14" x2="17" y2="14"/>
+              </svg>
+            </div>
+            <div class="pacB-prey pacB-prey--2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="7" y="4" width="10" height="16"/>
+                <line x1="7" y1="9" x2="17" y2="9"/>
+                <line x1="7" y1="14" x2="17" y2="14"/>
+              </svg>
+            </div>
+            <div class="pacB-prey pacB-prey--3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="7" y="4" width="10" height="16"/>
+                <line x1="7" y1="9" x2="17" y2="9"/>
+                <line x1="7" y1="14" x2="17" y2="14"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="pacB-foot">
+          <strong>3 cibles</strong> évaluées · 1 acquise
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ C. AVEC STATS ═══════════ -->
+  <div class="test-card">
+    <div class="test-card-label">C — Avec valeurs CA</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>Vous + Cible avec leurs CA respectifs, Pacman au centre comme symbole de l'opération, résultat consolidé en bas. Le plus chiffré.</p>
+
+    <div class="visual">
+      <div class="pacC">
+        <div class="pacC-side pacC-side--you">
+          <div class="pacC-side-label">Vous</div>
+          <div class="pacC-side-value">5,8 M€</div>
+          <div class="pacC-side-sub">CA actuel</div>
+        </div>
+        <div class="pacC-mouth">
+          <svg viewBox="0 0 60 60">
+            <path class="pacC-fill" d="M 30 0 A 30 30 0 0 0 30 60 L 30 30 Z"/>
+            <path class="pacC-fill pacC-jaw-top" d="M 30 0 A 30 30 0 0 1 60 30 L 30 30 Z"/>
+            <path class="pacC-fill pacC-jaw-bot" d="M 60 30 A 30 30 0 0 1 30 60 L 30 30 Z"/>
+          </svg>
+        </div>
+        <div class="pacC-side">
+          <div class="pacC-side-label">Cible</div>
+          <div class="pacC-side-value">2,8 M€</div>
+          <div class="pacC-side-sub">CA cible</div>
+        </div>
+        <div class="pacC-result">
+          Groupe consolidé · <strong>8,6 M€</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ D. BÂTIMENT BOUCHE ═══════════ -->
+  <div class="test-card">
+    <div class="test-card-label">D — Bâtiment qui mord</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>Variante corporate : la bouche est un bâtiment (votre PME, façade verte) qui s'ouvre pour avaler la cible (petite tour). Plus institutionnel que le rond.</p>
+
+    <div class="visual">
+      <div class="pacD">
+        <div class="pacD-stage">
+          <div class="pacD-building">
+            <svg viewBox="0 0 200 200">
+              <!-- Demi-bâtiment fixe (gauche) -->
+              <path class="pacD-building-fill" d="M 20 30 L 100 30 L 100 170 L 20 170 Z"/>
+              <!-- Fenêtres fixes -->
+              <rect class="pacD-windows" x="32" y="50" width="14" height="14"/>
+              <rect class="pacD-windows" x="56" y="50" width="14" height="14"/>
+              <rect class="pacD-windows" x="80" y="50" width="14" height="14"/>
+              <rect class="pacD-windows" x="32" y="76" width="14" height="14"/>
+              <rect class="pacD-windows" x="56" y="76" width="14" height="14"/>
+              <rect class="pacD-windows" x="80" y="76" width="14" height="14"/>
+              <rect class="pacD-windows" x="32" y="102" width="14" height="14"/>
+              <rect class="pacD-windows" x="56" y="102" width="14" height="14"/>
+              <rect class="pacD-windows" x="80" y="102" width="14" height="14"/>
+              <rect class="pacD-windows" x="32" y="128" width="14" height="14"/>
+              <rect class="pacD-windows" x="56" y="128" width="14" height="14"/>
+              <rect class="pacD-windows" x="80" y="128" width="14" height="14"/>
+              <!-- Mâchoire haute (mouvable) -->
+              <g class="pacD-bite-top">
+                <path class="pacD-building-fill" d="M 100 30 L 180 30 L 180 80 L 100 80 Z"/>
+                <rect class="pacD-windows" x="108" y="50" width="14" height="14"/>
+                <rect class="pacD-windows" x="132" y="50" width="14" height="14"/>
+                <rect class="pacD-windows" x="156" y="50" width="14" height="14"/>
+              </g>
+              <!-- Mâchoire basse (mouvable) -->
+              <g class="pacD-bite-bot">
+                <path class="pacD-building-fill" d="M 100 80 L 180 80 L 180 170 L 100 170 Z"/>
+                <rect class="pacD-windows" x="108" y="100" width="14" height="14"/>
+                <rect class="pacD-windows" x="132" y="100" width="14" height="14"/>
+                <rect class="pacD-windows" x="156" y="100" width="14" height="14"/>
+                <rect class="pacD-windows" x="108" y="124" width="14" height="14"/>
+                <rect class="pacD-windows" x="132" y="124" width="14" height="14"/>
+                <rect class="pacD-windows" x="156" y="124" width="14" height="14"/>
+                <rect class="pacD-windows" x="108" y="148" width="14" height="14"/>
+                <rect class="pacD-windows" x="132" y="148" width="14" height="14"/>
+                <rect class="pacD-windows" x="156" y="148" width="14" height="14"/>
+              </g>
+            </svg>
+          </div>
+          <div class="pacD-prey">
+            <div class="pacD-prey-floor"></div>
+            <div class="pacD-prey-floor"></div>
+            <div class="pacD-prey-floor"></div>
+            <div class="pacD-prey-floor"></div>
+          </div>
+        </div>
+        <div class="pacD-labels">
+          <span>Vous</span>
+          <span>Cible</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /_work/
+Disallow: /ressources/Linkedin/
 
 Sitemap: https://novances-evaluation.fr/sitemap.xml

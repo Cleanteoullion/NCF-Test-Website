@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>NCF — Test variantes icône famille</title>
+<style>
+  :root {
+    --c-succession: #F59E0B;
+    --surface-low: #FAFAF7;
+    --text-strong: #061838;
+    --text-2: #3A4A6B;
+    --line-2: rgba(15, 23, 42, 0.13);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--surface-low);
+    color: var(--text-strong);
+    font-family: 'Inter', system-ui, sans-serif;
+    padding: 4rem 5vw;
+  }
+  h1 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .sub { color: var(--text-2); margin-bottom: 3rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    max-width: 1200px;
+  }
+  .variant {
+    background: white;
+    border: 1px solid var(--line-2);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+  }
+  .variant h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+  }
+  .variant p {
+    color: var(--text-2);
+    font-size: 0.85rem;
+    margin-bottom: 2rem;
+    min-height: 3em;
+  }
+
+  /* Affichage à grande taille (64px) pour examiner les détails */
+  .big-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 2rem;
+    color: var(--c-succession);
+  }
+  .big-icon svg { width: 100%; height: 100%; }
+
+  /* Affichage en pastille comme dans l'orbite réelle (44px pill) */
+  .pill-row {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .pill {
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    background: rgba(5, 13, 29, 0.84);
+    border: 1px solid rgba(245, 158, 11, 0.36);
+    color: var(--c-succession);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pill svg { width: 24px; height: 24px; }
+
+  .pill-label {
+    font-size: 0.75rem;
+    color: var(--text-2);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* Affichage en taille moyenne pour comparaison avec team/staff */
+  .compare {
+    margin-top: 4rem;
+    background: white;
+    border: 1px solid var(--line-2);
+    border-radius: 16px;
+    padding: 2.5rem;
+    max-width: 1200px;
+  }
+  .compare h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+  .compare-row {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  .compare-icon {
+    width: 48px;
+    height: 48px;
+    color: var(--c-succession);
+    flex-shrink: 0;
+  }
+  .compare-icon svg { width: 100%; height: 100%; }
+  .compare-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+  .compare-label small {
+    display: block;
+    font-weight: 400;
+    color: var(--text-2);
+    font-size: 0.8rem;
+    margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Variantes de l'icône Famille</h1>
+<p class="sub">3 propositions à comparer dans le contexte orbite (pastille 44 px) et à grande taille (64 px).</p>
+
+<div class="grid">
+
+  <!-- ═══════ A — Arbre généalogique (actuel) ═══════ -->
+  <div class="variant">
+    <h2>A — Arbre généalogique</h2>
+    <p>Lignée : 1 parent + 2 enfants reliés par un arbre en T. <strong>Choix actuel.</strong></p>
+
+    <div class="big-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M 1 4 L 1 1 L 4 1" stroke-width="1"/>
+        <path d="M 20 23 L 23 23 L 23 20" stroke-width="1"/>
+        <circle cx="12" cy="7" r="2"/>
+        <line x1="12" y1="9" x2="12" y2="13"/>
+        <line x1="7" y1="13" x2="17" y2="13"/>
+        <line x1="7" y1="13" x2="7" y2="16"/>
+        <line x1="17" y1="13" x2="17" y2="16"/>
+        <circle cx="7" cy="18" r="2"/>
+        <circle cx="17" cy="18" r="2"/>
+      </svg>
+    </div>
+
+    <div class="pill-row">
+      <div class="pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M 1 4 L 1 1 L 4 1" stroke-width="1"/>
+          <path d="M 20 23 L 23 23 L 23 20" stroke-width="1"/>
+          <circle cx="12" cy="7" r="2"/>
+          <line x1="12" y1="9" x2="12" y2="13"/>
+          <line x1="7" y1="13" x2="17" y2="13"/>
+          <line x1="7" y1="13" x2="7" y2="16"/>
+          <line x1="17" y1="13" x2="17" y2="16"/>
+          <circle cx="7" cy="18" r="2"/>
+          <circle cx="17" cy="18" r="2"/>
+        </svg>
+      </div>
+    </div>
+    <div class="pill-label">Rendu orbite 44 px</div>
+  </div>
+
+  <!-- ═══════ B — Parent + enfant ═══════ -->
+  <div class="variant">
+    <h2>B — Parent + enfant</h2>
+    <p>Deux silhouettes mais de tailles très différentes : un adulte et un enfant côte-à-côte.</p>
+
+    <div class="big-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M 1 4 L 1 1 L 4 1" stroke-width="1"/>
+        <path d="M 20 23 L 23 23 L 23 20" stroke-width="1"/>
+        <!-- Adulte (gauche, grand) -->
+        <circle cx="8" cy="7" r="2"/>
+        <path d="M 5 19 L 5 11 Q 5 9 8 9 Q 11 9 11 11 L 11 19"/>
+        <!-- Enfant (droite, petit) -->
+        <circle cx="16" cy="12" r="1.5"/>
+        <path d="M 14 19 L 14 15 Q 14 13.5 16 13.5 Q 18 13.5 18 15 L 18 19"/>
+      </svg>
+    </div>
+
+    <div class="pill-row">
+      <div class="pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M 1 4 L 1 1 L 4 1" stroke-width="1"/>
+          <path d="M 20 23 L 23 23 L 23 20" stroke-width="1"/>
+          <circle cx="8" cy="7" r="2"/>
+          <path d="M 5 19 L 5 11 Q 5 9 8 9 Q 11 9 11 11 L 11 19"/>
+          <circle cx="16" cy="12" r="1.5"/>
+          <path d="M 14 19 L 14 15 Q 14 13.5 16 13.5 Q 18 13.5 18 15 L 18 19"/>
+        </svg>
+      </div>
+    </div>
+    <div class="pill-label">Rendu orbite 44 px</div>
+  </div>
+
+  <!-- ═══════ C — Maison / foyer ═══════ -->
+  <div class="variant">
+    <h2>C — Maison / foyer</h2>
+    <p>Maison avec cheminée — symbole du foyer familial et du patrimoine.</p>
+
+    <div class="big-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M 1 4 L 1 1 L 4 1" stroke-width="1"/>
+        <path d="M 20 23 L 23 23 L 23 20" stroke-width="1"/>
+        <!-- Cheminée -->
+        <rect x="15" y="5" width="2" height="4"/>
+        <!-- Toit -->
+        <path d="M 5 12 L 12 6 L 19 12"/>
+        <!-- Corps -->
+        <path d="M 7 12 L 7 20 L 17 20 L 17 12"/>
+        <!-- Porte -->
+        <rect x="10.5" y="15" width="3" height="5"/>
+        <!-- Fenêtres -->
+        <rect x="8.5" y="14" width="1.5" height="1.5"/>
+        <rect x="14" y="14" width="1.5" height="1.5"/>
+      </svg>
+    </div>
+
+    <div class="pill-row">
+      <div class="pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M 1 4 L 1 1 L 4 1" stroke-width="1"/>
+          <path d="M 20 23 L 23 23 L 23 20" stroke-width="1"/>
+          <rect x="15" y="5" width="2" height="4"/>
+          <path d="M 5 12 L 12 6 L 19 12"/>
+          <path d="M 7 12 L 7 20 L 17 20 L 17 12"/>
+          <rect x="10.5" y="15" width="3" height="5"/>
+          <rect x="8.5" y="14" width="1.5" height="1.5"/>
+          <rect x="14" y="14" width="1.5" height="1.5"/>
+        </svg>
+      </div>
+    </div>
+    <div class="pill-label">Rendu orbite 44 px</div>
+  </div>
+
+</div>
+
+<!-- Comparatif distinctivité vs salariés -->
+<div class="compare">
+  <h2>Comparatif : distinctivité par rapport à team/staff (salariés)</h2>
+
+  <div class="compare-row">
+    <div class="compare-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M 1 4 L 1 1 L 4 1" stroke-width="1"/>
+        <path d="M 20 23 L 23 23 L 23 20" stroke-width="1"/>
+        <circle cx="6" cy="9" r="1.5"/>
+        <path d="M 4 19 L 4 13 Q 4 11 6 11 Q 8 11 8 13 L 8 19"/>
+        <circle cx="12" cy="9" r="1.5"/>
+        <path d="M 10 19 L 10 13 Q 10 11 12 11 Q 14 11 14 13 L 14 19"/>
+        <circle cx="18" cy="9" r="1.5"/>
+        <path d="M 16 19 L 16 13 Q 16 11 18 11 Q 20 11 20 13 L 20 19"/>
+      </svg>
+    </div>
+    <div class="compare-label">team/staff — Salariés <small>3 silhouettes alignées</small></div>
+  </div>
+
+  <div class="compare-row">
+    <div class="compare-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M 1 4 L 1 1 L 4 1" stroke-width="1"/>
+        <path d="M 20 23 L 23 23 L 23 20" stroke-width="1"/>
+        <circle cx="12" cy="7" r="2"/>
+        <line x1="12" y1="9" x2="12" y2="13"/>
+        <line x1="7" y1="13" x2="17" y2="13"/>
+        <line x1="7" y1="13" x2="7" y2="16"/>
+        <line x1="17" y1="13" x2="17" y2="16"/>
+        <circle cx="7" cy="18" r="2"/>
+        <circle cx="17" cy="18" r="2"/>
+      </svg>
+    </div>
+    <div class="compare-label">Variante A — Arbre généalogique <small>Différence : graphe vs silhouettes ★★★★★</small></div>
+  </div>
+
+  <div class="compare-row">
+    <div class="compare-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M 1 4 L 1 1 L 4 1" stroke-width="1"/>
+        <path d="M 20 23 L 23 23 L 23 20" stroke-width="1"/>
+        <circle cx="8" cy="7" r="2"/>
+        <path d="M 5 19 L 5 11 Q 5 9 8 9 Q 11 9 11 11 L 11 19"/>
+        <circle cx="16" cy="12" r="1.5"/>
+        <path d="M 14 19 L 14 15 Q 14 13.5 16 13.5 Q 18 13.5 18 15 L 18 19"/>
+      </svg>
+    </div>
+    <div class="compare-label">Variante B — Parent + enfant <small>Différence : silhouettes de tailles disparates ★★★</small></div>
+  </div>
+
+  <div class="compare-row">
+    <div class="compare-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M 1 4 L 1 1 L 4 1" stroke-width="1"/>
+        <path d="M 20 23 L 23 23 L 23 20" stroke-width="1"/>
+        <rect x="15" y="5" width="2" height="4"/>
+        <path d="M 5 12 L 12 6 L 19 12"/>
+        <path d="M 7 12 L 7 20 L 17 20 L 17 12"/>
+        <rect x="10.5" y="15" width="3" height="5"/>
+        <rect x="8.5" y="14" width="1.5" height="1.5"/>
+        <rect x="14" y="14" width="1.5" height="1.5"/>
+      </svg>
+    </div>
+    <div class="compare-label">Variante C — Maison / foyer <small>Différence : objet vs personnes ★★★★★</small></div>
+  </div>
+
+</div>
+
+</body>
+</html>

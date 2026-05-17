@@ -1,0 +1,7 @@
+<!-- NCF Icon · business/location · v2.0 · 24×24 · moderne + équerres -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M 1 4 L 1 1 L 4 1" stroke-width="1"/>
+  <path d="M 20 23 L 23 23 L 23 20" stroke-width="1"/>
+  <path d="M 12 4 Q 18 4 18 10 Q 18 14 12 20 Q 6 14 6 10 Q 6 4 12 4 Z"/>
+  <circle cx="12" cy="10" r="2"/>
+</svg>

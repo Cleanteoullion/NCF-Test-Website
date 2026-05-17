@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>NCF — Immeuble vertical · 4 variantes affinées</title>
+<style>
+  :root {
+    --c-croissance: #10B981;
+    --c-croissance-deep: #047857;
+    --c-croissance-light: #6EE7B7;
+    --c-croissance-soft: rgba(16, 185, 129, 0.14);
+    --c-croissance-tint: rgba(16, 185, 129, 0.06);
+    --surface-low: #FAFAF7;
+    --card-bg: #FFFFFF;
+    --text-strong: #061838;
+    --text-2: #3A4A6B;
+    --text-3: #586A8A;
+    --line-2: rgba(15, 23, 42, 0.13);
+
+    /* Easings modernes */
+    --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+    --ease-out-soft: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-out-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--surface-low);
+    color: var(--text-strong);
+    font-family: 'Inter', system-ui, sans-serif;
+    padding: 4rem 5vw;
+  }
+  h1 { font-size: 1.75rem; margin-bottom: 0.5rem; }
+  .sub { color: var(--text-2); margin-bottom: 3rem; max-width: 75ch; line-height: 1.5; }
+
+  .test-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+  }
+  @media (max-width: 800px) { .test-grid { grid-template-columns: 1fr; } }
+
+  .test-card {
+    background: var(--card-bg);
+    border: 1px solid var(--line-2);
+    border-radius: 18px;
+    padding: 1.75rem 1.5rem 1.5rem;
+  }
+  .test-card-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--c-croissance);
+    margin-bottom: 0.4rem;
+  }
+  .test-card h2 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  .test-card p {
+    font-size: 0.82rem;
+    color: var(--text-2);
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+    min-height: 4em;
+  }
+
+  .visual {
+    margin-top: 1rem;
+    min-height: 270px;
+    border-top: 1px solid var(--line-2);
+    position: relative;
+    overflow: hidden;
+  }
+  .visual::before {
+    content: '';
+    position: absolute;
+    inset: 24px 0 0;
+    border-radius: 16px;
+    background:
+      linear-gradient(var(--surface-low) 1px, transparent 1px),
+      linear-gradient(90deg, var(--surface-low) 1px, transparent 1px),
+      var(--c-croissance-tint);
+    background-size: 24px 24px;
+    opacity: 0.6;
+  }
+  .visual > * { position: relative; z-index: 1; }
+
+  .v-wrap {
+    padding: 1rem;
+    display: grid;
+    align-content: end;
+    height: 100%;
+    padding-bottom: 1.25rem;
+  }
+  .v-svg { width: 100%; height: 240px; }
+  .v-svg svg { width: 100%; height: 100%; overflow: visible; }
+
+  /* ── Shared ── */
+  .ground { stroke: var(--text-3); stroke-width: 1; stroke-dasharray: 3 3; }
+  .lbl {
+    text-anchor: middle;
+    font-family: Inter, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    fill: var(--text-3);
+  }
+  .lbl--accent { fill: var(--c-croissance); }
+
+  /* ═══════════════════════════════════════════
+     COMMUN — Animations
+     - Cycle 6s, target absorbé entre 40-55%, croissance 65-85%
+     ═══════════════════════════════════════════ */
+  @keyframes target-absorb {
+    0%, 15%   { transform: translateX(0) scale(1); opacity: 1; }
+    40%       { transform: translateX(-90px) scale(0.85); opacity: 1; }
+    50%       { transform: translateX(-110px) scale(0.3); opacity: 0.4; }
+    55%, 100% { transform: translateX(-110px) scale(0); opacity: 0; }
+  }
+  @keyframes flash-glow {
+    0%, 45%   { opacity: 0; transform: scale(1); }
+    52%       { opacity: 0.9; transform: scale(1.1); }
+    60%       { opacity: 0; transform: scale(1.3); }
+    100%      { opacity: 0; transform: scale(1); }
+  }
+  @keyframes new-floor-grow {
+    0%, 60%   { transform: scaleY(0); opacity: 0; transform-origin: bottom; }
+    78%       { transform: scaleY(1.06); opacity: 1; }
+    88%, 100% { transform: scaleY(1); opacity: 1; }
+  }
+  @keyframes new-floor-grow-2 {
+    0%, 70%   { transform: scaleY(0); opacity: 0; transform-origin: bottom; }
+    85%       { transform: scaleY(1.06); opacity: 1; }
+    93%, 100% { transform: scaleY(1); opacity: 1; }
+  }
+  @keyframes counter-old {
+    0%, 60%   { opacity: 1; transform: translateY(0); }
+    65%, 100% { opacity: 0; transform: translateY(-8px); }
+  }
+  @keyframes counter-new {
+    0%, 60%   { opacity: 0; transform: translateY(8px); }
+    75%, 100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ═════════════════════════════════════════
+     A1 — POLI & PROPRE (solide, aligné)
+     ═════════════════════════════════════════ */
+  .a1-bld { fill: var(--c-croissance); }
+  .a1-window {
+    fill: white;
+    rx: 1;
+  }
+  .a1-door {
+    fill: var(--c-croissance-deep);
+    rx: 1;
+  }
+  .a1-target {
+    transform-origin: 285px 178px;
+    animation: target-absorb 6s var(--ease-in-out) infinite;
+  }
+  .a1-glow {
+    fill: var(--c-croissance);
+    opacity: 0;
+    transform-origin: 130px 175px;
+    animation: flash-glow 6s ease-out infinite;
+  }
+  .a1-new-1 {
+    transform-origin: 80px 130px;
+    animation: new-floor-grow 6s var(--ease-out-bounce) infinite;
+  }
+  .a1-new-2 {
+    transform-origin: 80px 105px;
+    animation: new-floor-grow-2 6s var(--ease-out-bounce) infinite;
+  }
+  .a1-counter-old { animation: counter-old 6s var(--ease-out) infinite; }
+  .a1-counter-new { animation: counter-new 6s var(--ease-out) infinite; opacity: 0; }
+
+  /* Shadow filter défini dans SVG */
+
+  /* ═════════════════════════════════════════
+     A2 — LUMINEUX (avec rim glow & flash)
+     ═════════════════════════════════════════ */
+  .a2-bld { fill: var(--c-croissance); filter: url(#a2-shadow); }
+  .a2-window { fill: white; rx: 1; }
+  .a2-door { fill: var(--c-croissance-deep); rx: 1; }
+  .a2-target {
+    transform-origin: 285px 178px;
+    animation: target-absorb 6s var(--ease-in-out) infinite;
+  }
+  /* Onde concentrique à l'impact */
+  .a2-shockwave {
+    fill: none;
+    stroke: var(--c-croissance);
+    stroke-width: 2;
+    opacity: 0;
+    transform-origin: 130px 175px;
+    animation: a2-shockwave 6s ease-out infinite;
+  }
+  @keyframes a2-shockwave {
+    0%, 45% { opacity: 0; transform: scale(0.3); }
+    55%     { opacity: 0.7; transform: scale(1); }
+    70%, 100% { opacity: 0; transform: scale(1.8); }
+  }
+  /* Rim glow sur les nouveaux étages */
+  .a2-new-1 {
+    transform-origin: 80px 130px;
+    animation: new-floor-grow 6s var(--ease-out-bounce) infinite;
+    filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.6));
+  }
+  .a2-new-2 {
+    transform-origin: 80px 105px;
+    animation: new-floor-grow-2 6s var(--ease-out-bounce) infinite;
+    filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.7));
+  }
+  /* Étincelles ascendantes */
+  .a2-spark {
+    fill: var(--c-croissance);
+    opacity: 0;
+    animation: a2-spark 6s ease-out infinite;
+  }
+  @keyframes a2-spark {
+    0%, 65% { opacity: 0; transform: translateY(0); }
+    75%     { opacity: 1; transform: translateY(-20px); }
+    90%, 100% { opacity: 0; transform: translateY(-40px); }
+  }
+  .a2-spark-1 { animation-delay: 0s; }
+  .a2-spark-2 { animation-delay: 0.15s; }
+  .a2-spark-3 { animation-delay: 0.3s; }
+  .a2-counter-old { animation: counter-old 6s var(--ease-out) infinite; }
+  .a2-counter-new { animation: counter-new 6s var(--ease-out) infinite; opacity: 0; }
+
+  /* ═════════════════════════════════════════
+     A3 — MINIMAL / LINE-ART
+     ═════════════════════════════════════════ */
+  .a3-bld {
+    fill: white;
+    stroke: var(--c-croissance);
+    stroke-width: 1.5;
+  }
+  .a3-window {
+    fill: var(--c-croissance-tint);
+    stroke: var(--c-croissance);
+    stroke-width: 1;
+    rx: 1;
+  }
+  .a3-floor-line {
+    stroke: var(--c-croissance);
+    stroke-width: 0.8;
+    opacity: 0.4;
+  }
+  .a3-door {
+    fill: var(--c-croissance);
+    rx: 1;
+  }
+  .a3-target {
+    transform-origin: 285px 178px;
+    animation: target-absorb 6s var(--ease-in-out) infinite;
+  }
+  .a3-glow {
+    fill: var(--c-croissance);
+    opacity: 0;
+    transform-origin: 130px 175px;
+    animation: flash-glow 6s ease-out infinite;
+  }
+  .a3-new-1 {
+    transform-origin: 80px 130px;
+    animation: new-floor-grow 6s var(--ease-out-soft) infinite;
+  }
+  .a3-new-2 {
+    transform-origin: 80px 105px;
+    animation: new-floor-grow-2 6s var(--ease-out-soft) infinite;
+  }
+  .a3-counter-old { animation: counter-old 6s var(--ease-out) infinite; }
+  .a3-counter-new { animation: counter-new 6s var(--ease-out) infinite; opacity: 0; }
+
+  /* ═════════════════════════════════════════
+     A4 — AVEC DASHBOARD METRICS
+     ═════════════════════════════════════════ */
+  .a4-stage {
+    display: grid;
+    grid-template-columns: 1fr 110px;
+    gap: 0.75rem;
+    align-items: center;
+    height: 100%;
+    padding: 0.5rem;
+  }
+  .a4-svg-wrap { height: 220px; }
+  .a4-metrics {
+    display: grid;
+    gap: 0.5rem;
+  }
+  .a4-metric {
+    background: white;
+    border: 1px solid var(--line-2);
+    border-radius: 8px;
+    padding: 0.55rem 0.65rem;
+  }
+  .a4-metric-label {
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 0.2rem;
+  }
+  .a4-metric-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.3rem;
+  }
+  .a4-metric-old {
+    font-size: 0.7rem;
+    color: var(--text-3);
+    text-decoration: line-through;
+    animation: a4-old 6s var(--ease-out) infinite;
+  }
+  @keyframes a4-old {
+    0%, 60%   { opacity: 1; }
+    75%, 100% { opacity: 0.5; }
+  }
+  .a4-metric-arrow {
+    font-size: 0.7rem;
+    color: var(--text-3);
+  }
+  .a4-metric-new {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--c-croissance);
+    opacity: 0;
+    animation: a4-new 6s var(--ease-out-bounce) infinite;
+  }
+  @keyframes a4-new {
+    0%, 65%   { opacity: 0; transform: translateY(8px); }
+    80%       { opacity: 1; transform: translateY(-2px); }
+    90%, 100% { opacity: 1; transform: translateY(0); }
+  }
+  .a4-svg svg { width: 100%; height: 100%; overflow: visible; }
+  .a4-bld { fill: var(--c-croissance); }
+  .a4-window { fill: white; rx: 1; }
+  .a4-door { fill: var(--c-croissance-deep); rx: 1; }
+  .a4-target {
+    transform-origin: 195px 158px;
+    animation: target-absorb 6s var(--ease-in-out) infinite;
+  }
+  .a4-new-1 {
+    transform-origin: 30px 110px;
+    animation: new-floor-grow 6s var(--ease-out-bounce) infinite;
+  }
+  .a4-new-2 {
+    transform-origin: 30px 88px;
+    animation: new-floor-grow-2 6s var(--ease-out-bounce) infinite;
+  }
+
+</style>
+</head>
+<body>
+
+<h1>A — Immeuble qui grandit en hauteur · 4 versions affinées</h1>
+<p class="sub">
+  Grille de fenêtres parfaitement alignée (4 colonnes, 4 rangées initiales). Cycle 6 s, easings cubic-bezier modernes. Le compteur d'étages bascule en cross-fade. Les 2 nouveaux étages poussent en cascade avec léger overshoot.
+</p>
+
+<div class="test-grid">
+
+  <!-- ════════ A1 — POLI & PROPRE ════════ -->
+  <div class="test-card">
+    <div class="test-card-label">A1 — Poli & propre</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>Version solide nette, alignement strict de la grille de fenêtres, flash discret au moment de l'absorption, étages qui poussent avec léger overshoot.</p>
+
+    <div class="visual">
+      <div class="v-wrap">
+        <svg class="v-svg" viewBox="0 0 360 240">
+          <defs>
+            <filter id="a1-shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#10B981" flood-opacity="0.18"/>
+            </filter>
+          </defs>
+
+          <line class="ground" x1="20" y1="220" x2="340" y2="220"/>
+
+          <!-- Flash à l'impact -->
+          <circle class="a1-glow" cx="130" cy="175" r="40"/>
+
+          <!-- NOUVEL ÉTAGE 2 (le plus haut, vient en dernier) -->
+          <g class="a1-new-2">
+            <rect class="a1-bld" x="80" y="83" width="100" height="22"/>
+            <rect class="a1-window" x="93" y="87" width="14" height="14"/>
+            <rect class="a1-window" x="113" y="87" width="14" height="14"/>
+            <rect class="a1-window" x="133" y="87" width="14" height="14"/>
+            <rect class="a1-window" x="153" y="87" width="14" height="14"/>
+          </g>
+
+          <!-- NOUVEL ÉTAGE 1 -->
+          <g class="a1-new-1">
+            <rect class="a1-bld" x="80" y="108" width="100" height="22"/>
+            <rect class="a1-window" x="93" y="112" width="14" height="14"/>
+            <rect class="a1-window" x="113" y="112" width="14" height="14"/>
+            <rect class="a1-window" x="133" y="112" width="14" height="14"/>
+            <rect class="a1-window" x="153" y="112" width="14" height="14"/>
+          </g>
+
+          <!-- IMMEUBLE BASE (4 étages + porte) -->
+          <g filter="url(#a1-shadow)">
+            <rect class="a1-bld" x="80" y="133" width="100" height="87"/>
+          </g>
+          <!-- Étage 1 (haut de la base) -->
+          <rect class="a1-window" x="93" y="137" width="14" height="14"/>
+          <rect class="a1-window" x="113" y="137" width="14" height="14"/>
+          <rect class="a1-window" x="133" y="137" width="14" height="14"/>
+          <rect class="a1-window" x="153" y="137" width="14" height="14"/>
+          <!-- Étage 2 -->
+          <rect class="a1-window" x="93" y="158" width="14" height="14"/>
+          <rect class="a1-window" x="113" y="158" width="14" height="14"/>
+          <rect class="a1-window" x="133" y="158" width="14" height="14"/>
+          <rect class="a1-window" x="153" y="158" width="14" height="14"/>
+          <!-- Étage 3 -->
+          <rect class="a1-window" x="93" y="179" width="14" height="14"/>
+          <rect class="a1-window" x="113" y="179" width="14" height="14"/>
+          <rect class="a1-window" x="133" y="179" width="14" height="14"/>
+          <rect class="a1-window" x="153" y="179" width="14" height="14"/>
+          <!-- Porte centrale (à la place de l'étage 4 bas) -->
+          <rect class="a1-window" x="93" y="200" width="14" height="14"/>
+          <rect class="a1-door" x="116" y="200" width="28" height="20"/>
+          <rect class="a1-window" x="153" y="200" width="14" height="14"/>
+
+          <!-- CIBLE (à droite, absorbée) -->
+          <g class="a1-target">
+            <rect class="a1-bld" x="250" y="158" width="62" height="62" rx="2"/>
+            <rect class="a1-window" x="260" y="166" width="11" height="11"/>
+            <rect class="a1-window" x="276" y="166" width="11" height="11"/>
+            <rect class="a1-window" x="292" y="166" width="11" height="11"/>
+            <rect class="a1-window" x="260" y="182" width="11" height="11"/>
+            <rect class="a1-window" x="276" y="182" width="11" height="11"/>
+            <rect class="a1-window" x="292" y="182" width="11" height="11"/>
+            <rect class="a1-door" x="276" y="200" width="11" height="20"/>
+          </g>
+
+          <!-- Compteur étages -->
+          <text class="a1-counter-old" x="50" y="218" style="font-family:Inter; font-size:13px; font-weight:800; fill:var(--text-3); text-anchor:middle;">4 ét.</text>
+          <text class="a1-counter-new" x="50" y="218" style="font-family:Inter; font-size:13px; font-weight:800; fill:var(--c-croissance); text-anchor:middle;">6 ét.</text>
+
+          <text class="lbl lbl--accent" x="130" y="237">VOUS</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ A2 — LUMINEUX (rim glow + étincelles) ════════ -->
+  <div class="test-card">
+    <div class="test-card-label">A2 — Lumineux</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>Onde de choc au moment de l'absorption + rim glow vert sur les nouveaux étages + 3 étincelles qui montent. Plus dynamique et visuel.</p>
+
+    <div class="visual">
+      <div class="v-wrap">
+        <svg class="v-svg" viewBox="0 0 360 240">
+          <defs>
+            <filter id="a2-shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#10B981" flood-opacity="0.25"/>
+            </filter>
+          </defs>
+
+          <line class="ground" x1="20" y1="220" x2="340" y2="220"/>
+
+          <!-- Onde de choc -->
+          <circle class="a2-shockwave" cx="130" cy="175" r="35"/>
+
+          <!-- NOUVEL ÉTAGE 2 -->
+          <g class="a2-new-2">
+            <rect class="a2-bld" x="80" y="83" width="100" height="22"/>
+            <rect class="a2-window" x="93" y="87" width="14" height="14"/>
+            <rect class="a2-window" x="113" y="87" width="14" height="14"/>
+            <rect class="a2-window" x="133" y="87" width="14" height="14"/>
+            <rect class="a2-window" x="153" y="87" width="14" height="14"/>
+          </g>
+
+          <!-- NOUVEL ÉTAGE 1 -->
+          <g class="a2-new-1">
+            <rect class="a2-bld" x="80" y="108" width="100" height="22"/>
+            <rect class="a2-window" x="93" y="112" width="14" height="14"/>
+            <rect class="a2-window" x="113" y="112" width="14" height="14"/>
+            <rect class="a2-window" x="133" y="112" width="14" height="14"/>
+            <rect class="a2-window" x="153" y="112" width="14" height="14"/>
+          </g>
+
+          <!-- Étincelles montantes (juste après croissance) -->
+          <circle class="a2-spark a2-spark-1" cx="100" cy="95" r="2.5"/>
+          <circle class="a2-spark a2-spark-2" cx="130" cy="92" r="2.5"/>
+          <circle class="a2-spark a2-spark-3" cx="160" cy="95" r="2.5"/>
+
+          <!-- IMMEUBLE BASE -->
+          <rect class="a2-bld" x="80" y="133" width="100" height="87"/>
+          <rect class="a2-window" x="93" y="137" width="14" height="14"/>
+          <rect class="a2-window" x="113" y="137" width="14" height="14"/>
+          <rect class="a2-window" x="133" y="137" width="14" height="14"/>
+          <rect class="a2-window" x="153" y="137" width="14" height="14"/>
+          <rect class="a2-window" x="93" y="158" width="14" height="14"/>
+          <rect class="a2-window" x="113" y="158" width="14" height="14"/>
+          <rect class="a2-window" x="133" y="158" width="14" height="14"/>
+          <rect class="a2-window" x="153" y="158" width="14" height="14"/>
+          <rect class="a2-window" x="93" y="179" width="14" height="14"/>
+          <rect class="a2-window" x="113" y="179" width="14" height="14"/>
+          <rect class="a2-window" x="133" y="179" width="14" height="14"/>
+          <rect class="a2-window" x="153" y="179" width="14" height="14"/>
+          <rect class="a2-window" x="93" y="200" width="14" height="14"/>
+          <rect class="a2-door" x="116" y="200" width="28" height="20"/>
+          <rect class="a2-window" x="153" y="200" width="14" height="14"/>
+
+          <!-- CIBLE -->
+          <g class="a2-target">
+            <rect class="a2-bld" x="250" y="158" width="62" height="62" rx="2"/>
+            <rect class="a2-window" x="260" y="166" width="11" height="11"/>
+            <rect class="a2-window" x="276" y="166" width="11" height="11"/>
+            <rect class="a2-window" x="292" y="166" width="11" height="11"/>
+            <rect class="a2-window" x="260" y="182" width="11" height="11"/>
+            <rect class="a2-window" x="276" y="182" width="11" height="11"/>
+            <rect class="a2-window" x="292" y="182" width="11" height="11"/>
+            <rect class="a2-door" x="276" y="200" width="11" height="20"/>
+          </g>
+
+          <text class="a2-counter-old" x="50" y="218" style="font-family:Inter; font-size:13px; font-weight:800; fill:var(--text-3); text-anchor:middle;">4 ét.</text>
+          <text class="a2-counter-new" x="50" y="218" style="font-family:Inter; font-size:13px; font-weight:800; fill:var(--c-croissance); text-anchor:middle;">6 ét.</text>
+
+          <text class="lbl lbl--accent" x="130" y="237">VOUS</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ A3 — MINIMAL / LINE-ART ════════ -->
+  <div class="test-card">
+    <div class="test-card-label">A3 — Minimal line-art</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>Façade blanche, traits verts fins (style biblio NCF). Fenêtres en surface légère. Plus élégant et institutionnel, animations plus douces.</p>
+
+    <div class="visual">
+      <div class="v-wrap">
+        <svg class="v-svg" viewBox="0 0 360 240">
+          <line class="ground" x1="20" y1="220" x2="340" y2="220"/>
+
+          <!-- Flash discret -->
+          <circle class="a3-glow" cx="130" cy="175" r="35" opacity="0.3"/>
+
+          <!-- NOUVEL ÉTAGE 2 -->
+          <g class="a3-new-2">
+            <rect class="a3-bld" x="80" y="83" width="100" height="22"/>
+            <rect class="a3-window" x="93" y="87" width="14" height="14"/>
+            <rect class="a3-window" x="113" y="87" width="14" height="14"/>
+            <rect class="a3-window" x="133" y="87" width="14" height="14"/>
+            <rect class="a3-window" x="153" y="87" width="14" height="14"/>
+          </g>
+
+          <!-- NOUVEL ÉTAGE 1 -->
+          <g class="a3-new-1">
+            <rect class="a3-bld" x="80" y="108" width="100" height="22"/>
+            <rect class="a3-window" x="93" y="112" width="14" height="14"/>
+            <rect class="a3-window" x="113" y="112" width="14" height="14"/>
+            <rect class="a3-window" x="133" y="112" width="14" height="14"/>
+            <rect class="a3-window" x="153" y="112" width="14" height="14"/>
+          </g>
+
+          <!-- IMMEUBLE BASE -->
+          <rect class="a3-bld" x="80" y="133" width="100" height="87"/>
+          <!-- Lignes d'étages -->
+          <line class="a3-floor-line" x1="80" y1="155" x2="180" y2="155"/>
+          <line class="a3-floor-line" x1="80" y1="176" x2="180" y2="176"/>
+          <line class="a3-floor-line" x1="80" y1="197" x2="180" y2="197"/>
+          <!-- Fenêtres -->
+          <rect class="a3-window" x="93" y="137" width="14" height="14"/>
+          <rect class="a3-window" x="113" y="137" width="14" height="14"/>
+          <rect class="a3-window" x="133" y="137" width="14" height="14"/>
+          <rect class="a3-window" x="153" y="137" width="14" height="14"/>
+          <rect class="a3-window" x="93" y="158" width="14" height="14"/>
+          <rect class="a3-window" x="113" y="158" width="14" height="14"/>
+          <rect class="a3-window" x="133" y="158" width="14" height="14"/>
+          <rect class="a3-window" x="153" y="158" width="14" height="14"/>
+          <rect class="a3-window" x="93" y="179" width="14" height="14"/>
+          <rect class="a3-window" x="113" y="179" width="14" height="14"/>
+          <rect class="a3-window" x="133" y="179" width="14" height="14"/>
+          <rect class="a3-window" x="153" y="179" width="14" height="14"/>
+          <rect class="a3-window" x="93" y="200" width="14" height="14"/>
+          <rect class="a3-door" x="116" y="200" width="28" height="20"/>
+          <rect class="a3-window" x="153" y="200" width="14" height="14"/>
+
+          <!-- CIBLE -->
+          <g class="a3-target">
+            <rect class="a3-bld" x="250" y="158" width="62" height="62" rx="2"/>
+            <rect class="a3-window" x="260" y="166" width="11" height="11"/>
+            <rect class="a3-window" x="276" y="166" width="11" height="11"/>
+            <rect class="a3-window" x="292" y="166" width="11" height="11"/>
+            <rect class="a3-window" x="260" y="182" width="11" height="11"/>
+            <rect class="a3-window" x="276" y="182" width="11" height="11"/>
+            <rect class="a3-window" x="292" y="182" width="11" height="11"/>
+            <rect class="a3-door" x="276" y="200" width="11" height="20"/>
+          </g>
+
+          <text class="a3-counter-old" x="50" y="218" style="font-family:Inter; font-size:13px; font-weight:800; fill:var(--text-3); text-anchor:middle;">4 ét.</text>
+          <text class="a3-counter-new" x="50" y="218" style="font-family:Inter; font-size:13px; font-weight:800; fill:var(--c-croissance); text-anchor:middle;">6 ét.</text>
+
+          <text class="lbl lbl--accent" x="130" y="237">VOUS</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ A4 — AVEC DASHBOARD METRICS ════════ -->
+  <div class="test-card">
+    <div class="test-card-label">A4 — Avec metrics dashboard</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>Immeuble compact + panel latéral live : étages, CA, effectifs. Les valeurs basculent en synchro avec la croissance de l'immeuble. Look SaaS moderne.</p>
+
+    <div class="visual">
+      <div class="a4-stage">
+        <div class="a4-svg-wrap">
+          <svg class="a4-svg" viewBox="0 0 230 220">
+            <defs>
+              <filter id="a4-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#10B981" flood-opacity="0.2"/>
+              </filter>
+            </defs>
+
+            <line class="ground" x1="10" y1="200" x2="220" y2="200"/>
+
+            <!-- NOUVEL ÉTAGE 2 -->
+            <g class="a4-new-2">
+              <rect class="a4-bld" x="30" y="65" width="80" height="20"/>
+              <rect class="a4-window" x="40" y="69" width="12" height="12"/>
+              <rect class="a4-window" x="56" y="69" width="12" height="12"/>
+              <rect class="a4-window" x="72" y="69" width="12" height="12"/>
+              <rect class="a4-window" x="88" y="69" width="12" height="12"/>
+            </g>
+
+            <!-- NOUVEL ÉTAGE 1 -->
+            <g class="a4-new-1">
+              <rect class="a4-bld" x="30" y="88" width="80" height="20"/>
+              <rect class="a4-window" x="40" y="92" width="12" height="12"/>
+              <rect class="a4-window" x="56" y="92" width="12" height="12"/>
+              <rect class="a4-window" x="72" y="92" width="12" height="12"/>
+              <rect class="a4-window" x="88" y="92" width="12" height="12"/>
+            </g>
+
+            <!-- IMMEUBLE BASE 4 ét + porte -->
+            <g filter="url(#a4-shadow)">
+              <rect class="a4-bld" x="30" y="111" width="80" height="89"/>
+            </g>
+            <rect class="a4-window" x="40" y="115" width="12" height="12"/>
+            <rect class="a4-window" x="56" y="115" width="12" height="12"/>
+            <rect class="a4-window" x="72" y="115" width="12" height="12"/>
+            <rect class="a4-window" x="88" y="115" width="12" height="12"/>
+            <rect class="a4-window" x="40" y="135" width="12" height="12"/>
+            <rect class="a4-window" x="56" y="135" width="12" height="12"/>
+            <rect class="a4-window" x="72" y="135" width="12" height="12"/>
+            <rect class="a4-window" x="88" y="135" width="12" height="12"/>
+            <rect class="a4-window" x="40" y="155" width="12" height="12"/>
+            <rect class="a4-window" x="56" y="155" width="12" height="12"/>
+            <rect class="a4-window" x="72" y="155" width="12" height="12"/>
+            <rect class="a4-window" x="88" y="155" width="12" height="12"/>
+            <rect class="a4-window" x="40" y="178" width="12" height="12"/>
+            <rect class="a4-door" x="60" y="178" width="22" height="22"/>
+            <rect class="a4-window" x="88" y="178" width="12" height="12"/>
+
+            <!-- CIBLE -->
+            <g class="a4-target">
+              <rect class="a4-bld" x="160" y="138" width="50" height="62" rx="2"/>
+              <rect class="a4-window" x="168" y="146" width="10" height="10"/>
+              <rect class="a4-window" x="182" y="146" width="10" height="10"/>
+              <rect class="a4-window" x="196" y="146" width="10" height="10"/>
+              <rect class="a4-window" x="168" y="160" width="10" height="10"/>
+              <rect class="a4-window" x="182" y="160" width="10" height="10"/>
+              <rect class="a4-window" x="196" y="160" width="10" height="10"/>
+              <rect class="a4-door" x="180" y="178" width="14" height="22"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="a4-metrics">
+          <div class="a4-metric">
+            <div class="a4-metric-label">Étages</div>
+            <div class="a4-metric-row">
+              <span class="a4-metric-old">4</span>
+              <span class="a4-metric-arrow">→</span>
+              <span class="a4-metric-new">6</span>
+            </div>
+          </div>
+          <div class="a4-metric">
+            <div class="a4-metric-label">CA</div>
+            <div class="a4-metric-row">
+              <span class="a4-metric-old">5,8</span>
+              <span class="a4-metric-arrow">→</span>
+              <span class="a4-metric-new">8,6 M€</span>
+            </div>
+          </div>
+          <div class="a4-metric">
+            <div class="a4-metric-label">Effectif</div>
+            <div class="a4-metric-row">
+              <span class="a4-metric-old">32</span>
+              <span class="a4-metric-arrow">→</span>
+              <span class="a4-metric-new">58</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!-- NCF Icon · evaluation/transmission · v2.0 · 24×24 · moderne + équerres -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Signature NCF : équerres aux coins opposés -->
+  <path d="M 1 4 L 1 1 L 4 1" stroke-width="1"/>
+  <path d="M 20 23 L 23 23 L 23 20" stroke-width="1"/>
+
+  <!-- Silhouette gauche : tête + buste -->
+  <circle cx="7" cy="9" r="2"/>
+  <path d="M 4 17 Q 4 13 7 13 Q 10 13 10 17"/>
+  <!-- Silhouette droite -->
+  <circle cx="17" cy="9" r="2"/>
+  <path d="M 14 17 Q 14 13 17 13 Q 20 13 20 17"/>
+  <!-- Flèche entre les deux -->
+  <path d="M 10 19 L 14 19 M 12.5 17.5 L 14 19 L 12.5 20.5"/>
+</svg>

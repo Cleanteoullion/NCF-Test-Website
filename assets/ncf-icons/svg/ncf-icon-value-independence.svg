@@ -1,0 +1,13 @@
+<!-- NCF Icon · value/independence · v2.0 · 24×24 · moderne + équerres -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Signature NCF : équerres aux coins opposés -->
+  <path d="M 1 4 L 1 1 L 4 1" stroke-width="1"/>
+  <path d="M 20 23 L 23 23 L 23 20" stroke-width="1"/>
+
+  <!-- Deux entités externes (carrés) -->
+  <rect x="4" y="9" width="5" height="6"/>
+  <rect x="15" y="9" width="5" height="6"/>
+  <!-- Cercle central (NCF, tiers indépendant) -->
+  <circle cx="12" cy="12" r="2.5"/>
+  <!-- Pas de connexion : ce qui souligne l'indépendance -->
+</svg>

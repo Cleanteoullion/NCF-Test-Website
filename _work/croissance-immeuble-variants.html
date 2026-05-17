@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>NCF — Immeuble qui absorbe et grossit</title>
+<style>
+  :root {
+    --c-croissance: #10B981;
+    --c-croissance-deep: #047857;
+    --c-croissance-light: #6EE7B7;
+    --c-croissance-soft: rgba(16, 185, 129, 0.14);
+    --c-croissance-tint: rgba(16, 185, 129, 0.06);
+    --surface-low: #FAFAF7;
+    --card-bg: #FFFFFF;
+    --text-strong: #061838;
+    --text-2: #3A4A6B;
+    --text-3: #586A8A;
+    --line-2: rgba(15, 23, 42, 0.13);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--surface-low);
+    color: var(--text-strong);
+    font-family: 'Inter', system-ui, sans-serif;
+    padding: 4rem 5vw;
+  }
+  h1 { font-size: 1.75rem; margin-bottom: 0.5rem; }
+  .sub { color: var(--text-2); margin-bottom: 3rem; max-width: 75ch; line-height: 1.5; }
+
+  .test-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+  }
+  @media (max-width: 800px) { .test-grid { grid-template-columns: 1fr; } }
+
+  .test-card {
+    background: var(--card-bg);
+    border: 1px solid var(--line-2);
+    border-radius: 18px;
+    padding: 1.75rem 1.5rem 1.5rem;
+  }
+  .test-card-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--c-croissance);
+    margin-bottom: 0.4rem;
+  }
+  .test-card h2 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  .test-card p {
+    font-size: 0.82rem;
+    color: var(--text-2);
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+    min-height: 4em;
+  }
+
+  .visual {
+    margin-top: 1rem;
+    min-height: 270px;
+    border-top: 1px solid var(--line-2);
+    position: relative;
+    overflow: hidden;
+  }
+  .visual::before {
+    content: '';
+    position: absolute;
+    inset: 24px 0 0;
+    border-radius: 16px;
+    background:
+      linear-gradient(var(--surface-low) 1px, transparent 1px),
+      linear-gradient(90deg, var(--surface-low) 1px, transparent 1px),
+      var(--c-croissance-tint);
+    background-size: 24px 24px;
+    opacity: 0.6;
+  }
+  .visual > * { position: relative; z-index: 1; }
+
+  .v-wrap {
+    padding: 1rem;
+    display: grid;
+    align-content: end;
+    height: 100%;
+    padding-bottom: 1.5rem;
+  }
+  .v-svg { width: 100%; height: 240px; }
+  .v-svg svg { width: 100%; height: 100%; overflow: visible; }
+
+  /* Common SVG styles */
+  .bld { fill: var(--c-croissance); }
+  .bld-stroke { stroke: var(--c-croissance-deep); stroke-width: 1.5; fill: none; }
+  .window { fill: white; }
+  .door { fill: var(--c-croissance-deep); }
+  .ground { stroke: var(--text-3); stroke-width: 1; stroke-dasharray: 3 3; }
+  .lbl {
+    text-anchor: middle;
+    font-family: Inter, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    fill: var(--text-3);
+  }
+  .lbl--accent { fill: var(--c-croissance); }
+
+  /* ═════════════════════════════════════════
+     A — IMMEUBLE QUI GRANDIT EN HAUTEUR
+     ═════════════════════════════════════════ */
+  .vA-target {
+    animation: vA-absorb 5s ease-in-out infinite;
+    transform-origin: 270px 175px;
+  }
+  @keyframes vA-absorb {
+    0%      { transform: translateX(0) scale(1); opacity: 1; }
+    35%     { transform: translateX(-30px) scale(1); opacity: 1; }
+    55%     { transform: translateX(-90px) scale(0.5); opacity: 0.7; }
+    65%     { transform: translateX(-120px) scale(0.1); opacity: 0; }
+    100%    { transform: translateX(0) scale(1); opacity: 0; }
+  }
+  .vA-new-floor {
+    transform-origin: 140px 130px;
+    transform: scaleY(0);
+    animation: vA-grow-up 5s ease-out infinite;
+  }
+  @keyframes vA-grow-up {
+    0%, 60% { transform: scaleY(0); opacity: 0; }
+    75%     { transform: scaleY(1.1); opacity: 1; }
+    85%, 100% { transform: scaleY(1); opacity: 1; }
+  }
+  .vA-counter-old, .vA-counter-new {
+    font-family: Inter, sans-serif;
+    font-weight: 800;
+    text-anchor: end;
+  }
+  .vA-counter-old {
+    animation: vA-counter-old 5s ease-in-out infinite;
+    fill: var(--text-3);
+  }
+  @keyframes vA-counter-old {
+    0%, 60%   { opacity: 1; }
+    75%, 100% { opacity: 0; }
+  }
+  .vA-counter-new {
+    opacity: 0;
+    animation: vA-counter-new 5s ease-in-out infinite;
+    fill: var(--c-croissance);
+  }
+  @keyframes vA-counter-new {
+    0%, 65%   { opacity: 0; }
+    80%, 100% { opacity: 1; }
+  }
+
+  /* ═════════════════════════════════════════
+     B — IMMEUBLE QUI S'ÉLARGIT
+     ═════════════════════════════════════════ */
+  .vB-target {
+    animation: vB-merge 5s ease-in-out infinite;
+    transform-origin: center;
+  }
+  @keyframes vB-merge {
+    0%      { transform: translateX(0); opacity: 1; }
+    40%     { transform: translateX(-50px); opacity: 1; }
+    60%     { transform: translateX(-110px); opacity: 0; }
+    100%    { transform: translateX(0); opacity: 0; }
+  }
+  .vB-extension {
+    transform-origin: 180px 195px;
+    transform: scaleX(0);
+    opacity: 0;
+    animation: vB-extend 5s ease-out infinite;
+  }
+  @keyframes vB-extend {
+    0%, 55% { transform: scaleX(0); opacity: 0; }
+    72%     { transform: scaleX(1.1); opacity: 1; }
+    85%, 100% { transform: scaleX(1); opacity: 1; }
+  }
+
+  /* ═════════════════════════════════════════
+     C — IMMEUBLE-PACMAN (mord, ferme, grandit)
+     ═════════════════════════════════════════ */
+  .vC-jaw-top {
+    transform-origin: 200px 120px;
+    animation: vC-jaw-top 5s ease-in-out infinite;
+  }
+  .vC-jaw-bot {
+    transform-origin: 200px 120px;
+    animation: vC-jaw-bot 5s ease-in-out infinite;
+  }
+  @keyframes vC-jaw-top {
+    0%      { transform: rotate(0deg); }
+    20%     { transform: rotate(-18deg); }
+    50%     { transform: rotate(-18deg); }
+    70%, 100% { transform: rotate(0deg); }
+  }
+  @keyframes vC-jaw-bot {
+    0%      { transform: rotate(0deg); }
+    20%     { transform: rotate(18deg); }
+    50%     { transform: rotate(18deg); }
+    70%, 100% { transform: rotate(0deg); }
+  }
+  .vC-target {
+    animation: vC-eaten 5s ease-in-out infinite;
+    transform-origin: center;
+  }
+  @keyframes vC-eaten {
+    0%      { transform: translateX(0) scale(1); opacity: 1; }
+    25%     { transform: translateX(-50px) scale(1); opacity: 1; }
+    45%     { transform: translateX(-90px) scale(0.4); opacity: 0; }
+    100%    { transform: translateX(0) scale(1); opacity: 0; }
+  }
+  .vC-growth {
+    transform-origin: 150px 200px;
+    transform: scaleY(0);
+    opacity: 0;
+    animation: vC-grow 5s ease-out infinite;
+  }
+  @keyframes vC-grow {
+    0%, 70% { transform: scaleY(0); opacity: 0; }
+    85%     { transform: scaleY(1.1); opacity: 1; }
+    95%, 100% { transform: scaleY(1); opacity: 1; }
+  }
+
+  /* ═════════════════════════════════════════
+     D — DEUX IMMEUBLES FUSIONNENT EN UN PLUS GRAND
+     ═════════════════════════════════════════ */
+  .vD-left {
+    animation: vD-left 5s ease-in-out infinite;
+    transform-origin: center;
+  }
+  @keyframes vD-left {
+    0%, 30% { transform: translateX(0); }
+    55%, 100% { transform: translateX(35px); }
+  }
+  .vD-right {
+    animation: vD-right 5s ease-in-out infinite;
+    transform-origin: center;
+  }
+  @keyframes vD-right {
+    0%, 30% { transform: translateX(0); }
+    55%, 100% { transform: translateX(-35px); }
+  }
+  .vD-merge-line {
+    stroke: var(--c-croissance-deep);
+    stroke-width: 2;
+    animation: vD-line-fade 5s ease-in-out infinite;
+  }
+  @keyframes vD-line-fade {
+    0%, 50% { opacity: 1; }
+    60%, 100% { opacity: 0; }
+  }
+  .vD-result {
+    opacity: 0;
+    animation: vD-result 5s ease-in-out infinite;
+    transform-origin: 170px 220px;
+    transform: scaleY(0);
+  }
+  @keyframes vD-result {
+    0%, 65% { opacity: 0; transform: scaleY(0); }
+    80%     { opacity: 1; transform: scaleY(1.05); }
+    90%, 100% { opacity: 1; transform: scaleY(1); }
+  }
+
+</style>
+</head>
+<body>
+
+<h1>Immeuble qui mange et grossit — 4 variantes</h1>
+<p class="sub">
+  Toutes en taille réelle (270 px, vert NCF, animations 5 s en boucle). L'immeuble principal absorbe la cible, puis manifeste visiblement sa croissance (nouveaux étages, élargissement, ou nouvelle stature).
+</p>
+
+<div class="test-grid">
+
+  <!-- ════════ A — CROISSANCE VERTICALE ════════ -->
+  <div class="test-card">
+    <div class="test-card-label">A — Croissance verticale (nouveaux étages)</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>Votre immeuble absorbe la cible qui glisse vers lui et disparaît. Puis 2 nouveaux étages poussent vers le haut. Compteur d'étages passe de 4 à 6.</p>
+
+    <div class="visual">
+      <div class="v-wrap">
+        <svg class="v-svg" viewBox="0 0 360 240">
+          <!-- Sol -->
+          <line class="ground" x1="20" y1="220" x2="340" y2="220"/>
+
+          <!-- NOUVEAUX ÉTAGES (animés en haut) -->
+          <g class="vA-new-floor">
+            <rect class="bld" x="80" y="80" width="120" height="50"/>
+            <rect class="window" x="92" y="92" width="14" height="14"/>
+            <rect class="window" x="116" y="92" width="14" height="14"/>
+            <rect class="window" x="140" y="92" width="14" height="14"/>
+            <rect class="window" x="164" y="92" width="14" height="14"/>
+            <rect class="window" x="92" y="112" width="14" height="14"/>
+            <rect class="window" x="116" y="112" width="14" height="14"/>
+            <rect class="window" x="140" y="112" width="14" height="14"/>
+            <rect class="window" x="164" y="112" width="14" height="14"/>
+          </g>
+
+          <!-- IMMEUBLE PRINCIPAL (toujours visible) -->
+          <rect class="bld" x="80" y="130" width="120" height="90"/>
+          <!-- Étage 1 (fenêtres) -->
+          <rect class="window" x="92" y="140" width="14" height="14"/>
+          <rect class="window" x="116" y="140" width="14" height="14"/>
+          <rect class="window" x="140" y="140" width="14" height="14"/>
+          <rect class="window" x="164" y="140" width="14" height="14"/>
+          <!-- Étage 2 -->
+          <rect class="window" x="92" y="160" width="14" height="14"/>
+          <rect class="window" x="116" y="160" width="14" height="14"/>
+          <rect class="window" x="140" y="160" width="14" height="14"/>
+          <rect class="window" x="164" y="160" width="14" height="14"/>
+          <!-- Étage 3 -->
+          <rect class="window" x="92" y="180" width="14" height="14"/>
+          <rect class="window" x="116" y="180" width="14" height="14"/>
+          <rect class="window" x="164" y="180" width="14" height="14"/>
+          <!-- Porte -->
+          <rect class="door" x="135" y="195" width="20" height="25"/>
+
+          <!-- CIBLE (à droite, glisse vers la gauche et disparaît) -->
+          <g class="vA-target">
+            <rect class="bld" x="240" y="160" width="60" height="60" opacity="0.85"/>
+            <rect class="window" x="250" y="170" width="10" height="10"/>
+            <rect class="window" x="266" y="170" width="10" height="10"/>
+            <rect class="window" x="282" y="170" width="10" height="10"/>
+            <rect class="window" x="250" y="186" width="10" height="10"/>
+            <rect class="window" x="266" y="186" width="10" height="10"/>
+            <rect class="window" x="282" y="186" width="10" height="10"/>
+            <rect class="door" x="266" y="204" width="10" height="16"/>
+          </g>
+
+          <!-- Compteur -->
+          <text class="vA-counter-old" x="55" y="225" style="font-size: 16px;">4 ét.</text>
+          <text class="vA-counter-new" x="55" y="225" style="font-size: 16px;">6 ét.</text>
+          <text class="lbl lbl--accent" x="140" y="240">VOUS</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ B — CROISSANCE HORIZONTALE ════════ -->
+  <div class="test-card">
+    <div class="test-card-label">B — Croissance horizontale (extension latérale)</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>Cible qui glisse vers vous puis fond dans votre immeuble. Votre immeuble se prolonge à droite — nouveau corps de bâtiment qui pousse latéralement.</p>
+
+    <div class="visual">
+      <div class="v-wrap">
+        <svg class="v-svg" viewBox="0 0 360 240">
+          <line class="ground" x1="20" y1="220" x2="340" y2="220"/>
+
+          <!-- EXTENSION (apparaît à droite après absorption) -->
+          <g class="vB-extension">
+            <rect class="bld" x="180" y="130" width="80" height="90"/>
+            <rect class="window" x="188" y="142" width="12" height="12"/>
+            <rect class="window" x="208" y="142" width="12" height="12"/>
+            <rect class="window" x="228" y="142" width="12" height="12"/>
+            <rect class="window" x="244" y="142" width="12" height="12"/>
+            <rect class="window" x="188" y="162" width="12" height="12"/>
+            <rect class="window" x="208" y="162" width="12" height="12"/>
+            <rect class="window" x="228" y="162" width="12" height="12"/>
+            <rect class="window" x="244" y="162" width="12" height="12"/>
+            <rect class="window" x="188" y="182" width="12" height="12"/>
+            <rect class="window" x="208" y="182" width="12" height="12"/>
+            <rect class="window" x="228" y="182" width="12" height="12"/>
+            <rect class="window" x="244" y="182" width="12" height="12"/>
+            <rect class="door" x="208" y="200" width="14" height="20"/>
+          </g>
+
+          <!-- IMMEUBLE PRINCIPAL (statique, à gauche) -->
+          <rect class="bld" x="80" y="100" width="100" height="120"/>
+          <!-- Fenêtres -->
+          <rect class="window" x="90" y="112" width="14" height="14"/>
+          <rect class="window" x="112" y="112" width="14" height="14"/>
+          <rect class="window" x="134" y="112" width="14" height="14"/>
+          <rect class="window" x="156" y="112" width="14" height="14"/>
+          <rect class="window" x="90" y="132" width="14" height="14"/>
+          <rect class="window" x="112" y="132" width="14" height="14"/>
+          <rect class="window" x="134" y="132" width="14" height="14"/>
+          <rect class="window" x="156" y="132" width="14" height="14"/>
+          <rect class="window" x="90" y="152" width="14" height="14"/>
+          <rect class="window" x="112" y="152" width="14" height="14"/>
+          <rect class="window" x="134" y="152" width="14" height="14"/>
+          <rect class="window" x="156" y="152" width="14" height="14"/>
+          <rect class="window" x="90" y="172" width="14" height="14"/>
+          <rect class="window" x="112" y="172" width="14" height="14"/>
+          <rect class="window" x="134" y="172" width="14" height="14"/>
+          <rect class="window" x="156" y="172" width="14" height="14"/>
+          <rect class="window" x="90" y="192" width="14" height="14"/>
+          <rect class="window" x="156" y="192" width="14" height="14"/>
+          <rect class="door" x="118" y="200" width="20" height="20"/>
+
+          <!-- CIBLE -->
+          <g class="vB-target">
+            <rect class="bld" x="270" y="170" width="50" height="50" opacity="0.85"/>
+            <rect class="window" x="278" y="178" width="10" height="10"/>
+            <rect class="window" x="294" y="178" width="10" height="10"/>
+            <rect class="window" x="278" y="194" width="10" height="10"/>
+            <rect class="window" x="294" y="194" width="10" height="10"/>
+            <rect class="door" x="288" y="208" width="10" height="12"/>
+          </g>
+
+          <text class="lbl lbl--accent" x="130" y="240">VOUS</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ C — PACMAN-IMMEUBLE + GROWTH ════════ -->
+  <div class="test-card">
+    <div class="test-card-label">C — Immeuble-bouche puis nouvel étage</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>Le sommet de votre immeuble s'ouvre en deux comme une bouche. La cible passe dedans, l'immeuble se referme, puis un nouvel étage pousse vers le haut.</p>
+
+    <div class="visual">
+      <div class="v-wrap">
+        <svg class="v-svg" viewBox="0 0 360 240">
+          <line class="ground" x1="20" y1="220" x2="340" y2="220"/>
+
+          <!-- NOUVEL ÉTAGE (apparaît au sommet à la fin) -->
+          <g class="vC-growth">
+            <rect class="bld" x="100" y="80" width="100" height="40"/>
+            <rect class="window" x="112" y="92" width="14" height="14"/>
+            <rect class="window" x="136" y="92" width="14" height="14"/>
+            <rect class="window" x="160" y="92" width="14" height="14"/>
+            <rect class="window" x="184" y="92" width="14" height="14"/>
+          </g>
+
+          <!-- CORPS DU BÂTIMENT (fixe) -->
+          <rect class="bld" x="100" y="140" width="100" height="80"/>
+          <rect class="window" x="112" y="152" width="14" height="14"/>
+          <rect class="window" x="136" y="152" width="14" height="14"/>
+          <rect class="window" x="160" y="152" width="14" height="14"/>
+          <rect class="window" x="184" y="152" width="14" height="14"/>
+          <rect class="window" x="112" y="172" width="14" height="14"/>
+          <rect class="window" x="160" y="172" width="14" height="14"/>
+          <rect class="window" x="184" y="172" width="14" height="14"/>
+          <rect class="door" x="138" y="195" width="22" height="25"/>
+
+          <!-- MÂCHOIRES (parties hautes qui s'ouvrent) -->
+          <g class="vC-jaw-top">
+            <rect class="bld" x="100" y="100" width="100" height="40"/>
+            <rect class="window" x="112" y="112" width="14" height="14"/>
+            <rect class="window" x="160" y="112" width="14" height="14"/>
+            <rect class="window" x="184" y="112" width="14" height="14"/>
+          </g>
+          <g class="vC-jaw-bot">
+            <rect class="bld" x="100" y="120" width="100" height="20"/>
+            <rect class="window" x="136" y="125" width="14" height="10"/>
+          </g>
+
+          <!-- CIBLE -->
+          <g class="vC-target">
+            <rect class="bld" x="260" y="155" width="55" height="65" opacity="0.85"/>
+            <rect class="window" x="269" y="165" width="11" height="11"/>
+            <rect class="window" x="285" y="165" width="11" height="11"/>
+            <rect class="window" x="298" y="165" width="11" height="11"/>
+            <rect class="window" x="269" y="181" width="11" height="11"/>
+            <rect class="window" x="285" y="181" width="11" height="11"/>
+            <rect class="window" x="298" y="181" width="11" height="11"/>
+            <rect class="door" x="282" y="200" width="11" height="20"/>
+          </g>
+
+          <text class="lbl lbl--accent" x="150" y="240">VOUS</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ D — DEUX IMMEUBLES → UN PLUS GRAND ════════ -->
+  <div class="test-card">
+    <div class="test-card-label">D — Deux immeubles fusionnent en un</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>Votre immeuble + cible côte-à-côte se rapprochent. Quand ils se touchent, la cloison entre eux s'efface puis un nouvel étage pousse au-dessus — l'immeuble fusionné est plus grand que la somme des deux.</p>
+
+    <div class="visual">
+      <div class="v-wrap">
+        <svg class="v-svg" viewBox="0 0 360 240">
+          <line class="ground" x1="20" y1="220" x2="340" y2="220"/>
+
+          <!-- NOUVEL ÉTAGE FUSIONNÉ (sommet, apparaît à la fin) -->
+          <g class="vD-result">
+            <rect class="bld" x="115" y="90" width="115" height="40"/>
+            <rect class="window" x="125" y="100" width="12" height="12"/>
+            <rect class="window" x="143" y="100" width="12" height="12"/>
+            <rect class="window" x="161" y="100" width="12" height="12"/>
+            <rect class="window" x="179" y="100" width="12" height="12"/>
+            <rect class="window" x="197" y="100" width="12" height="12"/>
+            <rect class="window" x="215" y="100" width="12" height="12"/>
+            <rect class="window" x="125" y="116" width="12" height="12"/>
+            <rect class="window" x="143" y="116" width="12" height="12"/>
+            <rect class="window" x="161" y="116" width="12" height="12"/>
+            <rect class="window" x="179" y="116" width="12" height="12"/>
+            <rect class="window" x="197" y="116" width="12" height="12"/>
+            <rect class="window" x="215" y="116" width="12" height="12"/>
+          </g>
+
+          <!-- IMMEUBLE GAUCHE (VOUS) -->
+          <g class="vD-left">
+            <rect class="bld" x="50" y="130" width="80" height="90"/>
+            <rect class="window" x="60" y="140" width="12" height="12"/>
+            <rect class="window" x="78" y="140" width="12" height="12"/>
+            <rect class="window" x="96" y="140" width="12" height="12"/>
+            <rect class="window" x="114" y="140" width="12" height="12"/>
+            <rect class="window" x="60" y="158" width="12" height="12"/>
+            <rect class="window" x="78" y="158" width="12" height="12"/>
+            <rect class="window" x="96" y="158" width="12" height="12"/>
+            <rect class="window" x="114" y="158" width="12" height="12"/>
+            <rect class="window" x="60" y="176" width="12" height="12"/>
+            <rect class="window" x="78" y="176" width="12" height="12"/>
+            <rect class="window" x="96" y="176" width="12" height="12"/>
+            <rect class="window" x="114" y="176" width="12" height="12"/>
+            <rect class="window" x="60" y="194" width="12" height="12"/>
+            <rect class="window" x="114" y="194" width="12" height="12"/>
+            <rect class="door" x="82" y="200" width="20" height="20"/>
+          </g>
+
+          <!-- IMMEUBLE DROIT (CIBLE) -->
+          <g class="vD-right">
+            <rect class="bld" x="230" y="150" width="80" height="70" opacity="0.9"/>
+            <rect class="window" x="240" y="160" width="12" height="12"/>
+            <rect class="window" x="258" y="160" width="12" height="12"/>
+            <rect class="window" x="276" y="160" width="12" height="12"/>
+            <rect class="window" x="294" y="160" width="12" height="12"/>
+            <rect class="window" x="240" y="178" width="12" height="12"/>
+            <rect class="window" x="258" y="178" width="12" height="12"/>
+            <rect class="window" x="276" y="178" width="12" height="12"/>
+            <rect class="window" x="294" y="178" width="12" height="12"/>
+            <rect class="door" x="263" y="200" width="14" height="20"/>
+          </g>
+
+          <text class="lbl lbl--accent" x="90" y="240">VOUS</text>
+          <text class="lbl" x="270" y="240">CIBLE</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

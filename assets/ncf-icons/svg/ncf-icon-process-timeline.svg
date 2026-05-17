@@ -1,0 +1,17 @@
+<!-- NCF Icon · process/timeline · v2.0 · 24×24 · moderne + équerres -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Signature NCF : équerres aux coins opposés -->
+  <path d="M 1 4 L 1 1 L 4 1" stroke-width="1"/>
+  <path d="M 20 23 L 23 23 L 23 20" stroke-width="1"/>
+
+  <!-- Ligne horizontale centrale -->
+  <line x1="5" y1="12" x2="19" y2="12"/>
+  <!-- 4 points/jalons sur la ligne -->
+  <circle cx="6" cy="12" r="1.5"/>
+  <circle cx="10.5" cy="12" r="1.5"/>
+  <circle cx="14.5" cy="12" r="1.5"/>
+  <circle cx="18.5" cy="12" r="1.5"/>
+  <!-- Lignes de jalonnement verticales courtes -->
+  <line x1="6" y1="7" x2="6" y2="10" stroke-width="1"/>
+  <line x1="14.5" y1="14" x2="14.5" y2="17" stroke-width="1"/>
+</svg>

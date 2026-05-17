@@ -1,0 +1,15 @@
+<!-- NCF Icon · evaluation/methods · v2.0 · 24×24 · moderne + équerres -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Signature NCF : équerres aux coins opposés -->
+  <path d="M 1 4 L 1 1 L 4 1" stroke-width="1"/>
+  <path d="M 20 23 L 23 23 L 23 20" stroke-width="1"/>
+
+  <!-- Ligne de base -->
+  <line x1="5" y1="19" x2="19" y2="19"/>
+  <!-- Colonne 1 (la plus courte) -->
+  <rect x="6" y="13" width="3" height="6"/>
+  <!-- Colonne 2 (la plus haute) -->
+  <rect x="10.5" y="6" width="3" height="13"/>
+  <!-- Colonne 3 (moyenne) -->
+  <rect x="15" y="10" width="3" height="9"/>
+</svg>

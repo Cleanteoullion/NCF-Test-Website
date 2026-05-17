@@ -1,0 +1,14 @@
+<!-- NCF Icon · team/staff · v2.0 · 24×24 · moderne + équerres -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M 1 4 L 1 1 L 4 1" stroke-width="1"/>
+  <path d="M 20 23 L 23 23 L 23 20" stroke-width="1"/>
+  <!-- Salarié gauche -->
+  <circle cx="6" cy="9" r="1.5"/>
+  <path d="M 4 19 L 4 13 Q 4 11 6 11 Q 8 11 8 13 L 8 19"/>
+  <!-- Salarié centre -->
+  <circle cx="12" cy="9" r="1.5"/>
+  <path d="M 10 19 L 10 13 Q 10 11 12 11 Q 14 11 14 13 L 14 19"/>
+  <!-- Salarié droite -->
+  <circle cx="18" cy="9" r="1.5"/>
+  <path d="M 16 19 L 16 13 Q 16 11 18 11 Q 20 11 20 13 L 20 19"/>
+</svg>

@@ -5,7 +5,7 @@
     body.litiges-page .section-eyebrow::before {
       background: linear-gradient(90deg, var(--c-litiges), transparent);
     }
-    body.litiges-page .nav-link.active { color: #fff; }
+    body.litiges-page .nav-link.active { color: var(--text-strong); }
     body.litiges-page .nav-link.active::after {
       background: var(--c-litiges);
       box-shadow: 0 0 8px var(--c-litiges-soft);
@@ -13,7 +13,7 @@
 
     /* Sections alternées : fonds très légèrement contrastés pour donner du rythme */
     .sec-dark   { background: var(--navy-deep); }
-    .sec-soft   { background: linear-gradient(180deg, var(--navy-deep), #08162d 50%, var(--navy-deep)); }
+    .sec-soft   { background: linear-gradient(180deg, var(--navy-deep), var(--bg-deep) 50%, var(--navy-deep)); }
     .sec-raised { background: radial-gradient(800px 500px at 50% 0%, rgba(83, 46, 251, 0.04), transparent 65%), var(--navy-deep); }
 
     /* ═══════════════════ HERO ═══════════════════ */
@@ -34,7 +34,7 @@
     #hero-litiges::after {
       content: '';
       position: absolute; inset: 0; z-index: -1;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-image: radial-gradient(circle, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
       background-size: 28px 28px;
       mask-image: radial-gradient(ellipse 70% 60% at 60% 40%, #000 10%, transparent 75%);
       -webkit-mask-image: radial-gradient(ellipse 70% 60% at 60% 40%, #000 10%, transparent 75%);
@@ -68,7 +68,7 @@
       font-weight: 800;
       line-height: 1.08;
       letter-spacing: -0.028em;
-      color: #fff;
+      color: var(--text-strong);
       max-width: 960px;
       margin-top: 1.1rem;
     }
@@ -121,7 +121,7 @@
     .pain-card {
       position: relative;
       padding: 2.25rem 1.75rem 1.5rem;
-      background: linear-gradient(160deg, rgba(26,48,85,0.48), rgba(10,31,61,0.35));
+      background: var(--card-bg);
       border: 1px solid var(--border);
       border-left: 3px solid var(--c-litiges);
       border-radius: 14px;
@@ -179,7 +179,7 @@
     @media (max-width: 820px) { .apports-grid { grid-template-columns: 1fr; } }
     .apport-card {
       padding: 2rem;
-      background: linear-gradient(135deg, rgba(26,48,85,0.5), rgba(5,13,29,0.55));
+      background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 14px;
       transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
@@ -201,7 +201,7 @@
     .apport-title {
       font-size: 1.08rem;
       font-weight: 700;
-      color: #fff;
+      color: var(--text-strong);
       margin-bottom: 0.55rem;
       letter-spacing: -0.01em;
     }
@@ -221,7 +221,7 @@
     @media (max-width: 900px) { .diff-pillars { grid-template-columns: 1fr; } }
     .diff-pillar {
       padding: 1.85rem;
-      background: rgba(10, 31, 61, 0.38);
+      background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 14px;
       position: relative;
@@ -241,7 +241,7 @@
     .diff-title {
       font-size: 1.05rem;
       font-weight: 700;
-      color: #fff;
+      color: var(--text-strong);
       margin-bottom: 0.55rem;
       letter-spacing: -0.01em;
     }
@@ -290,7 +290,7 @@
     .process-title {
       font-size: 1.08rem;
       font-weight: 700;
-      color: #fff;
+      color: var(--text-strong);
       margin-bottom: 0.4rem;
       letter-spacing: -0.01em;
     }
@@ -324,7 +324,7 @@
       border: 1px solid var(--border-strong);
       border-radius: 18px;
       overflow: hidden;
-      background: linear-gradient(135deg, rgba(26,48,85,0.55), rgba(10,31,61,0.4));
+      background: var(--card-bg);
       margin-top: 2.75rem;
       position: relative;
     }
@@ -334,7 +334,7 @@
       top: 20px; right: 20px;
       padding: 5px 11px;
       border-radius: 999px;
-      background: rgba(0,0,0,0.45);
+      background: var(--surface-strong);
       color: var(--ink-dim);
       font-size: 0.68rem;
       font-weight: 700;
@@ -362,7 +362,7 @@
     .case-title {
       font-size: 1.35rem;
       font-weight: 700;
-      color: #fff;
+      color: var(--text-strong);
       letter-spacing: -0.015em;
       line-height: 1.3;
     }
@@ -375,7 +375,7 @@
     .case-row {
       display: flex; flex-direction: column;
       padding: 0.85rem 1rem;
-      background: rgba(5,13,29,0.45);
+      background: var(--surface-low);
       border: 1px solid var(--border);
       border-radius: 10px;
     }
@@ -390,7 +390,7 @@
     .case-row-value {
       font-size: 1rem;
       font-weight: 700;
-      color: #fff;
+      color: var(--text-strong);
     }
     .case-block-title {
       font-size: 0.72rem;
@@ -479,7 +479,7 @@
     @media (max-width: 820px) { .testi-grid { grid-template-columns: 1fr; } }
     .testi-ext {
       padding: 2rem 2.25rem;
-      background: linear-gradient(135deg, rgba(26,48,85,0.35), rgba(10,31,61,0.25));
+      background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 14px;
       display: flex;
@@ -529,7 +529,7 @@
     @media (max-width: 900px) { .partners-grid { grid-template-columns: 1fr; } }
     .partner-card {
       padding: 1.85rem;
-      background: rgba(10, 31, 61, 0.4);
+      background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 14px;
       transition: border-color 0.25s;
@@ -540,7 +540,7 @@
       display: inline-flex;
       align-items: center; justify-content: center;
       border-radius: 10px;
-      background: rgba(255,255,255,0.04);
+      background: var(--surface-low);
       color: var(--c-litiges);
       margin-bottom: 1rem;
       border: 1px solid var(--border);
@@ -556,7 +556,7 @@
     .partner-title {
       font-size: 1.05rem;
       font-weight: 700;
-      color: #fff;
+      color: var(--text-strong);
       margin-bottom: 0.55rem;
       letter-spacing: -0.01em;
     }
@@ -575,7 +575,7 @@
       gap: 0.75rem;
     }
     .faq-item {
-      background: rgba(10, 31, 61, 0.45);
+      background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 12px;
       overflow: hidden;
@@ -583,14 +583,14 @@
     }
     .faq-item[open] {
       border-color: rgba(83, 46, 251, 0.3);
-      background: rgba(10, 31, 61, 0.6);
+      background: var(--card-bg);
     }
     .faq-item summary {
       cursor: pointer;
       padding: 1.15rem 3rem 1.15rem 1.35rem;
       font-size: 1rem;
       font-weight: 600;
-      color: #fff;
+      color: var(--text-strong);
       list-style: none;
       position: relative;
       transition: color 0.2s;
@@ -639,7 +639,7 @@
     .cta-final::before {
       content: '';
       position: absolute; inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-image: radial-gradient(circle, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
       background-size: 32px 32px;
       mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, #000 20%, transparent 80%);
       -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, #000 20%, transparent 80%);
@@ -671,7 +671,7 @@
     .cta-title {
       font-size: clamp(1.6rem, 3vw, 2.3rem);
       font-weight: 800;
-      color: #fff;
+      color: var(--text-strong);
       letter-spacing: -0.025em;
       line-height: 1.15;
     }

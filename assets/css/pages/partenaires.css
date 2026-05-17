@@ -35,7 +35,7 @@
       margin-bottom: 1.1rem;
     }
     .partners-hero h1 {
-      color: #fff;
+      color: var(--text-strong);
       font-size: clamp(2.25rem, 4.5vw, 4.2rem);
       line-height: 1.04;
       letter-spacing: -0.035em;
@@ -58,7 +58,7 @@
     .partner-panel {
       border: 1px solid var(--border);
       border-radius: 8px;
-      background: linear-gradient(145deg, rgba(26, 48, 85, 0.58), rgba(10, 31, 61, 0.42));
+      background: var(--card-bg);
       padding: 1.4rem;
       box-shadow: 0 30px 70px -34px rgba(0,0,0,0.75);
     }
@@ -132,7 +132,7 @@
     .partner-type-card h3,
     .workflow-step h3,
     .standard-card h3 {
-      color: #fff;
+      color: var(--text-strong);
       font-size: 1rem;
       line-height: 1.35;
       margin-bottom: 0.55rem;
@@ -178,7 +178,7 @@
       text-align: center;
     }
     .partners-cta h2 {
-      color: #fff;
+      color: var(--text-strong);
       font-size: clamp(1.5rem, 3vw, 2.25rem);
       line-height: 1.18;
       letter-spacing: -0.025em;

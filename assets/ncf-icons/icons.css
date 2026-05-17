@@ -1,0 +1,105 @@
+/* ============================================================
+   NCF Icons · v2.0 · Feuille de styles utilitaires
+   ============================================================
+   À importer dans ton CSS global :
+       @import url('./ncf-icons/icons.css');
+
+   Ou en lien direct dans le HTML :
+       <link rel="stylesheet" href="ncf-icons/icons.css">
+   ============================================================ */
+
+/* Variables de couleur (à reprendre dans ta charte globale si pas déjà fait) */
+:root {
+  --ncf-marine: #050D1D;
+  --ncf-paper: #F7F4ED;
+  --ncf-accent: #E8503F;
+  --ncf-gold: #C9A961;
+  --ncf-ink-soft: #4A5470;
+}
+
+/* ============================================================
+   CLASSE DE BASE
+   ============================================================ */
+
+.ncf-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  /* La couleur de stroke suit la couleur du texte (currentColor) */
+  color: var(--ncf-marine);
+}
+
+/* ============================================================
+   TAILLES
+   ============================================================ */
+
+.ncf-icon--xs { width: 20px; height: 20px; }   /* Inline texte (minimum) */
+.ncf-icon--sm { width: 24px; height: 24px; }   /* Bouton, nav */
+.ncf-icon--md { width: 32px; height: 32px; }   /* Carte feature */
+.ncf-icon--lg { width: 48px; height: 48px; }   /* Carte large */
+.ncf-icon--xl { width: 64px; height: 64px; }   /* Hero */
+
+/* ============================================================
+   COULEURS
+   ============================================================ */
+
+.ncf-icon--marine { color: var(--ncf-marine); }
+.ncf-icon--paper  { color: var(--ncf-paper); }   /* sur fond sombre */
+.ncf-icon--accent { color: var(--ncf-accent); }  /* hover, focus */
+.ncf-icon--gold   { color: var(--ncf-gold); }    /* premium */
+.ncf-icon--soft   { color: var(--ncf-ink-soft); } /* désactivé */
+
+/* ============================================================
+   ÉTATS INTERACTIFS
+   ============================================================ */
+
+.ncf-icon--interactive {
+  transition: color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+.ncf-icon--interactive:hover {
+  color: var(--ncf-accent);
+  transform: translateY(-1px);
+}
+
+/* L'icône suit la couleur du lien parent au hover */
+a:hover .ncf-icon,
+button:hover .ncf-icon {
+  color: var(--ncf-accent);
+}
+
+/* ============================================================
+   COMPOSITION INLINE (icône + texte)
+   ============================================================ */
+
+.ncf-icon-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+}
+
+.ncf-icon-text--left .ncf-icon { order: 0; }
+.ncf-icon-text--right .ncf-icon { order: 2; }
+
+/* ============================================================
+   ACCESSIBILITÉ
+   ============================================================ */
+
+/* Les icônes décoratives doivent être ignorées par les lecteurs d'écran.
+   Si l'icône est porteuse de sens (sans texte adjacent), ajouter aria-label sur le SVG.
+   Par défaut on masque : */
+.ncf-icon[aria-hidden="true"] {
+  pointer-events: none;
+}
+
+/* Respect des préférences réduites */
+@media (prefers-reduced-motion: reduce) {
+  .ncf-icon--interactive {
+    transition: none;
+  }
+  .ncf-icon--interactive:hover {
+    transform: none;
+  }
+}

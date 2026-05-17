@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>NCF — Test visuels carte Croissance externe</title>
+<style>
+  :root {
+    --c-croissance: #10B981;
+    --c-croissance-soft: rgba(16, 185, 129, 0.14);
+    --c-croissance-tint: rgba(16, 185, 129, 0.06);
+    --surface-low: #FAFAF7;
+    --card-bg: #FFFFFF;
+    --text-strong: #061838;
+    --text-2: #3A4A6B;
+    --text-3: #586A8A;
+    --line-2: rgba(15, 23, 42, 0.13);
+    --line-3: rgba(15, 23, 42, 0.20);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--surface-low);
+    color: var(--text-strong);
+    font-family: 'Inter', system-ui, sans-serif;
+    padding: 4rem 5vw;
+  }
+  h1 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .sub { color: var(--text-2); margin-bottom: 3rem; max-width: 75ch; line-height: 1.5; }
+
+  .test-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 1400px;
+  }
+  @media (max-width: 1100px) { .test-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 700px)  { .test-grid { grid-template-columns: 1fr; } }
+
+  .test-card {
+    background: var(--card-bg);
+    border: 1px solid var(--line-2);
+    border-radius: 18px;
+    padding: 1.75rem 1.5rem 1.5rem;
+  }
+  .test-card-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--c-croissance);
+    margin-bottom: 0.4rem;
+  }
+  .test-card h2 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  .test-card p {
+    font-size: 0.82rem;
+    color: var(--text-2);
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+    min-height: 4em;
+  }
+
+  .visual {
+    margin-top: 1rem;
+    min-height: 270px;
+    border-top: 1px solid var(--line-2);
+    position: relative;
+    overflow: hidden;
+    --cas-accent: var(--c-croissance);
+    --cas-soft: var(--c-croissance-soft);
+    --cas-tint: var(--c-croissance-tint);
+  }
+  .visual::before {
+    content: '';
+    position: absolute;
+    inset: 24px 0 0;
+    border-radius: 16px;
+    background:
+      linear-gradient(var(--surface-low) 1px, transparent 1px),
+      linear-gradient(90deg, var(--surface-low) 1px, transparent 1px),
+      var(--cas-tint);
+    background-size: 24px 24px;
+    opacity: 0.6;
+  }
+  .visual > * { position: relative; z-index: 1; }
+
+  /* ═════ A. PIPELINE / FUNNEL ═════ */
+  .funnel {
+    padding: 2rem 0.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.45rem;
+    height: 100%;
+    justify-content: center;
+  }
+  .funnel-row {
+    background: white;
+    border: 1px solid var(--line-2);
+    border-radius: 8px;
+    padding: 0.55rem 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    font-size: 0.73rem;
+  }
+  .funnel-row--1 { width: 100%; }
+  .funnel-row--2 { width: 80%; }
+  .funnel-row--3 { width: 60%; }
+  .funnel-row--4 {
+    width: 45%;
+    background: var(--c-croissance);
+    border-color: var(--c-croissance);
+    color: white;
+    font-weight: 700;
+    animation: funnel-glow 2.4s ease-in-out infinite;
+  }
+  .funnel-row-label { font-weight: 600; }
+  .funnel-row-count {
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.85rem;
+  }
+  .funnel-arrow {
+    color: var(--text-3);
+    font-size: 0.7rem;
+  }
+  @keyframes funnel-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+    50%      { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+  }
+
+  /* ═════ B. COMPARABLES ═════ */
+  .comp {
+    padding: 1.5rem 1rem 1.25rem;
+    display: grid;
+    align-content: center;
+    gap: 0.4rem;
+    height: 100%;
+  }
+  .comp-header,
+  .comp-row {
+    display: grid;
+    grid-template-columns: 1fr 50px 50px 60px;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.7rem;
+  }
+  .comp-header {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-3);
+    font-size: 0.6rem;
+    border-bottom: 1px solid var(--line-2);
+    padding-bottom: 0.45rem;
+    margin-bottom: 0.25rem;
+  }
+  .comp-row {
+    padding: 0.4rem 0;
+    border-bottom: 1px dashed var(--line-2);
+  }
+  .comp-row:last-of-type { border-bottom: 0; }
+  .comp-row strong {
+    font-weight: 600;
+    color: var(--text-strong);
+  }
+  .comp-row span {
+    font-variant-numeric: tabular-nums;
+    color: var(--text-2);
+    font-weight: 600;
+  }
+  .comp-row.is-retained {
+    background: var(--c-croissance-soft);
+    border-radius: 6px;
+    padding: 0.5rem 0.4rem;
+    margin: 0 -0.4rem;
+    border: 1px solid var(--c-croissance);
+    border-bottom-style: solid;
+  }
+  .comp-row.is-retained strong,
+  .comp-row.is-retained span { color: var(--c-croissance); }
+  .comp-foot {
+    margin-top: 0.7rem;
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--text-3);
+  }
+  .comp-foot strong { color: var(--text-strong); font-weight: 700; }
+
+  /* ═════ C. TRAJECTOIRE DE CROISSANCE ═════ */
+  .traj {
+    padding: 1.5rem 1rem;
+    display: grid;
+    align-content: center;
+    height: 100%;
+    position: relative;
+  }
+  .traj-chart {
+    position: relative;
+    height: 150px;
+    margin-top: 1rem;
+  }
+  .traj-chart svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .traj-line-before {
+    stroke: var(--text-3);
+    stroke-width: 2;
+    fill: none;
+    stroke-dasharray: 6 4;
+  }
+  .traj-line-jump {
+    stroke: var(--c-croissance);
+    stroke-width: 3;
+    fill: none;
+  }
+  .traj-line-after {
+    stroke: var(--c-croissance);
+    stroke-width: 2;
+    fill: none;
+  }
+  .traj-label {
+    position: absolute;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.25rem 0.5rem;
+    background: white;
+    border: 1px solid var(--line-2);
+    border-radius: 6px;
+  }
+  .traj-label--before { left: 8%; top: 70%; color: var(--text-3); }
+  .traj-label--jump   { left: 38%; top: 28%; color: var(--c-croissance); border-color: var(--c-croissance); background: var(--c-croissance-soft); }
+  .traj-label--after  { right: 4%; top: 12%; color: var(--c-croissance); }
+  .traj-dot {
+    fill: var(--c-croissance);
+    animation: traj-pulse 2.5s ease-in-out infinite;
+  }
+  @keyframes traj-pulse {
+    0%, 100% { r: 5; }
+    50%      { r: 7; }
+  }
+
+  /* ═════ D. HOLDING ENRICHI ═════ */
+  .holding {
+    padding: 1.5rem 1rem;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100%;
+    align-items: center;
+  }
+  .holding-top {
+    background: var(--c-croissance);
+    color: white;
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+    text-align: center;
+    margin: 0 auto;
+    width: fit-content;
+    box-shadow: 0 12px 28px -8px rgba(16, 185, 129, 0.4);
+  }
+  .holding-top-label {
+    font-size: 0.55rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0.85;
+  }
+  .holding-top-value {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-top: 0.1rem;
+  }
+  .holding-branches {
+    position: relative;
+    height: 34px;
+  }
+  .holding-branches::before {
+    content: '';
+    position: absolute;
+    left: 50%; top: 0;
+    width: 2px; height: 14px;
+    background: var(--text-3);
+    transform: translateX(-50%);
+  }
+  .holding-branches::after {
+    content: '';
+    position: absolute;
+    left: 25%; right: 25%;
+    top: 14px;
+    height: 2px;
+    background: var(--text-3);
+  }
+  .holding-branch-down-l,
+  .holding-branch-down-r {
+    position: absolute;
+    top: 14px;
+    width: 2px;
+    height: 20px;
+    background: var(--text-3);
+  }
+  .holding-branch-down-l { left: 25%; }
+  .holding-branch-down-r { right: 25%; }
+  .holding-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+  }
+  .holding-node {
+    background: white;
+    border: 1px solid var(--line-2);
+    border-radius: 8px;
+    padding: 0.55rem 0.7rem;
+    text-align: center;
+  }
+  .holding-node-label {
+    font-size: 0.55rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-3);
+    margin-bottom: 0.1rem;
+  }
+  .holding-node-value {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-strong);
+  }
+  .holding-node--target {
+    border-color: var(--c-croissance);
+    background: var(--c-croissance-soft);
+  }
+  .holding-node--target .holding-node-label,
+  .holding-node--target .holding-node-value {
+    color: var(--c-croissance);
+  }
+
+  /* ═════ E. PÉRIMÈTRE AVANT/APRÈS ═════ */
+  .perim {
+    padding: 1.5rem 0.75rem;
+    display: grid;
+    grid-template-columns: 1fr 28px 1fr;
+    gap: 0.5rem;
+    align-items: center;
+    height: 100%;
+  }
+  .perim-state {
+    background: white;
+    border: 1px solid var(--line-2);
+    border-radius: 10px;
+    padding: 0.85rem 0.75rem;
+  }
+  .perim-state--after {
+    border-color: var(--c-croissance);
+    background: var(--c-croissance-soft);
+  }
+  .perim-state-label {
+    font-size: 0.55rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    text-align: center;
+    margin-bottom: 0.6rem;
+  }
+  .perim-state--after .perim-state-label { color: var(--c-croissance); }
+  .perim-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3rem 0;
+    font-size: 0.7rem;
+    border-bottom: 1px dashed var(--line-2);
+  }
+  .perim-row:last-child { border-bottom: 0; }
+  .perim-row-key { color: var(--text-3); font-weight: 600; }
+  .perim-row-val { color: var(--text-strong); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .perim-state--after .perim-row-val { color: var(--c-croissance); }
+  .perim-arrow {
+    color: var(--c-croissance);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .perim-arrow svg { width: 22px; height: 22px; }
+
+  /* ═════ F. MULTIPLES SECTORIELS ═════ */
+  .mult {
+    padding: 2rem 1rem 1.5rem;
+    display: grid;
+    align-content: center;
+    gap: 1rem;
+    height: 100%;
+  }
+  .mult-title {
+    text-align: center;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+  }
+  .mult-scale {
+    position: relative;
+    height: 60px;
+    margin: 0 1rem;
+  }
+  .mult-line {
+    position: absolute;
+    top: 50%;
+    left: 0; right: 0;
+    height: 2px;
+    background: var(--line-3);
+    transform: translateY(-50%);
+  }
+  .mult-box {
+    position: absolute;
+    top: 50%;
+    left: 22%; width: 56%;
+    height: 16px;
+    background: var(--line-2);
+    border-radius: 8px;
+    transform: translateY(-50%);
+  }
+  .mult-median {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 3px;
+    height: 24px;
+    background: var(--text-strong);
+    transform: translate(-50%, -50%);
+  }
+  .mult-target {
+    position: absolute;
+    top: 50%;
+    left: 38%;
+    transform: translate(-50%, -50%);
+    width: 22px; height: 22px;
+    border-radius: 999px;
+    background: var(--c-croissance);
+    border: 3px solid white;
+    box-shadow: 0 0 0 4px var(--c-croissance-soft);
+    animation: mult-pulse 2s ease-in-out infinite;
+  }
+  @keyframes mult-pulse {
+    0%, 100% { box-shadow: 0 0 0 4px var(--c-croissance-soft); }
+    50%      { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0.06); }
+  }
+  .mult-scale-ticks {
+    position: absolute;
+    bottom: -18px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.62rem;
+    color: var(--text-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .mult-foot {
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--text-3);
+  }
+  .mult-foot strong { color: var(--c-croissance); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<h1>6 variantes pour la carte « Mener votre croissance externe »</h1>
+<p class="sub">
+  Chaque visuel est rendu dans le contexte d'une fausse card (taille réelle, accent vert croissance, hauteur 270 px).
+  Animations subtiles pour les éléments clés. Choisis-en un (ou demande un mix d'éléments).
+</p>
+
+<div class="test-grid">
+
+  <!-- ═══════════ A. PIPELINE / FUNNEL ═══════════ -->
+  <div class="test-card">
+    <div class="test-card-label">A — Pipeline d'opportunités</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>Filtrage progressif des cibles : identification → pré-sélection → audit → acquisition. NCF accompagne à chaque étape.</p>
+
+    <div class="visual">
+      <div class="funnel">
+        <div class="funnel-row funnel-row--1">
+          <span class="funnel-row-label">Cibles identifiées</span>
+          <span class="funnel-row-count">8</span>
+        </div>
+        <div class="funnel-arrow">▼</div>
+        <div class="funnel-row funnel-row--2">
+          <span class="funnel-row-label">Pré-sélectionnées</span>
+          <span class="funnel-row-count">4</span>
+        </div>
+        <div class="funnel-arrow">▼</div>
+        <div class="funnel-row funnel-row--3">
+          <span class="funnel-row-label">Audit approfondi</span>
+          <span class="funnel-row-count">2</span>
+        </div>
+        <div class="funnel-arrow">▼</div>
+        <div class="funnel-row funnel-row--4">
+          <span class="funnel-row-label">Acquise ★</span>
+          <span class="funnel-row-count">1</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ B. COMPARABLES ═══════════ -->
+  <div class="test-card">
+    <div class="test-card-label">B — Comparables sectoriels</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>NCF compare plusieurs cibles sur leurs ratios (CA, EBITDA, multiple). La cible retenue se positionne sous la médiane sectorielle.</p>
+
+    <div class="visual">
+      <div class="comp">
+        <div class="comp-header">
+          <span>Cible</span>
+          <span>CA</span>
+          <span>EBITDA</span>
+          <span>Multiple</span>
+        </div>
+        <div class="comp-row">
+          <strong>Cible A</strong>
+          <span>4,2 M€</span>
+          <span>650 k€</span>
+          <span>6,5×</span>
+        </div>
+        <div class="comp-row is-retained">
+          <strong>Cible B ★</strong>
+          <span>5,8 M€</span>
+          <span>920 k€</span>
+          <span>6,8×</span>
+        </div>
+        <div class="comp-row">
+          <strong>Cible C</strong>
+          <span>3,5 M€</span>
+          <span>480 k€</span>
+          <span>8,2×</span>
+        </div>
+        <div class="comp-foot">
+          Médiane sectorielle : <strong>7,0×</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ C. TRAJECTOIRE DE CROISSANCE ═══════════ -->
+  <div class="test-card">
+    <div class="test-card-label">C — Trajectoire de croissance</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>Votre CA seul plafonne. L'acquisition fait sauter la marche. La trajectoire combinée s'envole.</p>
+
+    <div class="visual">
+      <div class="traj">
+        <div class="traj-chart">
+          <svg viewBox="0 0 320 150" preserveAspectRatio="none">
+            <!-- Avant -->
+            <path class="traj-line-before" d="M 10 110 L 80 105 L 140 100"/>
+            <!-- Saut -->
+            <path class="traj-line-jump" d="M 140 100 L 140 60 L 180 60"/>
+            <!-- Après -->
+            <path class="traj-line-after" d="M 180 60 L 240 40 L 310 20"/>
+            <!-- Dot pulse -->
+            <circle class="traj-dot" cx="180" cy="60" r="5"/>
+          </svg>
+          <div class="traj-label traj-label--before">Vous seul</div>
+          <div class="traj-label traj-label--jump">+ Cible</div>
+          <div class="traj-label traj-label--after">Groupe</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ D. HOLDING ENRICHI ═══════════ -->
+  <div class="test-card">
+    <div class="test-card-label">D — Holding enrichi</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>Structure de groupe après acquisition. Votre entreprise + la cible sont logées sous une holding consolidée valorisée.</p>
+
+    <div class="visual">
+      <div class="holding">
+        <div class="holding-top">
+          <div class="holding-top-label">Holding consolidée</div>
+          <div class="holding-top-value">CA 8,6 M€</div>
+        </div>
+        <div class="holding-branches">
+          <div class="holding-branch-down-l"></div>
+          <div class="holding-branch-down-r"></div>
+        </div>
+        <div class="holding-bottom">
+          <div class="holding-node">
+            <div class="holding-node-label">Votre PME</div>
+            <div class="holding-node-value">5,8 M€</div>
+          </div>
+          <div class="holding-node holding-node--target">
+            <div class="holding-node-label">Cible acquise</div>
+            <div class="holding-node-value">2,8 M€</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ E. PÉRIMÈTRE AVANT/APRÈS ═══════════ -->
+  <div class="test-card">
+    <div class="test-card-label">E — Périmètre avant / après</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>Avant l'opération : vous seul. Après : groupe consolidé avec CA, effectifs et sites multipliés.</p>
+
+    <div class="visual">
+      <div class="perim">
+        <div class="perim-state">
+          <div class="perim-state-label">Avant</div>
+          <div class="perim-row">
+            <span class="perim-row-key">CA</span>
+            <span class="perim-row-val">5,8 M€</span>
+          </div>
+          <div class="perim-row">
+            <span class="perim-row-key">Effectif</span>
+            <span class="perim-row-val">32</span>
+          </div>
+          <div class="perim-row">
+            <span class="perim-row-key">Sites</span>
+            <span class="perim-row-val">1</span>
+          </div>
+        </div>
+        <div class="perim-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="perim-state perim-state--after">
+          <div class="perim-state-label">Après</div>
+          <div class="perim-row">
+            <span class="perim-row-key">CA</span>
+            <span class="perim-row-val">8,6 M€</span>
+          </div>
+          <div class="perim-row">
+            <span class="perim-row-key">Effectif</span>
+            <span class="perim-row-val">58</span>
+          </div>
+          <div class="perim-row">
+            <span class="perim-row-key">Sites</span>
+            <span class="perim-row-val">3</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ F. MULTIPLES SECTORIELS ═══════════ -->
+  <div class="test-card">
+    <div class="test-card-label">F — Multiples sectoriels</div>
+    <h2>Mener votre croissance externe</h2>
+    <p>NCF benchmarke la cible par rapport aux multiples observés dans le secteur. Vous achetez en-dessous de la médiane.</p>
+
+    <div class="visual">
+      <div class="mult">
+        <div class="mult-title">Multiples EV / EBITDA — secteur</div>
+        <div class="mult-scale">
+          <div class="mult-line"></div>
+          <div class="mult-box"></div>
+          <div class="mult-median"></div>
+          <div class="mult-target"></div>
+          <div class="mult-scale-ticks">
+            <span>5×</span>
+            <span>6×</span>
+            <span>7×</span>
+            <span>8×</span>
+            <span>9×</span>
+          </div>
+        </div>
+        <div class="mult-foot">
+          Cible visée à <strong>6,8×</strong> · sous la médiane 7,0×
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
