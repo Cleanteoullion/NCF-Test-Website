@@ -1025,7 +1025,7 @@
     }
     .cas-card::after {
       content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
-      background: linear-gradient(90deg, var(--cas-accent, var(--cyan)), transparent);
+      background: linear-gradient(90deg, var(--cas-pop, var(--cas-accent)), transparent);
       transform: scaleX(0); transform-origin: left;
       transition: transform 0.5s cubic-bezier(.2,.8,.2,1);
     }
@@ -1038,37 +1038,45 @@
     .cas-card:hover::after { transform: scaleX(1); }
     .cas-card > * { position: relative; z-index: 1; }
 
-    .cas-card.cs-succession   { --cas-accent: var(--c-succession);   --cas-soft: var(--c-succession-soft);   --cas-tint: var(--c-succession-tint); }
-    .cas-card.cs-litiges { --cas-accent: var(--c-litiges); --cas-soft: var(--c-litiges-soft); --cas-tint: var(--c-litiges-tint); }
-    .cas-card.cs-croissance      { --cas-accent: var(--c-croissance);      --cas-soft: var(--c-croissance-soft);      --cas-tint: var(--c-croissance-tint); }
+    /* Les trois cartes partagent le même bleu institutionnel (--cas-accent).
+       --cas-pop est un rappel coloré discret par carte : ambre / violet / vert.
+       Réservé au numéro "0X", au trait au survol, et à un détail focal du visuel. */
+    .cas-card {
+      --cas-accent: var(--accent);
+      --cas-soft:   var(--accent-a-12);
+      --cas-tint:   var(--accent-a-06);
+    }
+    .cas-card.cs-succession { --cas-pop: var(--c-succession); --cas-pop-soft: var(--c-succession-soft); }
+    .cas-card.cs-litiges    { --cas-pop: var(--c-litiges);    --cas-pop-soft: var(--c-litiges-soft); }
+    .cas-card.cs-croissance { --cas-pop: var(--c-croissance); --cas-pop-soft: var(--c-croissance-soft); }
 
     .cas-icon {
       width: 52px; height: 52px; border-radius: 12px;
-      background: var(--cas-soft, var(--accent-a-12));
-      color: var(--cas-accent, var(--cyan));
-      border: 1px solid color-mix(in srgb, var(--cas-accent, var(--cyan)) 25%, transparent);
+      background: var(--cas-pop-soft, var(--cas-soft, var(--accent-a-12)));
+      color: var(--cas-pop, var(--cas-accent, var(--cyan)));
+      border: 1px solid color-mix(in srgb, var(--cas-pop, var(--cas-accent, var(--cyan))) 25%, transparent);
       display: flex; align-items: center; justify-content: center;
       margin-bottom: 1.5rem;
       transition: transform 0.35s cubic-bezier(.2,.8,.2,1), box-shadow 0.35s;
     }
     .cas-card:hover .cas-icon {
       transform: scale(1.08) rotate(-2deg);
-      box-shadow: 0 0 24px color-mix(in srgb, var(--cas-accent, var(--cyan)) 40%, transparent);
+      box-shadow: 0 0 24px color-mix(in srgb, var(--cas-pop, var(--cas-accent, var(--cyan))) 40%, transparent);
     }
 
     .cas-num {
       position: absolute; top: 1.5rem; right: 1.75rem;
       font-size: 0.7rem; font-weight: 700;
       letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--cas-accent, var(--cyan));
-      opacity: 0.75;
+      color: var(--cas-pop, var(--cas-accent));
+      opacity: 0.85;
       pointer-events: none;
       display: inline-flex; align-items: center; gap: 6px;
     }
     .cas-num::before {
       content: ''; width: 18px; height: 1.5px;
-      background: var(--cas-accent, var(--cyan));
-      opacity: 0.55;
+      background: var(--cas-pop, var(--cas-accent));
+      opacity: 0.7;
     }
     .cas-title {
       font-size: 1.18rem; font-weight: 700; line-height: 1.25;
@@ -1149,7 +1157,7 @@
       box-shadow: 0 18px 42px -20px #000, 0 0 0 8px var(--surface-mid);
     }
     .cas-orbit-center--icon {
-      color: var(--cas-accent, var(--navy-deep));
+      color: var(--cas-pop, var(--cas-accent, var(--navy-deep)));
     }
     .cas-orbit-center--icon svg {
       width: 34px;
@@ -1162,10 +1170,10 @@
       min-width: 58px;
       padding: 7px 10px;
       border-radius: 999px;
-      background: rgba(5, 13, 29, 0.84);
-      border: 1px solid color-mix(in srgb, var(--cas-accent) 36%, transparent);
-      color: var(--text-strong);
-      box-shadow: 0 12px 26px -18px #000;
+      background: var(--accent-deep);
+      border: 1px solid color-mix(in srgb, var(--cas-accent) 40%, transparent);
+      color: #fff;
+      box-shadow: 0 12px 26px -14px rgba(6, 24, 56, 0.55);
       font-size: 0.62rem;
       font-weight: 800;
       letter-spacing: 0.05em;
@@ -1180,7 +1188,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--cas-accent, var(--cyan-bright));
+      color: #fff;
     }
     .cas-orbit-item--icon svg {
       width: 24px;
@@ -1194,7 +1202,6 @@
     .cas-orbit-item--two {
       --orbit-radius: 88px;
       animation-delay: -3s;
-      color: var(--cas-accent);
       transform: translate(-50%, -50%) rotate(120deg) translateX(var(--orbit-radius)) rotate(-120deg);
     }
     .cas-orbit-item--three {
@@ -1249,9 +1256,9 @@
     .cap-row--out .cap-bar-fill { background: var(--cas-accent); }
     .cap-price {
       margin-top: 0.8rem;
-      background: color-mix(in srgb, var(--cas-accent) 12%, transparent);
-      border: 1px solid var(--cas-accent);
-      color: var(--cas-accent);
+      background: color-mix(in srgb, var(--cas-pop, var(--cas-accent)) 12%, transparent);
+      border: 1px solid var(--cas-pop, var(--cas-accent));
+      color: var(--cas-pop, var(--cas-accent));
       padding: 0.6rem 1rem;
       border-radius: 8px;
       text-align: center;
@@ -1265,67 +1272,22 @@
       margin-top: 0.1rem;
     }
 
-    .cas-visual--croissance {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 34px 1fr;
-      gap: 0.65rem;
-      align-items: center;
-      padding-top: 30px;
+    /* Carte croissance externe : le visuel est piloté par le composant
+       Étreinte (assets/css/components/etreinte.css). Pas de layout
+       spécifique requis ici, le SVG occupe `.cas-visual` à 100 %.
+       On rebascule le corps + bras + cible sur le bleu institutionnel,
+       et on garde le vert (--cas-pop) sur le flash + le halo de pulse,
+       qui marquent l'instant d'absorption (le détail focal du visuel). */
+    .cs-croissance .etreinte {
+      color: var(--cas-accent);
+      --etr-deep: var(--accent-deep);
     }
-    .holding-node {
-      position: relative;
-      min-height: 46px;
-      border-radius: 14px;
-      border: 1px solid color-mix(in srgb, var(--cas-accent) 30%, transparent);
-      background: var(--surface-mid);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-strong);
-      font-size: 0.72rem;
-      font-weight: 850;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      box-shadow: 0 18px 34px -26px #000;
-      animation: holding-node-pulse 4.2s ease-in-out infinite;
-    }
-    .holding-node--top {
-      grid-column: 1 / -1;
-      width: 58%;
-      justify-self: center;
-      color: var(--navy-deep);
-      background: linear-gradient(135deg, var(--cas-accent), color-mix(in srgb, var(--cas-accent) 55%, #fff));
-    }
-    .holding-node--left { grid-column: 1; animation-delay: -1.2s; }
-    .holding-node--right { grid-column: 2; animation-delay: -2.4s; }
-    .holding-branch {
-      grid-column: 1 / -1;
-      justify-self: center;
-      width: 58%;
-      height: 34px;
-      border-left: 1px solid color-mix(in srgb, var(--cas-accent) 42%, transparent);
-      border-right: 1px solid color-mix(in srgb, var(--cas-accent) 42%, transparent);
-      border-bottom: 1px solid color-mix(in srgb, var(--cas-accent) 42%, transparent);
-      position: relative;
-    }
-    .holding-branch::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: -1px;
-      width: 1px;
-      height: 34px;
-      background: color-mix(in srgb, var(--cas-accent) 42%, transparent);
-    }
+    .cs-croissance .etreinte-flash { fill: var(--cas-pop); }
+    .cs-croissance .etreinte-pulse { stroke: var(--cas-pop); }
 
     @keyframes cas-orbit {
       from { transform: translate(-50%, -50%) rotate(0deg) translateX(var(--orbit-radius)) rotate(0deg); }
       to { transform: translate(-50%, -50%) rotate(360deg) translateX(var(--orbit-radius)) rotate(-360deg); }
-    }
-    @keyframes holding-node-pulse {
-      0%, 100% { transform: translateY(0); box-shadow: 0 18px 34px -26px #000; }
-      50% { transform: translateY(-5px); box-shadow: 0 24px 42px -24px color-mix(in srgb, var(--cas-accent) 45%, #000); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1336,8 +1298,7 @@
       .report-doc-chart span,
       .report-doc-stamp,
       .report-float,
-      .cas-orbit-item,
-      .holding-node {
+      .cas-orbit-item {
         animation: none !important;
       }
       .report-doc-chart span { transform: scaleY(1); }
@@ -1462,7 +1423,7 @@
       transition: background 0.35s, color 0.35s, transform 0.4s cubic-bezier(.2,.8,.2,1);
       flex-shrink: 0;
     }
-    .rapport-tab.active .rt-icon { background: var(--blue); color: var(--text-strong); transform: scale(1.08) rotate(-4deg); }
+    .rapport-tab.active .rt-icon { background: var(--blue); color: #fff; transform: scale(1.08) rotate(-4deg); }
     .rt-body { min-width: 0; }
     .rt-title {
       font-weight: 700; font-size: 1rem; color: var(--text-strong);

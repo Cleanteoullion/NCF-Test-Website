@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NCF — Étreinte : 5 variantes de croissance post-absorption</title>
+<style>
+  :root {
+    --bg-base:       #EAF0F8;
+    --card-bg:       linear-gradient(160deg, #FFFFFF 0%, #ECF1F9 100%);
+    --surface-low:   rgba(15, 23, 42, 0.035);
+    --text-strong:   #061838;
+    --text-2:        #3A4A6B;
+    --text-3:        #586A8A;
+    --line-2:        rgba(15, 23, 42, 0.13);
+
+    --c:             #10B981;
+    --c-deep:        #047857;
+    --c-soft:        rgba(16, 185, 129, 0.14);
+    --c-tint:        rgba(16, 185, 129, 0.06);
+    --c-glow:        rgba(16, 185, 129, 0.42);
+
+    --ease-out:      cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-pop:      cubic-bezier(0.34, 1.55, 0.6, 1);
+    --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);
+
+    /* Durée de cycle commune à toutes les variantes */
+    --t: 4.4s;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+  body {
+    background: var(--bg-base);
+    color: var(--text-strong);
+    padding: 5rem 6vw 6rem;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .head { max-width: 1280px; margin: 0 auto 3.5rem; }
+  .head-eyebrow {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--c-deep);
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  .head-eyebrow::before {
+    content: ''; width: 28px; height: 2px;
+    background: linear-gradient(90deg, var(--c), transparent);
+  }
+  .head-title {
+    margin-top: 1rem;
+    font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+    font-weight: 800; letter-spacing: -0.028em; line-height: 1.08;
+  }
+  .head-title em {
+    font-style: normal; color: var(--c-deep);
+    background: linear-gradient(transparent 70%, var(--c-soft) 70%);
+    padding: 0 4px;
+  }
+  .head-lede {
+    margin-top: 1rem; max-width: 64ch; font-size: 1rem;
+    color: var(--text-2); line-height: 1.65;
+  }
+
+  .grid {
+    max-width: 1280px; margin: 0 auto;
+    display: grid; gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--line-2);
+    border-radius: 20px;
+    padding: 1.75rem 1.6rem 1.6rem;
+    display: flex; flex-direction: column;
+    box-shadow: 0 30px 60px -36px rgba(15, 23, 42, 0.18);
+  }
+  .card-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--c-deep);
+    align-self: flex-start; padding: 5px 10px;
+    background: var(--c-soft); border-radius: 999px;
+  }
+  .card-label::before {
+    content: ''; width: 6px; height: 6px;
+    border-radius: 50%; background: var(--c);
+  }
+  .card h2 {
+    margin-top: 0.85rem; font-size: 1.1rem; font-weight: 700;
+    letter-spacing: -0.012em; color: var(--text-strong);
+  }
+  .card .card-sub {
+    margin-top: 0.4rem; font-size: 0.86rem; color: var(--text-2);
+    line-height: 1.55; min-height: 3.6em;
+  }
+
+  .stage {
+    margin-top: 1.2rem;
+    position: relative; height: 260px; border-radius: 14px;
+    background:
+      radial-gradient(60% 80% at 50% 50%, rgba(255,255,255,0.6), transparent 70%),
+      var(--c-tint);
+    border: 1px solid var(--line-2);
+    overflow: hidden;
+  }
+  .stage::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 40%, transparent 90%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 40%, transparent 90%);
+    opacity: 0.5; pointer-events: none;
+  }
+  .stage svg { width: 100%; height: 100%; display: block; position: relative; z-index: 1; }
+
+  /* ════════════════════════════════════════════
+     GRAMMAIRE PARTAGÉE — bras, cible, flash, pulse
+     ════════════════════════════════════════════ */
+  .e-body-fill  { fill: var(--c); }
+  .e-icon       { stroke: white; fill: none; stroke-width: 1.5;
+                  stroke-linecap: round; stroke-linejoin: round; }
+  .e-target {
+    transform-box: fill-box; transform-origin: center;
+    animation: e-target var(--t) var(--ease-in-out) infinite;
+  }
+  .e-target-square {
+    fill: white; stroke: var(--c-deep); stroke-width: 1.5;
+  }
+  .e-target-icon {
+    fill: none; stroke: var(--c-deep); stroke-width: 1.2;
+    stroke-linecap: round; stroke-linejoin: round;
+  }
+  .e-arm {
+    fill: none; stroke: var(--c); stroke-width: 2.2; stroke-linecap: round;
+    stroke-dasharray: 130; stroke-dashoffset: 130;
+    animation: e-arm var(--t) var(--ease-out) infinite;
+  }
+  .e-flash {
+    fill: var(--c); opacity: 0;
+    animation: e-flash var(--t) linear infinite;
+    transform-box: fill-box; transform-origin: center;
+  }
+  .e-pulse {
+    fill: none; stroke: var(--c); stroke-width: 1.5; opacity: 0;
+    animation: e-pulse var(--t) linear infinite;
+    transform-box: fill-box; transform-origin: center;
+  }
+  /* Séquence d'animation
+     0–15%   : repos, société 1 seule
+     15–30%  : société 2 glisse de hors-stage à sa position de repos (centre-droit)
+     30–50%  : le lien se dessine depuis société 1 vers société 2
+     50–65%  : tenue, les deux connectées
+     65–72%  : société 2 disparaît + le lien se rétracte avec elle
+               (dashoffset 0 → -130 : la partie visible reste collée à société 2
+                et se résorbe vers société 1)
+     72%     : flash + société 1 grossit (variantes V1a..V1e)
+     78–92%  : tenue à la nouvelle taille
+     92–100% : reset société 1 → scale 1, société 2 invisible
+  */
+  @keyframes e-arm {
+    0%, 30%  { stroke-dashoffset: 130; }
+    50%      { stroke-dashoffset: 0; }
+    65%      { stroke-dashoffset: 0; }
+    72%      { stroke-dashoffset: -130; }
+    100%     { stroke-dashoffset: -130; }
+  }
+  @keyframes e-target {
+    0%, 15%  { transform: translateX(120px) scale(1); opacity: 1; }
+    30%      { transform: translateX(0px)   scale(1); opacity: 1; }
+    65%      { transform: translateX(0px)   scale(1); opacity: 1; }
+    72%      { transform: translateX(0px)   scale(0); opacity: 0; }
+    95%      { transform: translateX(120px) scale(0); opacity: 0; }
+    100%     { transform: translateX(120px) scale(1); opacity: 1; }
+  }
+  @keyframes e-flash {
+    0%, 68%  { opacity: 0; transform: scale(1); }
+    72%      { opacity: 0.65; transform: scale(1.08); }
+    85%      { opacity: 0; transform: scale(1); }
+  }
+  @keyframes e-pulse {
+    0%, 69%  { opacity: 0; transform: scale(0.7); }
+    72%      { opacity: 0.55; transform: scale(0.7); }
+    100%     { opacity: 0; transform: scale(1.8); }
+  }
+
+  /* ════════════════════════════════════════════
+     V1A — SOUFFLE : croissance uniforme discrète
+     ════════════════════════════════════════════ */
+  .v1a-body {
+    transform-box: fill-box; transform-origin: center;
+    animation: v1a-body var(--t) var(--ease-in-out) infinite;
+  }
+  @keyframes v1a-body {
+    0%, 72%  { transform: scale(1); }
+    78%      { transform: scale(1.07); }
+    92%      { transform: scale(1.07); }
+    100%     { transform: scale(1); }
+  }
+
+  /* ════════════════════════════════════════════
+     V1B — AFFIRMATION : pop overshoot + ombre marquée
+     ════════════════════════════════════════════ */
+  .v1b-body {
+    transform-box: fill-box; transform-origin: center;
+    animation: v1b-body var(--t) var(--ease-out) infinite;
+    filter: drop-shadow(0 8px 12px rgba(16, 185, 129, 0.0));
+  }
+  @keyframes v1b-body {
+    0%, 72%  { transform: scale(1);    filter: drop-shadow(0 8px 12px rgba(16, 185, 129, 0.0)); }
+    77%      { transform: scale(1.16); filter: drop-shadow(0 14px 26px rgba(16, 185, 129, 0.45)); }
+    84%      { transform: scale(1.08); filter: drop-shadow(0 12px 22px rgba(16, 185, 129, 0.40)); }
+    92%      { transform: scale(1.08); filter: drop-shadow(0 12px 22px rgba(16, 185, 129, 0.40)); }
+    100%     { transform: scale(1);    filter: drop-shadow(0 8px 12px rgba(16, 185, 129, 0.0)); }
+  }
+
+  /* ════════════════════════════════════════════
+     V1C — CONSTRUCTION : un étage en plus dans l'icône
+     ════════════════════════════════════════════ */
+  .v1c-body {
+    transform-box: fill-box; transform-origin: center;
+    animation: v1c-body var(--t) var(--ease-out) infinite;
+  }
+  @keyframes v1c-body {
+    0%, 72%  { transform: translateY(0)    scaleY(1); }
+    78%      { transform: translateY(-4px) scaleY(1.12); }
+    92%      { transform: translateY(-4px) scaleY(1.12); }
+    100%     { transform: translateY(0)    scaleY(1); }
+  }
+  /* Étage supplémentaire — outline blanc + fenêtres, posé sur le toit
+     du bâtiment existant pour le prolonger naturellement */
+  .v1c-extra {
+    opacity: 0;
+    transform: translateY(8px);
+    transform-box: fill-box; transform-origin: center;
+    animation: v1c-extra var(--t) var(--ease-out) infinite;
+  }
+  .v1c-extra rect,
+  .v1c-extra line {
+    fill: none;
+    stroke: white;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  @keyframes v1c-extra {
+    0%, 75%  { opacity: 0; transform: translateY(8px); }
+    82%      { opacity: 1; transform: translateY(0); }
+    92%      { opacity: 1; transform: translateY(0); }
+    100%     { opacity: 0; transform: translateY(8px); }
+  }
+
+  /* ════════════════════════════════════════════
+     V1D — DOUBLE ÉTREINTE : deux bras, deux cibles
+     L'absorption double fait grossir plus
+     ════════════════════════════════════════════ */
+  .v1d-body {
+    transform-box: fill-box; transform-origin: center;
+    animation: v1d-body var(--t) var(--ease-out) infinite;
+  }
+  @keyframes v1d-body {
+    0%, 72%  { transform: scale(1); }
+    78%      { transform: scale(1.14); }
+    92%      { transform: scale(1.14); }
+    100%     { transform: scale(1); }
+  }
+  /* Deuxième bras (en bas) + deuxième cible (en bas-droite) */
+  .v1d-arm2 {
+    fill: none; stroke: var(--c); stroke-width: 2.2; stroke-linecap: round;
+    stroke-dasharray: 130; stroke-dashoffset: 130;
+    animation: e-arm var(--t) var(--ease-in-out) infinite;
+  }
+  .v1d-target2 {
+    transform-box: fill-box; transform-origin: center;
+    animation: v1d-target2 var(--t) var(--ease-in-out) infinite;
+  }
+  @keyframes v1d-target2 {
+    0%, 15%  { transform: translate(120px, 40px) scale(1); opacity: 1; }
+    30%      { transform: translate(0, 0)        scale(1); opacity: 1; }
+    65%      { transform: translate(0, 0)        scale(1); opacity: 1; }
+    72%      { transform: translate(0, 0)        scale(0); opacity: 0; }
+    95%      { transform: translate(120px, 40px) scale(0); opacity: 0; }
+    100%     { transform: translate(120px, 40px) scale(1); opacity: 1; }
+  }
+
+  /* ════════════════════════════════════════════
+     V1E — EMPREINTE : croissance en LARGEUR
+     ════════════════════════════════════════════ */
+  .v1e-body {
+    transform-box: fill-box; transform-origin: center;
+    animation: v1e-body var(--t) var(--ease-out) infinite;
+  }
+  @keyframes v1e-body {
+    0%, 72%  { transform: scaleX(1); }
+    78%      { transform: scaleX(1.22); }
+    92%      { transform: scaleX(1.22); }
+    100%     { transform: scaleX(1); }
+  }
+  /* Indicateur de "marché élargi" : deux petits taquets latéraux qui apparaissent */
+  .v1e-marker {
+    fill: var(--c-deep); opacity: 0;
+    animation: v1e-marker var(--t) var(--ease-out) infinite;
+  }
+  @keyframes v1e-marker {
+    0%, 75%  { opacity: 0; transform: scaleX(0.6); }
+    82%      { opacity: 1; transform: scaleX(1); }
+    92%      { opacity: 1; transform: scaleX(1); }
+    100%     { opacity: 0; transform: scaleX(0.6); }
+  }
+
+  /* Pied de card */
+  .card-foot {
+    margin-top: 1.1rem; padding-top: 0.95rem;
+    border-top: 1px solid var(--line-2);
+    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  }
+  .foot-stat { display: flex; flex-direction: column; }
+  .foot-stat-label {
+    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--text-3);
+  }
+  .foot-stat-value {
+    margin-top: 4px; font-size: 1.15rem; font-weight: 700;
+    color: var(--text-strong); font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+  .foot-delta {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.72rem; font-weight: 700;
+    padding: 5px 10px; border-radius: 999px;
+    background: var(--c); color: white;
+    box-shadow: 0 10px 22px -10px var(--c-glow);
+  }
+  .foot-delta::before {
+    content: ''; width: 0; height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 6px solid white;
+  }
+
+  .legend {
+    max-width: 1280px; margin: 3rem auto 0;
+    padding: 1.5rem 1.75rem; background: var(--surface-low);
+    border: 1px solid var(--line-2); border-radius: 14px;
+    font-size: 0.86rem; color: var(--text-2); line-height: 1.6;
+  }
+  .legend strong { color: var(--text-strong); font-weight: 700; }
+  .legend code {
+    background: var(--c-tint); padding: 1px 6px; border-radius: 4px;
+    font-size: 0.82em; color: var(--c-deep); font-weight: 600;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .e-target, .e-arm, .e-flash, .e-pulse,
+    .v1a-body, .v1b-body, .v1c-body, .v1c-extra,
+    .v1d-body, .v1d-arm2, .v1d-target2,
+    .v1e-body, .v1e-marker {
+      animation: none !important;
+    }
+    .e-arm, .v1d-arm2 { stroke-dashoffset: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="head">
+  <div class="head-eyebrow">Variantes V1 · L'Étreinte</div>
+  <h1 class="head-title">Et si, après l'étreinte, l'<em>entreprise grandissait</em>&nbsp;?</h1>
+  <p class="head-lede">
+    Cinq mécaniques différentes de croissance post-absorption, sur la même base que V1 (le bras qui se déploie, la cible qui rentre, le flash de validation). Seule la grammaire de croissance change.
+  </p>
+</header>
+
+<section class="grid">
+
+  <!-- ════════ V1A — SOUFFLE ════════ -->
+  <article class="card">
+    <span class="card-label">V1a · Souffle</span>
+    <h2>Croissance discrète, uniforme.</h2>
+    <p class="card-sub">Le corps gagne ~7 % à l'instant de l'étreinte, sans rebond. Sobre, presque imperceptible mais palpable.</p>
+    <div class="stage">
+      <svg viewBox="0 0 320 220" preserveAspectRatio="xMidYMid meet">
+        <circle class="e-pulse" cx="100" cy="110" r="56" />
+        <g class="v1a-body">
+          <rect class="e-body-fill" x="60" y="70" width="80" height="80" rx="18"/>
+          <g class="e-icon" transform="translate(80 92)">
+            <rect x="0" y="6" width="40" height="34"/>
+            <line x1="0" y1="14" x2="40" y2="14"/>
+            <line x1="0" y1="24" x2="40" y2="24"/>
+            <line x1="0" y1="34" x2="40" y2="34"/>
+            <rect x="16" y="30" width="8" height="10"/>
+          </g>
+        </g>
+        <rect class="e-flash" x="60" y="70" width="80" height="80" rx="18"/>
+        <path class="e-arm" d="M 138 110 Q 200 60 245 110" />
+        <g class="e-target">
+          <rect class="e-target-square" x="225" y="92" width="36" height="36" rx="6"/>
+          <g class="e-target-icon" transform="translate(232 100)">
+            <rect x="0" y="2" width="22" height="18"/>
+            <line x1="0" y1="11" x2="22" y2="11"/>
+            <rect x="9" y="14" width="4" height="6"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="card-foot">
+      <div class="foot-stat">
+        <span class="foot-stat-label">Effet</span>
+        <span class="foot-stat-value">+7 %</span>
+      </div>
+      <span class="foot-delta">Subtil</span>
+    </div>
+  </article>
+
+  <!-- ════════ V1B — AFFIRMATION ════════ -->
+  <article class="card">
+    <span class="card-label">V1b · Affirmation</span>
+    <h2>Pop avec ombre qui s'installe.</h2>
+    <p class="card-sub">Le corps gonfle au-delà (+16 %), retombe à +8 %, et gagne une ombre verte qui reste. Suggère un changement d'assise.</p>
+    <div class="stage">
+      <svg viewBox="0 0 320 220" preserveAspectRatio="xMidYMid meet">
+        <circle class="e-pulse" cx="100" cy="110" r="56" />
+        <g class="v1b-body">
+          <rect class="e-body-fill" x="60" y="70" width="80" height="80" rx="18"/>
+          <g class="e-icon" transform="translate(80 92)">
+            <rect x="0" y="6" width="40" height="34"/>
+            <line x1="0" y1="14" x2="40" y2="14"/>
+            <line x1="0" y1="24" x2="40" y2="24"/>
+            <line x1="0" y1="34" x2="40" y2="34"/>
+            <rect x="16" y="30" width="8" height="10"/>
+          </g>
+        </g>
+        <rect class="e-flash" x="60" y="70" width="80" height="80" rx="18"/>
+        <path class="e-arm" d="M 138 110 Q 200 60 245 110" />
+        <g class="e-target">
+          <rect class="e-target-square" x="225" y="92" width="36" height="36" rx="6"/>
+          <g class="e-target-icon" transform="translate(232 100)">
+            <rect x="0" y="2" width="22" height="18"/>
+            <line x1="0" y1="11" x2="22" y2="11"/>
+            <rect x="9" y="14" width="4" height="6"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="card-foot">
+      <div class="foot-stat">
+        <span class="foot-stat-label">Effet</span>
+        <span class="foot-stat-value">+8 % &middot; ombre</span>
+      </div>
+      <span class="foot-delta">Affirmé</span>
+    </div>
+  </article>
+
+  <!-- ════════ V1C — CONSTRUCTION ════════ -->
+  <article class="card">
+    <span class="card-label">V1c · Construction</span>
+    <h2>Un étage de plus.</h2>
+    <p class="card-sub">Le corps s'étire vers le haut et un étage supplémentaire apparaît dans l'icône immeuble. Métaphore architecturale littérale.</p>
+    <div class="stage">
+      <svg viewBox="0 0 320 220" preserveAspectRatio="xMidYMid meet">
+        <circle class="e-pulse" cx="100" cy="110" r="56" />
+        <g class="v1c-body">
+          <rect class="e-body-fill" x="60" y="70" width="80" height="80" rx="18"/>
+          <!-- icône immeuble standard -->
+          <g class="e-icon" transform="translate(80 92)">
+            <rect x="0" y="6" width="40" height="34"/>
+            <line x1="0" y1="14" x2="40" y2="14"/>
+            <line x1="0" y1="24" x2="40" y2="24"/>
+            <line x1="0" y1="34" x2="40" y2="34"/>
+            <rect x="16" y="30" width="8" height="10"/>
+          </g>
+          <!-- étage supplémentaire : outline blanc aligné sur l'immeuble (x=80→120)
+               posé au-dessus du toit existant (y=98), avec 2 fenêtres -->
+          <g class="v1c-extra">
+            <rect x="80" y="86" width="40" height="12"/>
+            <rect x="86" y="89" width="6" height="6"/>
+            <rect x="104" y="89" width="6" height="6"/>
+          </g>
+        </g>
+        <rect class="e-flash" x="60" y="70" width="80" height="80" rx="18"/>
+        <path class="e-arm" d="M 138 110 Q 200 60 245 110" />
+        <g class="e-target">
+          <rect class="e-target-square" x="225" y="92" width="36" height="36" rx="6"/>
+          <g class="e-target-icon" transform="translate(232 100)">
+            <rect x="0" y="2" width="22" height="18"/>
+            <line x1="0" y1="11" x2="22" y2="11"/>
+            <rect x="9" y="14" width="4" height="6"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="card-foot">
+      <div class="foot-stat">
+        <span class="foot-stat-label">Effet</span>
+        <span class="foot-stat-value">+1 étage</span>
+      </div>
+      <span class="foot-delta">Littéral</span>
+    </div>
+  </article>
+
+  <!-- ════════ V1D — DOUBLE ÉTREINTE ════════ -->
+  <article class="card">
+    <span class="card-label">V1d · Double étreinte</span>
+    <h2>Deux bras, deux cibles.</h2>
+    <p class="card-sub">Le corps déploie deux bras simultanément vers deux cibles. L'absorption double, la croissance aussi (+14 %).</p>
+    <div class="stage">
+      <svg viewBox="0 0 320 220" preserveAspectRatio="xMidYMid meet">
+        <circle class="e-pulse" cx="100" cy="110" r="56" />
+        <g class="v1d-body">
+          <rect class="e-body-fill" x="60" y="70" width="80" height="80" rx="18"/>
+          <g class="e-icon" transform="translate(80 92)">
+            <rect x="0" y="6" width="40" height="34"/>
+            <line x1="0" y1="14" x2="40" y2="14"/>
+            <line x1="0" y1="24" x2="40" y2="24"/>
+            <line x1="0" y1="34" x2="40" y2="34"/>
+            <rect x="16" y="30" width="8" height="10"/>
+          </g>
+        </g>
+        <rect class="e-flash" x="60" y="70" width="80" height="80" rx="18"/>
+        <!-- Bras 1 : vers la cible haute (originale) -->
+        <path class="e-arm" d="M 138 110 Q 200 60 245 110" />
+        <!-- Bras 2 : vers la cible basse -->
+        <path class="v1d-arm2" d="M 138 110 Q 200 165 245 150" />
+        <g class="e-target">
+          <rect class="e-target-square" x="225" y="92" width="36" height="36" rx="6"/>
+          <g class="e-target-icon" transform="translate(232 100)">
+            <rect x="0" y="2" width="22" height="18"/>
+            <line x1="0" y1="11" x2="22" y2="11"/>
+            <rect x="9" y="14" width="4" height="6"/>
+          </g>
+        </g>
+        <g class="v1d-target2">
+          <rect class="e-target-square" x="225" y="92" width="36" height="36" rx="6"/>
+          <g class="e-target-icon" transform="translate(232 100)">
+            <rect x="0" y="2" width="22" height="18"/>
+            <line x1="0" y1="11" x2="22" y2="11"/>
+            <rect x="9" y="14" width="4" height="6"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="card-foot">
+      <div class="foot-stat">
+        <span class="foot-stat-label">Effet</span>
+        <span class="foot-stat-value">+14 %</span>
+      </div>
+      <span class="foot-delta">Build-up</span>
+    </div>
+  </article>
+
+  <!-- ════════ V1E — EMPREINTE ════════ -->
+  <article class="card">
+    <span class="card-label">V1e · Empreinte</span>
+    <h2>Croissance en largeur.</h2>
+    <p class="card-sub">Le corps s'élargit (pas vers le haut), avec deux taquets latéraux qui marquent les bornes du nouveau périmètre. Métaphore d'expansion géographique ou de marché.</p>
+    <div class="stage">
+      <svg viewBox="0 0 320 220" preserveAspectRatio="xMidYMid meet">
+        <circle class="e-pulse" cx="100" cy="110" r="56" />
+        <g class="v1e-body">
+          <rect class="e-body-fill" x="60" y="70" width="80" height="80" rx="18"/>
+          <g class="e-icon" transform="translate(80 92)">
+            <rect x="0" y="6" width="40" height="34"/>
+            <line x1="0" y1="14" x2="40" y2="14"/>
+            <line x1="0" y1="24" x2="40" y2="24"/>
+            <line x1="0" y1="34" x2="40" y2="34"/>
+            <rect x="16" y="30" width="8" height="10"/>
+          </g>
+        </g>
+        <!-- Taquets latéraux qui apparaissent après l'étreinte -->
+        <rect class="v1e-marker" x="42" y="100" width="14" height="20" rx="3"/>
+        <rect class="v1e-marker" x="144" y="100" width="14" height="20" rx="3"/>
+        <rect class="e-flash" x="60" y="70" width="80" height="80" rx="18"/>
+        <path class="e-arm" d="M 138 110 Q 200 60 245 110" />
+        <g class="e-target">
+          <rect class="e-target-square" x="225" y="92" width="36" height="36" rx="6"/>
+          <g class="e-target-icon" transform="translate(232 100)">
+            <rect x="0" y="2" width="22" height="18"/>
+            <line x1="0" y1="11" x2="22" y2="11"/>
+            <rect x="9" y="14" width="4" height="6"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="card-foot">
+      <div class="foot-stat">
+        <span class="foot-stat-label">Effet</span>
+        <span class="foot-stat-value">+22 % en largeur</span>
+      </div>
+      <span class="foot-delta">Périmètre</span>
+    </div>
+  </article>
+
+</section>
+
+<aside class="legend">
+  <p>
+    <strong>Constante&nbsp;:</strong> bras qui se déploie (<code>stroke-dashoffset</code> 130→0 sur 27 % du cycle), cible qui rentre, flash blanc à 74 %, halo qui se diffuse, durée totale <code>--t: 4.4s</code>.
+    <strong>Variables&nbsp;:</strong> ce qui arrive au corps après l'étreinte.
+  </p>
+  <p style="margin-top: 0.8rem;">
+    <strong>Lecture en card home</strong> (vignette ~320 px) : V1a (souffle) et V1c (étage) restent les plus lisibles. V1b (pop overshoot) attire l'œil mais peut paraître "fort" pour une page institutionnelle. V1d (deux bras) raconte le build-up mais demande plus d'espace. V1e (largeur) est subtile mais demande qu'on regarde 2 cycles pour comprendre.
+  </p>
+</aside>
+
+</body>
+</html>
