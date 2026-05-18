@@ -368,7 +368,7 @@ function articlePage(article) {
       <a href="/transmission/" class="nav-link">Transmission</a>
       <a href="/litiges-entre-associes/" class="nav-link">Litiges entre associés</a>
       <a href="/croissance-externe/" class="nav-link">Croissance externe</a>
-      <a href="/ressources/" class="nav-link active" aria-current="page">Ressources</a>
+      <a href="/ressources/" class="nav-link active" aria-current="page">Articles</a>
       <a href="/equipe/" class="nav-link">L'équipe</a>
     </div>
     <div class="nav-cta-wrap">
@@ -386,7 +386,7 @@ function articlePage(article) {
   <a href="/transmission/">Transmission</a>
   <a href="/litiges-entre-associes/">Litiges entre associés</a>
   <a href="/croissance-externe/">Croissance externe</a>
-  <a href="/ressources/" aria-current="page">Ressources</a>
+  <a href="/ressources/" aria-current="page">Articles</a>
   <a href="/equipe/">L'équipe</a>
   <a href="/#contact" class="nav-cta">Parler à un expert</a>
 </div>
@@ -395,7 +395,7 @@ function articlePage(article) {
   <section class="article-hero">
     <div class="article-wrap">
       <nav class="article-breadcrumb" aria-label="Fil d'Ariane">
-        <a href="/">Accueil</a><span>›</span><a href="/ressources/">Ressources</a><span>›</span><span>${escapeHtml(article.theme)}</span>
+        <a href="/">Accueil</a><span>›</span><a href="/ressources/">Articles</a><span>›</span><span>${escapeHtml(article.theme)}</span>
       </nav>
       <div class="article-tag">${escapeHtml(article.theme)}</div>
       <h1>${escapeHtml(article.title)}</h1>
@@ -460,7 +460,7 @@ ${article.bodyHtml}
       </div>
       <div><div class="footer-col-title">Cas d'usage</div><div class="footer-links"><a href="/transmission/" class="footer-link">Préparation de transmission</a><a href="/litiges-entre-associes/" class="footer-link">Litiges entre associés</a><a href="/croissance-externe/" class="footer-link">Croissance externe</a></div></div>
       <div><div class="footer-col-title">Cabinet</div><div class="footer-links"><a href="/equipe/" class="footer-link">L'équipe</a><a href="/equipe/#novances" class="footer-link">Groupe Novances</a><a href="/partenaires/" class="footer-link">Partenaires</a></div></div>
-      <div><div class="footer-col-title">Ressources</div><div class="footer-links"><a href="/ressources/" class="footer-link">Articles</a><a href="/#contact" class="footer-link">Contact</a><a href="/#contact" class="footer-link">Formulaire de contact</a></div></div>
+      <div><div class="footer-col-title">Articles</div><div class="footer-links"><a href="/ressources/" class="footer-link">Articles</a><a href="/#contact" class="footer-link">Contact</a><a href="/#contact" class="footer-link">Formulaire de contact</a></div></div>
     </div>
     <div class="footer-bottom"><div class="footer-copy">© 2026 NCF Advisory — Tous droits réservés.</div><div class="footer-legal"><a href="/mentions-legales/">Mentions légales</a><a href="/confidentialite/">Confidentialité</a></div></div>
   </div>
@@ -492,18 +492,18 @@ function resourcesIndex(importedArticles) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ressources — Comprendre l'évaluation d'entreprise · NCF</title>
+  <title>Articles — Comprendre l'évaluation d'entreprise · NCF</title>
   <meta name="description" content="Articles pédagogiques pour les dirigeants de PME : transmission, litiges entre associés, croissance externe, valorisation, fiscalité et reprise d'entreprise." />
   <link rel="canonical" href="${SITE_URL}/ressources/" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="NCF Advisory" />
-  <meta property="og:title" content="Ressources — Comprendre l'évaluation d'entreprise" />
+  <meta property="og:title" content="Articles — Comprendre l'évaluation d'entreprise" />
   <meta property="og:description" content="Articles pédagogiques pour dirigeants de PME : transmission, litiges entre associés, croissance externe et valorisation." />
   <meta property="og:url" content="${SITE_URL}/ressources/" />
   <meta property="og:image" content="${SITE_URL}/assets/img/brand/logo-ncf-bl-marine.png" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Ressources — NCF" />
+  <meta name="twitter:title" content="Articles — NCF" />
   <meta name="twitter:description" content="Comprendre l'évaluation d'entreprise, étape par étape." />
   <meta name="theme-color" content="#1A2E6B" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -535,7 +535,7 @@ function resourcesIndex(importedArticles) {
       <a href="/transmission/" class="nav-link">Transmission</a>
       <a href="/litiges-entre-associes/" class="nav-link">Litiges entre associés</a>
       <a href="/croissance-externe/" class="nav-link">Croissance externe</a>
-      <a href="/ressources/" class="nav-link active" aria-current="page">Ressources</a>
+      <a href="/ressources/" class="nav-link active" aria-current="page">Articles</a>
       <a href="/equipe/" class="nav-link">L'équipe</a>
     </div>
     <div class="nav-cta-wrap">
@@ -553,14 +553,14 @@ function resourcesIndex(importedArticles) {
   <a href="/transmission/">Transmission</a>
   <a href="/litiges-entre-associes/">Litiges entre associés</a>
   <a href="/croissance-externe/">Croissance externe</a>
-  <a href="/ressources/" aria-current="page">Ressources</a>
+  <a href="/ressources/" aria-current="page">Articles</a>
   <a href="/equipe/">L'équipe</a>
   <a href="/#contact" class="nav-cta">Parler à un expert</a>
 </div>
 
 <section id="hero-ressources">
   <div class="hero-inner">
-    <div class="hero-eyebrow rv">Ressources</div>
+    <div class="hero-eyebrow rv">Articles</div>
     <h1 class="rv d1">Comprendre l'évaluation, <span class="accent">étape par étape.</span></h1>
     <p class="hero-sub rv d2">
       Articles pédagogiques pour les dirigeants qui préparent une décision patrimoniale, une transmission, une opération de croissance externe ou une discussion de valeur.
@@ -605,7 +605,6 @@ function resourcesIndex(importedArticles) {
       <div class="linkedin-resources-head rv">
         <div class="linkedin-resources-kicker">Articles LinkedIn</div>
         <h2>Les publications de Frédéric Lemonnier</h2>
-        <p>Une sélection d'articles repris depuis LinkedIn, intégrés ici pour faciliter la lecture, le référencement et le partage.</p>
       </div>
       <div class="linkedin-resource-grid">
 ${cards}
@@ -645,7 +644,7 @@ ${cards}
       </div>
       <div><div class="footer-col-title">Cas d'usage</div><div class="footer-links"><a href="/transmission/" class="footer-link">Préparation de transmission</a><a href="/litiges-entre-associes/" class="footer-link">Litiges entre associés</a><a href="/croissance-externe/" class="footer-link">Croissance externe</a></div></div>
       <div><div class="footer-col-title">Cabinet</div><div class="footer-links"><a href="/equipe/" class="footer-link">L'équipe</a><a href="/equipe/#novances" class="footer-link">Groupe Novances</a><a href="/partenaires/" class="footer-link">Partenaires</a></div></div>
-      <div><div class="footer-col-title">Ressources</div><div class="footer-links"><a href="/ressources/" class="footer-link">Articles</a><a href="/#contact" class="footer-link">Contact</a><a href="/#contact" class="footer-link">Formulaire de contact</a></div></div>
+      <div><div class="footer-col-title">Articles</div><div class="footer-links"><a href="/ressources/" class="footer-link">Articles</a><a href="/#contact" class="footer-link">Contact</a><a href="/#contact" class="footer-link">Formulaire de contact</a></div></div>
     </div>
     <div class="footer-bottom"><div class="footer-copy">© 2026 NCF Advisory — Tous droits réservés.</div><div class="footer-legal"><a href="/mentions-legales/">Mentions légales</a><a href="/confidentialite/">Confidentialité</a></div></div>
   </div>

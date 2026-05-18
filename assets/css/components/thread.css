@@ -1,48 +1,26 @@
 /* ═══════════════════════════════════════════════════════════
-   Fil directeur — SVG révélé au scroll
-   Phase test, à itérer (transmission, litiges, croissance).
+   Fil directeur — composant réutilisable
+   Motion générique du tracé SVG révélé au scroll + nœuds qui
+   éclosent quand le "front de dessin" les franchit.
+   Une page hôte (transmission, litiges, croissance…) pose le
+   conteneur (.parcours-thread-wrap) et la couleur d'accent via
+   `color:` sur le <svg>. Tout hérite ensuite de currentColor.
    ═══════════════════════════════════════════════════════════ */
 
-.thread-section {
-  position: relative;
-}
+.thread-section { position: relative; }
 
-.thread-overlay {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 2vw;
-  width: clamp(120px, 8vw, 200px);
-  pointer-events: none;
-  z-index: 1;
-}
-
-.thread-overlay svg {
-  width: 100%;
-  height: 100%;
-  color: var(--accent);
-  overflow: visible;
-}
-
-/* Teinte par cas d'usage */
-body.transmission-page .thread-overlay svg { color: var(--c-succession); }
-body.litiges-page      .thread-overlay svg { color: var(--c-litiges); }
-body.croissance-page   .thread-overlay svg { color: var(--c-croissance); }
-
-/* Tracé */
+/* Tracé principal */
 .thread-line {
   fill: none;
   stroke: currentColor;
-  stroke-width: 2.5;
+  stroke-width: 2.2;
   stroke-linecap: round;
-  opacity: 1;
-  vector-effect: non-scaling-stroke;
-}
-.node-outer, .node-inner {
+  stroke-linejoin: round;
+  opacity: 0.9;
   vector-effect: non-scaling-stroke;
 }
 
-/* Pointe lumineuse */
+/* Pointe lumineuse (suit le tracé quand data-thread-tip="follow") */
 .thread-tip {
   fill: currentColor;
   opacity: 0;
@@ -50,38 +28,84 @@ body.croissance-page   .thread-overlay svg { color: var(--c-croissance); }
   filter: drop-shadow(0 0 6px currentColor);
 }
 .thread-tip.is-drawing { opacity: 1; }
-
-/* Nœuds */
-.node-group {
+.thread-tip-halo {
   opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.thread-tip-halo.is-drawing { opacity: 0.55; }
+
+/* Nœuds — base */
+.node-group {
+  opacity: 1;
   transform-box: fill-box;
   transform-origin: center;
 }
-.node-outer {
-  fill: none;
+.node-ring {
+  fill: var(--bg-base);
   stroke: currentColor;
-  stroke-width: 1.6;
-  opacity: 0.55;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  opacity: 0;
+  vector-effect: non-scaling-stroke;
+  transform: scale(1);
+  transform-box: fill-box;
+  transform-origin: center;
 }
-.node-inner { fill: currentColor; }
+.node-dot {
+  fill: currentColor;
+  opacity: 0;
+  transform: scale(0);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.node-halo {
+  fill: currentColor;
+  opacity: 0;
+  transform: scale(0.8);
+  transform-box: fill-box;
+  transform-origin: center;
+}
 
-.node-group.is-spawned {
+/* Séquence d'activation : ring visible immédiatement + flash,
+   puis dot pop, puis halo pulse en fond */
+.node-group.is-spawned .node-ring {
   opacity: 1;
-  animation: node-spawn 0.7s cubic-bezier(0.34, 1.4, 0.6, 1) forwards;
+  animation: thread-node-ring-flash 0.35s cubic-bezier(0.34, 1.55, 0.6, 1) forwards;
+}
+.node-group.is-spawned .node-dot {
+  opacity: 1;
+  animation: thread-node-dot-pop 0.3s cubic-bezier(0.34, 1.55, 0.6, 1) forwards;
+  animation-delay: 0.05s;
+}
+.node-group.is-spawned .node-halo {
+  animation: thread-node-halo-pulse 0.7s ease-out forwards;
+  animation-delay: 0.05s;
 }
 
-@keyframes node-spawn {
-  0%   { opacity: 0; transform: scale(0); }
-  60%  { opacity: 1; transform: scale(1.2); }
-  100% { opacity: 1; transform: scale(1); }
+@keyframes thread-node-ring-flash {
+  0%   { transform: scale(0.45); }
+  55%  { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+@keyframes thread-node-dot-pop {
+  0%   { transform: scale(0); }
+  60%  { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+@keyframes thread-node-halo-pulse {
+  0%   { opacity: 0.55; transform: scale(0.8); }
+  100% { opacity: 0;    transform: scale(2.8); }
 }
 
-/* Masqué en mobile (peu d'espace en gouttière) */
-@media (max-width: 980px) {
-  .thread-overlay { display: none; }
-}
-
+/* Accessibilité — réduire le motion mais garder l'état final visible */
 @media (prefers-reduced-motion: reduce) {
-  .node-group.is-spawned { animation: none; opacity: 1; }
   .thread-line { transition: none; }
+  .node-group.is-spawned .node-ring,
+  .node-group.is-spawned .node-dot,
+  .node-group.is-spawned .node-halo {
+    animation: none;
+  }
+  .node-group.is-spawned .node-ring { transform: scale(1); }
+  .node-group.is-spawned .node-dot  { transform: scale(1); }
+  .node-group.is-spawned .node-halo { opacity: 0; transform: scale(2); }
 }

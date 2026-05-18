@@ -1,10 +1,3 @@
-const CASE_LABELS = {
-  transmission: 'Préparation de transmission',
-  litiges: 'Litiges entre associés',
-  croissance: 'Croissance externe',
-  autre: 'Autre',
-};
-
 function json(res, status, payload) {
   res.statusCode = status;
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -96,13 +89,11 @@ module.exports = async function handler(req, res) {
     const nom = clean(body.nom);
     const email = clean(body.email).toLowerCase();
     const telephone = clean(body.telephone);
-    const casUsage = clean(body.cas_usage);
     const message = clean(body.message);
     const pageUrl = clean(body.page_url);
     const referrer = clean(body.referrer) || clean(req.headers.referer);
-    const casLabel = CASE_LABELS[casUsage] || 'Non précisé';
 
-    if (!prenom || !nom || !email || !casUsage) {
+    if (!prenom || !nom || !email) {
       return json(res, 400, { ok: false, error: 'Missing required fields' });
     }
 
@@ -118,7 +109,7 @@ module.exports = async function handler(req, res) {
     const person = await pipedriveRequest('/api/v2/persons', personPayload);
 
     const leadPayload = {
-      title: `Demande site web - ${casLabel} - ${personPayload.name}`,
+      title: `Demande site web - ${personPayload.name}`,
       person_id: person.id,
     };
 
@@ -130,7 +121,6 @@ module.exports = async function handler(req, res) {
 
     const noteLines = [
       '<strong>Nouvelle demande depuis le site NCF</strong>',
-      `<strong>Cas d'usage :</strong> ${escapeHtml(casLabel)}`,
       telephone ? `<strong>Téléphone :</strong> ${escapeHtml(telephone)}` : '',
       message ? `<strong>Message :</strong><br>${escapeHtml(message)}` : '<strong>Message :</strong> Non renseigné',
       pageUrl ? `<strong>Page :</strong> ${escapeHtml(pageUrl)}` : '',

@@ -46,6 +46,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/css/global.css" />
+  <link rel="stylesheet" href="/assets/css/components/etreinte.css" />
   <link rel="stylesheet" href="/assets/css/pages/home.css" />
 </head>
 <body>
@@ -61,7 +62,7 @@
       <a href="transmission/" class="nav-link">Transmission</a>
       <a href="litiges-entre-associes/" class="nav-link">Litiges entre associés</a>
       <a href="croissance-externe/" class="nav-link">Croissance externe</a>
-      <a href="ressources/" class="nav-link">Ressources</a>
+      <a href="ressources/" class="nav-link">Articles</a>
       <a href="equipe/" class="nav-link">L'équipe</a>
     </div>
     <div class="nav-cta-wrap">
@@ -80,7 +81,7 @@
   <a href="transmission/">Transmission</a>
   <a href="litiges-entre-associes/">Litiges entre associés</a>
   <a href="croissance-externe/">Croissance externe</a>
-  <a href="ressources/">Ressources</a>
+  <a href="ressources/">Articles</a>
   <a href="equipe/">L'équipe</a>
   <a href="#contact" class="nav-cta">Parler à un expert</a>
 </div>
@@ -250,11 +251,45 @@
         </div>
         <div class="cas-title">Mener votre croissance externe</div>
         <p class="cas-body">Vous rachetez une entreprise pour grandir. Une évaluation rigoureuse pour négocier au juste prix et cadrer l'opération.</p>
-        <div class="cas-visual cas-visual--croissance" aria-hidden="true">
-          <div class="holding-node holding-node--top">Votre entreprise</div>
-          <div class="holding-branch"></div>
-          <div class="holding-node holding-node--left">Cible 1</div>
-          <div class="holding-node holding-node--right">Cible 2</div>
+        <div class="cas-visual" aria-hidden="true">
+          <svg class="etreinte" viewBox="0 0 320 220" preserveAspectRatio="xMidYMid meet">
+            <!-- Pulse halo (derrière le corps) -->
+            <circle class="etreinte-pulse" cx="100" cy="110" r="56" />
+
+            <!-- Corps « société 1 » : grossit + gagne un étage à 78% du cycle -->
+            <g class="etreinte-body">
+              <rect class="etreinte-body-fill" x="60" y="70" width="80" height="80" rx="18"/>
+              <g class="etreinte-body-icon" transform="translate(80 92)">
+                <rect x="0" y="6" width="40" height="34"/>
+                <line x1="0" y1="14" x2="40" y2="14"/>
+                <line x1="0" y1="24" x2="40" y2="24"/>
+                <line x1="0" y1="34" x2="40" y2="34"/>
+                <rect x="16" y="30" width="8" height="10"/>
+              </g>
+              <!-- Étage supplémentaire (outline blanc, aligné x=80→120, posé sur le toit y=98) -->
+              <g class="etreinte-floor">
+                <rect x="80" y="86" width="40" height="12"/>
+                <rect x="86" y="89" width="6" height="6"/>
+                <rect x="104" y="89" width="6" height="6"/>
+              </g>
+            </g>
+
+            <!-- Flash de validation -->
+            <rect class="etreinte-flash" x="60" y="70" width="80" height="80" rx="18"/>
+
+            <!-- Lien (bras qui se trace puis se rétracte avec société 2) -->
+            <path class="etreinte-arm" d="M 138 110 Q 200 60 245 110"/>
+
+            <!-- Cible « société 2 » : glisse depuis hors-stage puis s'efface à 72% -->
+            <g class="etreinte-target">
+              <rect class="etreinte-target-square" x="225" y="92" width="36" height="36" rx="6"/>
+              <g class="etreinte-target-icon" transform="translate(232 100)">
+                <rect x="0" y="2" width="22" height="18"/>
+                <line x1="0" y1="11" x2="22" y2="11"/>
+                <rect x="9" y="14" width="4" height="6"/>
+              </g>
+            </g>
+          </svg>
         </div>
         <span class="cas-link">
           En savoir plus
@@ -593,11 +628,11 @@
   <div class="section-inner">
     <div class="res-header">
       <div class="rv">
-        <div class="section-eyebrow">Ressources</div>
+        <div class="section-eyebrow">Articles</div>
         <h2 class="section-title">Comprendre l'évaluation, étape par étape.</h2>
-        <p class="section-sub" style="margin-top:0.75rem;">Nos ressources pédagogiques pour les dirigeants qui préparent une décision patrimoniale engageante.</p>
+        <p class="section-sub" style="margin-top:0.75rem;">Nos articles pédagogiques pour les dirigeants qui préparent une décision patrimoniale engageante.</p>
       </div>
-      <a href="ressources/" class="btn-outline rv" style="align-self:flex-end;">Voir toutes les ressources</a>
+      <a href="ressources/" class="btn-outline rv" style="align-self:flex-end;">Voir tous les articles</a>
     </div>
 
     <div class="res-grid">
@@ -713,16 +748,6 @@
             </div>
           </div>
           <div class="form-field">
-            <label class="form-label" for="f-cas">Cas d'usage *</label>
-            <select class="form-select" id="f-cas" name="cas_usage" required>
-              <option value="">Sélectionnez votre situation…</option>
-              <option value="transmission">Préparation de transmission</option>
-              <option value="litiges">Litiges entre associés</option>
-              <option value="croissance">Croissance externe</option>
-              <option value="autre">Autre</option>
-            </select>
-          </div>
-          <div class="form-field">
             <label class="form-label" for="f-msg">Message</label>
             <textarea class="form-textarea" id="f-msg" name="message" placeholder="Décrivez brièvement votre projet…"></textarea>
           </div>
@@ -772,7 +797,7 @@
         </div>
       </div>
       <div>
-        <div class="footer-col-title">Ressources</div>
+        <div class="footer-col-title">Articles</div>
         <div class="footer-links">
           <a href="ressources/" class="footer-link">Articles</a>
           <a href="#contact" class="footer-link">Contact</a>
